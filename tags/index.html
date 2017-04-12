@@ -6,19 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>linux foundation | Tellenw</title>
+  <title>Tag: 设计模式 | Tellenw</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="linux特点1.所有内容以文件存储 2.区分大小写 3.不区分拓展名 4.win下程序不能直接在linux上安装和运行">
-<meta name="keywords" content="linux">
-<meta property="og:type" content="article">
-<meta property="og:title" content="linux foundation">
-<meta property="og:url" content="http://yoursite.com/2016/05/01/linux-foundation/index.html">
+  <meta name="description" content="Believing future is attractive.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Tellenw">
+<meta property="og:url" content="http://yoursite.com/tags/设计模式/index.html">
 <meta property="og:site_name" content="Tellenw">
-<meta property="og:description" content="linux特点1.所有内容以文件存储 2.区分大小写 3.不区分拓展名 4.win下程序不能直接在linux上安装和运行">
-<meta property="og:updated_time" content="2016-05-02T09:28:56.145Z">
+<meta property="og:description" content="Believing future is attractive.">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="linux foundation">
-<meta name="twitter:description" content="linux特点1.所有内容以文件存储 2.区分大小写 3.不区分拓展名 4.win下程序不能直接在linux上安装和运行">
+<meta name="twitter:title" content="Tellenw">
+<meta name="twitter:description" content="Believing future is attractive.">
   
     <link rel="alternative" href="/atom.xml" title="Tellenw" type="application/atom+xml">
   
@@ -200,331 +198,60 @@ var _hmt = _hmt || [];
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-linux-foundation" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      linux foundation
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2017" class="archive-year">2017</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2017/04/02/单例模式优化详解/" class="archive-article-date">
+  	<time datetime="2017-04-02T02:26:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-02</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2017/04/02/单例模式优化详解/">单例模式优化详解</a>
     </h1>
   
 
-        
-        <a href="/2016/05/01/linux-foundation/" class="archive-article-date">
-  	<time datetime="2016-05-01T15:47:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-05-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="linux特点"><a href="#linux特点" class="headerlink" title="linux特点"></a>linux特点</h2><p><strong>1.所有内容以文件存储</strong></p>
-<p><strong>2.区分大小写</strong></p>
-<p><strong>3.不区分拓展名</strong></p>
-<p><strong>4.win下程序不能直接在linux上安装和运行</strong><br><a id="more"></a></p>
-<h2 id="为什么服务器端用linux"><a href="#为什么服务器端用linux" class="headerlink" title="为什么服务器端用linux"></a>为什么服务器端用linux</h2><p><strong>服务器端要求:安全，稳定</strong></p>
-<p>优势一：字符界面占用的系统资源更少</p>
-<p>优势二：字符界面减少错误和被攻击的可能性</p>
-<h2 id="磁盘分区（把大硬盘分成小的逻辑分区）"><a href="#磁盘分区（把大硬盘分成小的逻辑分区）" class="headerlink" title="磁盘分区（把大硬盘分成小的逻辑分区）"></a>磁盘分区（把大硬盘分成小的逻辑分区）</h2><p><strong>1.主分区最多只有4个</strong></p>
-<p><strong>2.拓展分区：最多只有一个</strong></p>
-<pre><code>1.主分区和拓展分区最多有四个
-2.不能写入数据，只能包含逻辑分区
-</code></pre><p><strong>3.格式化：写入文件系统</strong></p>
-<pre><code>设置，
-   数据块（block）
-  【表】节点（node）
-</code></pre><p><strong>4.分区设备文件名：（给每个分区定义设备文件名）</strong></p>
-<p><strong>5.挂载：（给每个分区分配挂载点）//分区，目录结合叫挂载</strong></p>
-<p>pwd 显示当前目录</p>
-<p>tab 目录补全和命令补全</p>
-<p>date 显示系统时间</p>
-<p>ls -i [文件一] [文件二]   查看文件的inode信息</p>
-<p>ctrl+L    清屏</p>
-<h2 id="linux命令"><a href="#linux命令" class="headerlink" title="linux命令"></a>linux命令</h2><p><strong>目录处理命令</strong></p>
-<p>0.ls -l 详细信息  可简写为 ll</p>
-<p>1.mkdir -p [目录名]    -p递归创建，如   Japanese/erpha   一次创建完成</p>
-<p>2.cd [目录] </p>
-<pre><code>cd ~ 进入当前用户的家目录。和直接使用cd一样
-cd -  进入上次目录
-cd .. 进入上一级目录
-cd .  进入当前目录
-</code></pre><p>3.rmdir [空白目录]</p>
-<pre><code>rm -rf [任意目录]  -r删目录-f强制
-</code></pre><p>4.cp   复制</p>
-<pre><code>cp -r 复制目录
-cp -p 连带文件属性复制
-cp -d 若原文件是链接文件，则复制连接属性
-cp -a 相当于 -pdr
-</code></pre><p>5.mv [原文见或目录] [目标目录（同目录下为改名，不同目录下为剪切)]   剪切或改名命令</p>
-<p>6.ln -s [原文件绝对路径] [目标文件] 连接处理命令(-s 创建软链接，不加的话就是创建硬链接)</p>
-<pre><code>软连接类似于win下的快捷方式 有自己的icode 
-</code></pre><p><strong>搜索命令</strong></p>
-<p>1.locate [文件名]文件搜索命令  在/var/lib/mlocate后台数据库中搜索，该数据库一天更新一次，当然也可以用updatedb强制更新该数据库</p>
-<p>2.whereis与which搜索命令的命令-b只看在哪-m只看帮助文档  which查到的是位置和别名  echo $PATH</p>
-<p>3.find [搜索范围] -name(/-iname/-user/-nouser/-mtime/-ctime/-atime/-size/-inum)[搜索条件] 按照文件名搜索  完全匹配，可以用通配符模糊查询</p>
-<p>4.grep (-v排除指定字符串/-i忽略大小写)[选项] 字符串 文件名     正则表达式包含匹配</p>
-<p><strong>帮助命令</strong></p>
-<p>1.man 命令</p>
-<pre><code>man -f 命令=whatis 命令 （查看命令拥有哪个级别的帮助）
-man -k 命令=apropos 命令 （查看和命令相关的所有帮助）
-</code></pre><p>2.其他帮助命令</p>
-<pre><code>命令 -help选项帮助
-help shell内部命令   eg：help cd   and   help whereis cd
-info 命令
-      -回车   进入子帮助页面（带有*好标记）
-      -u      进入上层页面
-      -n      进入下一个帮助小节
-      -p      进入上一个帮助小节
-      -q      退出
-</code></pre><p><strong>压缩与解压缩命令</strong></p>
-<p>.zip   zip/unzip (-r压缩目录的选项) 压缩文件名 源文件</p>
-<p>.gz    gzip （-r压缩目录下的所有子文件） 源文件         压缩完源文件将消失</p>
-<pre><code>gunzip （-r解压缩目录） 压缩包
-</code></pre><p>.bz2   bzip2 原文件   原文件会消失，想保留原文件加-r选项  不能压缩目录</p>
-<pre><code>bunzip2 压缩包   加-k选项的话，压缩包会保留
-</code></pre><p>tar   打包命令（常用）</p>
-<pre><code>tar -cvf 打包文件名 源文件-c打包-v显示过程-f指定打包后的文件名
-tar -xvf 打包文件名   -x解打包-t为查看压缩包内内容
-tar -zcvf 压缩包名.tar.gz 原文件   -z压缩为.tar.gz格式  -c换成-x为解压
-tar -jcvf 压缩包名.tar.bz2 原文件   压缩包名可以指定路径
-tar -jxvf 压缩包名 -C 目录    解压到指定目录
-</code></pre><p>.tar.gz   </p>
-<p>.tar.bz2</p>
-<p><strong>关机与重启命令</strong></p>
-<p>shutdown [选项] 时间 [&amp;]         -c取消前一个关机命令-h关机-r重启&amp;后台启动</p>
-<p>下面一般会又损害</p>
-<pre><code>关机
-  halt
-  poweroff
-  init 0
-重启
-  init 6
-  reboot
-退出登录（注销）
-  logout
-</code></pre><p>runlevel当前系统运行级别查询init 级别</p>
-<p>cat /etc/inittab    修改系统默认运行级别</p>
-<p><strong>其他命令</strong></p>
-<p>1.挂载命令</p>
-<pre><code>  mount查看已经挂载的分区
-  mount -a     依据/etc/fstab/的内容，自动挂载。
-1挂载命令格式
- mount [-t文件系统] [-o特殊选项] 设备文件名 挂载点
-2挂在光盘
- mkdir  /mut/cdrom/    创建挂载点（挂在店必须是空目录）
- mount -t iso9660 /dev/sr0  /mnt/cdrom/
- =mount /dev/sr0  /mnt/cdrom/  简化版
-3卸载命令
- umount 设备文件名或挂载点
-4U盘挂载
- fdisk -l 查看系统中已经识别的硬盘 
- mount -t vfat /dev/sdb1/mnt/usb/     linux默认不支持BTFS文件系统
-</code></pre><p>2.用户登录查看和用户交互命令<br>     w<br>     who  简单显示<br>     last 查询当前登录和过去登陆的用户信息<br>     lastlog 查看所有用户的最后一次登录时间</p>
-<h2 id="shell基础"><a href="#shell基础" class="headerlink" title="shell基础"></a>shell基础</h2><p>  shell：命令行解释器</p>
-<p><strong>脚本执行方法</strong></p>
-<p>   echo [选项] [要输出的内容]    -e  支持转义字符</p>
-<p>   echo “zifuchuan ” 输出字符串</p>
-<p>   echo -e “\e[1;31m 字符串 \e[0m”  开启颜色显示颜色值为31m<br> 写脚本 vi 文件名  进入编辑后开始的第一行必须是#!/bin/bash  注释用#</p>
-<p><strong>脚本执行</strong></p>
-<pre><code>赋予执行权限，直接执行
-     chmod 755 文件名
-     ./文件名（相对路径，也可以写绝对路径）
-通过bash调用执行脚本
-     bash 文件名(加路径)
-</code></pre><p><strong>bash的基本功能</strong></p>
-<p> 1.命令别名与快捷键</p>
-<pre><code>查看别名  alias   查看系统中已经生效的别名
-设定别名  alias 别名=&apos;准确格式的原命令&apos;   （注销就不起作用了，永久设置的话，要写入环境变量配置文件 vim ~/.bashrc    也可以直接写入bashrc文件，在source就行了）
-删除别名  unalias 
-命令生效顺序  含路径命令 &gt; 别名 &gt; bash内部命令 &gt; 外部$PATH命令
-</code></pre><p> 2.历史命令</p>
-<pre><code>history 查看输入过的所有命令
-!n 重复执行第n条命令  !!重复执行最后一个命令  !字符串 重复执行以字符串开始的命令
-history [选项] [历时命令保存文件]    -w强制写入当前命令的历史记录-c清除所有命令
-</code></pre><p> 3.输出重定向</p>
-<pre><code>  指定输出内容的地方  &gt; 覆盖方式   &gt;&gt; 追加的方式   2&gt;&gt;标准错误输出（追加，2&gt;覆盖）
-  *命令 &gt;&gt; 文件 2&gt;&amp;1  如果命令是正确的，则直接写入文件中，错误的，就把报错写入到文件中
-  *命令 &amp;&gt;&gt;文件名  或则命令 &amp;&gt;文件名
-  *命令 &gt;&gt; 文件1 2&gt;&gt;文件2   正确信息保存到文件1中错误信息保存到文件2中
-输入重定向  wc [选项] [文件名]    最后按下ctrl+d/w/l统计 
-</code></pre><p> 4.多命令顺序执行</p>
-<pre><code>；顺序执行分号两边的命令
-&amp;&amp;两边命令都正确才执行
-||两边命令只要有一个正确的就执行
-| 管道符  用法 命令1 | 命令2,命令1的结果作为命令2的操作对象 eg:ls -l /etc | more
-netstat -an | grep &quot;ESTABLISHED&quot; 查询网络连接中包含ESTA...的行
-</code></pre><p> 5.shell中特殊符号</p>
-<pre><code>通配符 ? * [] 
-其他特殊符号
-</code></pre><h2 id="常用快捷键"><a href="#常用快捷键" class="headerlink" title="常用快捷键"></a>常用快捷键</h2><p>   ctrl + c 强制终止当前命令</p>
-<p>   ctrl + l 清屏</p>
-<p>   ctrl + a 光标移动到命令行首</p>
-<p>   ctrl + e 光标移动到命令行尾</p>
-<p>   ctrl + u 从光标所在位置删除到行首</p>
-<p>   ctrl + z 把命令放入后台</p>
-<p>   ctrl + r 在历时命令中搜索</p>
-<p>具体视频请参看<a href="http://www.imooc.com/learn/175" title="看着个就够了" target="_blank" rel="external">imooc中linux达人</a></p>
-
-      
-
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你的打赏<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="/assets/img/alipay.jpg">
-                      <span class="reward-type">支付宝</span>
-                    </div>
-                    
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="/assets/img/weixinpay.jpg">
-                      <span class="reward-type">微信</span>
-                    </div>
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
         		</li>
       		
 		</ul>
 	</div>
 
-      
+          
 
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2016/05/01/linux-foundation/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2016/04/22/links/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          博客链接
-        
-      </div>
-    </a>
   
   
-    <a href="/2016/05/03/install-wampServer/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">install wampServer</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-
-
-
-
-  
-  <div class="duoshuo">
-	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="linux-foundation" data-title="linux foundation" data-url="http://yoursite.com/2016/05/01/linux-foundation/"></div>
-	<!-- 多说评论框 end -->
-	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
-	<script type="text/javascript">
-	var duoshuoQuery = {short_name:"tellenw"};
-	(function() {
-		var ds = document.createElement('script');
-		ds.type = 'text/javascript';ds.async = true;
-		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-		ds.charset = 'UTF-8';
-		(document.getElementsByTagName('head')[0] 
-		 || document.getElementsByTagName('body')[0]).appendChild(ds);
-	})();
-	</script>
-	<!-- 多说公共JS代码 end -->
-</div>
-
+    </div></section>
   
 
-
+    
 
 
           </div>
@@ -547,9 +274,9 @@ netstat -an | grep &quot;ESTABLISHED&quot; 查询网络连接中包含ESTA...的
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
+		isPost: false,
 		isArchive: false,
-		isTag: false,
+		isTag: true,
 		isCategory: false,
 		open_in_new: false,
 		root: "/",
@@ -613,15 +340,15 @@ netstat -an | grep &quot;ESTABLISHED&quot; 查询网络连接中包含ESTA...的
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">java thread</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">eclipseForJava</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">java thread</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -641,15 +368,19 @@ netstat -an | grep &quot;ESTABLISHED&quot; 查询网络连接中包含ESTA...的
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Nginx</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -658,10 +389,6 @@ netstat -an | grep &quot;ESTABLISHED&quot; 查询网络连接中包含ESTA...的
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">tomcat</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
               </li>
              
               <li class="article-tag-list-item">
