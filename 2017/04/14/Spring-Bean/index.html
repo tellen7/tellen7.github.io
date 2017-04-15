@@ -8,21 +8,21 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>Spring Bean | Tellenw</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Spring Bean的相关基础知识bean的配置 Id bean的唯一标识 *必须  Class 具体实现类 *必须  Scope 作用域范围   singleton ：单例，一个bean容器只存在一份 prototype ：每次请求创建新实例，destroy方式不生效 request ：每次http请求创建一个实例且仅在当前request内有效 session ：同上 global sessi">
+  <meta name="description" content="Spring Bean的相关基础知识bean的配置 Id bean的唯一标识 *必须  Class 具体实现类 *必须  Scope 作用域范围">
 <meta name="keywords" content="spring">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Spring Bean">
 <meta property="og:url" content="http://yoursite.com/2017/04/14/Spring-Bean/index.html">
 <meta property="og:site_name" content="Tellenw">
-<meta property="og:description" content="Spring Bean的相关基础知识bean的配置 Id bean的唯一标识 *必须  Class 具体实现类 *必须  Scope 作用域范围   singleton ：单例，一个bean容器只存在一份 prototype ：每次请求创建新实例，destroy方式不生效 request ：每次http请求创建一个实例且仅在当前request内有效 session ：同上 global sessi">
+<meta property="og:description" content="Spring Bean的相关基础知识bean的配置 Id bean的唯一标识 *必须  Class 具体实现类 *必须  Scope 作用域范围">
 <meta property="og:image" content="http://onhavnxj2.bkt.clouddn.com/beanaotowire.png">
 <meta property="og:image" content="http://onhavnxj2.bkt.clouddn.com/resource.png">
 <meta property="og:image" content="http://onhavnxj2.bkt.clouddn.com/resourceloader.png">
 <meta property="og:image" content="http://onhavnxj2.bkt.clouddn.com/resourceloaderlocationtype.png">
-<meta property="og:updated_time" content="2017-04-15T15:30:58.404Z">
+<meta property="og:updated_time" content="2017-04-15T15:37:33.715Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spring Bean">
-<meta name="twitter:description" content="Spring Bean的相关基础知识bean的配置 Id bean的唯一标识 *必须  Class 具体实现类 *必须  Scope 作用域范围   singleton ：单例，一个bean容器只存在一份 prototype ：每次请求创建新实例，destroy方式不生效 request ：每次http请求创建一个实例且仅在当前request内有效 session ：同上 global sessi">
+<meta name="twitter:description" content="Spring Bean的相关基础知识bean的配置 Id bean的唯一标识 *必须  Class 具体实现类 *必须  Scope 作用域范围">
 <meta name="twitter:image" content="http://onhavnxj2.bkt.clouddn.com/beanaotowire.png">
   
     <link rel="alternative" href="/atom.xml" title="Tellenw" type="application/atom+xml">
@@ -231,6 +231,7 @@ var _hmt = _hmt || [];
 <li><p>Class 具体实现类 <strong>*必须</strong></p>
 </li>
 <li><p>Scope 作用域范围 </p>
+<a id="more"></a>
 <ol>
 <li>singleton ：单例，一个bean容器只存在一份</li>
 <li>prototype ：每次请求创建新实例，destroy方式不生效</li>
@@ -537,15 +538,11 @@ default-autowire=&quot;byName&quot;&gt;
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">java thread</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">python</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">spring</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">java thread</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -553,7 +550,7 @@ default-autowire=&quot;byName&quot;&gt;
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java</a>
+                <a href="javascript:void(0)" class="js-tag color2">python</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -565,11 +562,11 @@ default-autowire=&quot;byName&quot;&gt;
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">links</a>
+                <a href="javascript:void(0)" class="js-tag color5">java</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+                <a href="javascript:void(0)" class="js-tag color1">links</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -577,15 +574,19 @@ default-autowire=&quot;byName&quot;&gt;
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Nginx</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
+                <a href="javascript:void(0)" class="js-tag color2">tomcat</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">tomcat</a>
+                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
               </li>
              
               <li class="article-tag-list-item">
