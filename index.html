@@ -200,27 +200,97 @@ var _hmt = _hmt || [];
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-“hello-world" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Spring-Bean" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/04/12/“hello-world/">“hello world</a>
+      <a class="article-title" href="/2017/04/14/Spring-Bean/">Spring Bean</a>
     </h1>
   
 
         
-        <a href="/2017/04/12/“hello-world/" class="archive-article-date">
-  	<time datetime="2017-04-12T14:33:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-12</time>
+        <a href="/2017/04/14/Spring-Bean/" class="archive-article-date">
+  	<time datetime="2017-04-14T01:00:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-14</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h1 id="Spring-Bean的相关基础知识"><a href="#Spring-Bean的相关基础知识" class="headerlink" title="Spring Bean的相关基础知识"></a>Spring Bean的相关基础知识</h1><h2 id="bean的配置"><a href="#bean的配置" class="headerlink" title="bean的配置"></a>bean的配置</h2><ul>
+<li><p>Id bean的唯一标识 <strong>*必须</strong></p>
+</li>
+<li><p>Class 具体实现类 <strong>*必须</strong></p>
+</li>
+<li><p>Scope 作用域范围 </p>
+<ol>
+<li>singleton ：单例，一个bean容器只存在一份</li>
+<li>prototype ：每次请求创建新实例，destroy方式不生效</li>
+<li>request ：每次http请求创建一个实例且仅在当前request内有效</li>
+<li>session ：同上</li>
+<li>global session ：基于protlet的web中有效（portlet中定义了global session），如果在web中，同session</li>
+</ol>
+</li>
+<li><p>Constructor arguments 构造器（构造函数），参数</p>
+</li>
+<li><p>Properties 属性</p>
+</li>
+<li><p>Autowiring mode 自动装配模式</p>
+</li>
+<li><p>lazy-initialization mode 懒加载模式</p>
+</li>
+<li><p>initialization/destruction method 初始化方法/销毁方法</p>
+</li>
+<li><p>等… …</p>
+</li>
+</ul>
+<h2 id="bean的作用域"><a href="#bean的作用域" class="headerlink" title="bean的作用域"></a>bean的作用域</h2><ol>
+<li>singleton ：单例，一个bean容器只存在一份</li>
+<li>prototype ：每次请求创建新实例，destroy方式不生效</li>
+<li>request ：每次http请求创建一个实例且仅在当前request内有效</li>
+<li>session ：同上</li>
+<li>global session ：基于protlet的web中有效（portlet中定义了global session），如果在web中，同session</li>
+</ol>
+<h2 id="bean的生命周期"><a href="#bean的生命周期" class="headerlink" title="bean的生命周期"></a>bean的生命周期</h2><ul>
+<li><p>定义    </p>
+</li>
+<li><p>初始化 </p>
+<p>  1.设置全局的初始化方法default-init-method或对单个bean设置init-method</p>
+<p>  2.实现<strong>org.sringframework.beans.factory.InitializingBean</strong>接口，覆盖afterPropertiesSet方法</p>
+</li>
+<li><p>使用</p>
+</li>
+<li><p>销毁</p>
+<p>  1.设置全局的销毁方法default-destroy-method或对单个bean设置destroy-method</p>
+<p>  2.实现<strong>org.sringframework.beans.factory.DisposeableBean</strong>接口，覆盖destroy方法</p>
+</li>
+</ul>
+<h2 id="bean的自动装配"><a href="#bean的自动装配" class="headerlink" title="bean的自动装配"></a>bean的自动装配</h2><blockquote>
+<p>Spring中提供了一些一Aware结尾的接口，实现了Aware接口的bean在被初始化后，可以获取相应的资源。</p>
+<p>通过Aware接口可以对spring相应资源进行操作</p>
+</blockquote>
+<p><img src="http://onhavnxj2.bkt.clouddn.com/beanaotowire.png" alt="图"></p>
+<p>设置默认自动装配，spring容器中就不需要再为bean手动设置属性引用关系，容器会自动寻找和bean属性名相同的bean的id，并且自动完成bean的装配：</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
+xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans 
+http://www.springframework.org/schema/beans/spring-beans.xsd&quot;
+default-autowire=&quot;byName&quot;&gt;
+
+&lt;bean id=&quot;injectionDao&quot; class=&quot;com.laowang.dao.InjectionDAOImp&quot;/&gt;
+&lt;bean id=&quot;injectionservice&quot; class=&quot;com.laowang.service.InjectionServiceImp&quot;/&gt;
+&lt;!-- &lt;property name=&quot;injectiondao&quot; ref=&quot;injectionDao&quot;&gt;&lt;/property&gt;通过设置自动装配，就不用单独为bean装配了 --&gt;
+&lt;/beans&gt;
+</code></pre><h2 id="Resource-amp-ResourceLoader"><a href="#Resource-amp-ResourceLoader" class="headerlink" title="Resource&amp;ResourceLoader"></a>Resource&amp;ResourceLoader</h2><p><img src="http://onhavnxj2.bkt.clouddn.com/resource.png" alt=""></p>
+<p>下面是resourceLoader</p>
+<p><img src="http://onhavnxj2.bkt.clouddn.com/resourceloader.png" alt=""></p>
+<p>resourceloader加载文件的location类型</p>
+<p><img src="http://onhavnxj2.bkt.clouddn.com/resourceloaderlocationtype.png" alt=""></p>
+
       
 
       
@@ -233,7 +303,7 @@ var _hmt = _hmt || [];
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">1234</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">spring</a>
         		</li>
       		
 		</ul>
@@ -243,7 +313,7 @@ var _hmt = _hmt || [];
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2017/04/12/“hello-world/">展开全文 >></a>
+          <a class="article-more-a" href="/2017/04/14/Spring-Bean/">展开全文 >></a>
         </p>
       
 
@@ -943,11 +1013,15 @@ var _hmt = _hmt || [];
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">java thread</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">python</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">java thread</a>
+                <a href="javascript:void(0)" class="js-tag color2">spring</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -955,19 +1029,19 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">php</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">java</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">links</a>
+                <a href="javascript:void(0)" class="js-tag color4">php</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">jsp</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">links</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -983,10 +1057,6 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">spring</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">nginx</a>
               </li>
              
@@ -995,15 +1065,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">1234</a>
+                <a href="javascript:void(0)" class="js-tag color5">闯关游戏</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">闯关游戏</a>
               </li>
             
             <div class="clearfix"></div>
