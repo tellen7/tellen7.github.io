@@ -8,21 +8,21 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>Spring Bean | Tellenw</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Spring Bean的相关基础知识bean的配置 Id bean的唯一标识 *必须  Class 具体实现类 *必须  Scope 作用域范围">
+  <meta name="description" content="Spring Bean的相关基础知识bean的配置 Id bean的唯一标识 *必须  Class 具体实现类 *必须  Scope 作用域范围    singleton ：单例，一个bean容器只存在一份 prototype ：每次请求创建新实例，destroy方式不生效 request ：每次http请求创建一个实例且仅在当前request内有效 session ：同上 global sess">
 <meta name="keywords" content="spring">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Spring Bean">
 <meta property="og:url" content="http://yoursite.com/2017/04/14/Spring-Bean/index.html">
 <meta property="og:site_name" content="Tellenw">
-<meta property="og:description" content="Spring Bean的相关基础知识bean的配置 Id bean的唯一标识 *必须  Class 具体实现类 *必须  Scope 作用域范围">
+<meta property="og:description" content="Spring Bean的相关基础知识bean的配置 Id bean的唯一标识 *必须  Class 具体实现类 *必须  Scope 作用域范围    singleton ：单例，一个bean容器只存在一份 prototype ：每次请求创建新实例，destroy方式不生效 request ：每次http请求创建一个实例且仅在当前request内有效 session ：同上 global sess">
 <meta property="og:image" content="http://onhavnxj2.bkt.clouddn.com/beanaotowire.png">
 <meta property="og:image" content="http://onhavnxj2.bkt.clouddn.com/resource.png">
 <meta property="og:image" content="http://onhavnxj2.bkt.clouddn.com/resourceloader.png">
 <meta property="og:image" content="http://onhavnxj2.bkt.clouddn.com/resourceloaderlocationtype.png">
-<meta property="og:updated_time" content="2017-04-15T15:37:33.715Z">
+<meta property="og:updated_time" content="2017-04-16T14:46:59.246Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spring Bean">
-<meta name="twitter:description" content="Spring Bean的相关基础知识bean的配置 Id bean的唯一标识 *必须  Class 具体实现类 *必须  Scope 作用域范围">
+<meta name="twitter:description" content="Spring Bean的相关基础知识bean的配置 Id bean的唯一标识 *必须  Class 具体实现类 *必须  Scope 作用域范围    singleton ：单例，一个bean容器只存在一份 prototype ：每次请求创建新实例，destroy方式不生效 request ：每次http请求创建一个实例且仅在当前request内有效 session ：同上 global sess">
 <meta name="twitter:image" content="http://onhavnxj2.bkt.clouddn.com/beanaotowire.png">
   
     <link rel="alternative" href="/atom.xml" title="Tellenw" type="application/atom+xml">
@@ -225,13 +225,13 @@ var _hmt = _hmt || [];
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="Spring-Bean的相关基础知识"><a href="#Spring-Bean的相关基础知识" class="headerlink" title="Spring Bean的相关基础知识"></a>Spring Bean的相关基础知识</h1><h2 id="bean的配置"><a href="#bean的配置" class="headerlink" title="bean的配置"></a>bean的配置</h2><ul>
+        <h2 id="Spring-Bean的相关基础知识"><a href="#Spring-Bean的相关基础知识" class="headerlink" title="Spring Bean的相关基础知识"></a>Spring Bean的相关基础知识</h2><h3 id="bean的配置"><a href="#bean的配置" class="headerlink" title="bean的配置"></a>bean的配置</h3><ul>
 <li><p>Id bean的唯一标识 <strong>*必须</strong></p>
 </li>
 <li><p>Class 具体实现类 <strong>*必须</strong></p>
 </li>
 <li><p>Scope 作用域范围 </p>
-<a id="more"></a>
+<!--  -->
 <ol>
 <li>singleton ：单例，一个bean容器只存在一份</li>
 <li>prototype ：每次请求创建新实例，destroy方式不生效</li>
@@ -296,6 +296,61 @@ default-autowire=&quot;byName&quot;&gt;
 <p><img src="http://onhavnxj2.bkt.clouddn.com/resourceloader.png" alt=""></p>
 <p>resourceloader加载文件的location类型</p>
 <p><img src="http://onhavnxj2.bkt.clouddn.com/resourceloaderlocationtype.png" alt=""></p>
+<hr>
+<p>//第一次更新。最近读了spring实战，对spring bean的配置又多了一点知识储备。</p>
+<h3 id="装配bean有三种机制"><a href="#装配bean有三种机制" class="headerlink" title="装配bean有三种机制"></a><strong>装配bean有三种机制</strong></h3><ol>
+<li>基于xml配置显示的装配bean</li>
+<li>基于javaConfig的配置类(<strong>@Configuration</strong>)显示装配bean</li>
+<li>隐式的bean发现机制和自动装配(需要<strong>@Configuration</strong>和<strong>@ComponentScan</strong>)</li>
+</ol>
+<p>关于第三种机制的使用规制</p>
+<pre><code>//spring配置之隐式bean发现和自动装配
+@Configuration
+@ComponentScan//也可用Named替换,默认扫面package包内注解
+//@ComponentScan(basePackages={&quot;com.laowang.chapter02&quot;})指定扫描的package
+//@ComponentScan(basePackageClasses={Cd.class,UseCd.class})指定扫描的类
+//@ImportResource(&quot;classpath:spring-beans.xml&quot;)//
+public class Config {
+}
+</code></pre><p>关于第二种机制的使用例子</p>
+<pre><code>@Configuration
+public class javaConfig {
+
+//只是用@Bean话，bean的id将会初始化为方法名
+@Bean(name=&quot;cd&quot;)
+public Cd getCd(){
+    return new Cd();
+}
+
+//通过setter方法自动装配bean引用
+@Bean(name=&quot;useCd&quot;)
+public UseCd randomMentod(){
+    UseCd useCd = new UseCd();
+    useCd.setCd(getCd());
+    return useCd;
+}
+
+//通过构造器自动装配bean
+//    @Bean(name=&quot;useCd&quot;)
+//    public UseCd getByConstructor(){
+//        return new UseCd(getCd());
+//    }
+
+}
+</code></pre><p><em>关于第一种使用规则就比较多了，需要的时候再搜索吧</em></p>
+<h3 id="接下来是基础的spring-bean的注解"><a href="#接下来是基础的spring-bean的注解" class="headerlink" title="接下来是基础的spring bean的注解"></a>接下来是基础的spring bean的注解</h3><ul>
+<li>@Component 该类作为组建类，告知spring为这个类创建bean</li>
+<li>@Named//bean命名</li>
+<li>@Configuration</li>
+<li>@ComponentScan</li>
+<li>@Bean</li>
+<li>@Import</li>
+<li>@ImportResource</li>
+<li>@Inject//注入</li>
+<li>@Autowired</li>
+<li>@ContextConfiguration//从哪加载配置</li>
+</ul>
+<p>（PS：下面是web.xml配置文件的详解）<br><a href="http://mianhuaman.iteye.com/blog/1105522" title="web.xml配置详解" target="_blank" rel="external">web.xml配置详解</a></p>
 
       
 
@@ -538,15 +593,7 @@ default-autowire=&quot;byName&quot;&gt;
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">spring</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">java thread</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">eclipseForJava</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -554,11 +601,15 @@ default-autowire=&quot;byName&quot;&gt;
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">spring</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">php</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">jsp</a>
+                <a href="javascript:void(0)" class="js-tag color5">eclipseForJava</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -566,15 +617,19 @@ default-autowire=&quot;byName&quot;&gt;
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">jsp</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">links</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -590,11 +645,11 @@ default-autowire=&quot;byName&quot;&gt;
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">闯关游戏</a>
+                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
+                <a href="javascript:void(0)" class="js-tag color5">闯关游戏</a>
               </li>
             
             <div class="clearfix"></div>
