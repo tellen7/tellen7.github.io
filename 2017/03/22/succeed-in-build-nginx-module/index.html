@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="Tellenw">
 <meta property="og:description" content="开发nginx入门竟然成功了，下面就是我的路程向上图说明一下nginx模块工作流程">
 <meta property="og:image" content="http://onhavnxj2.bkt.clouddn.com/nginx/nginx_module_work.png">
-<meta property="og:updated_time" content="2017-04-17T12:14:05.713Z">
+<meta property="og:updated_time" content="2017-04-17T12:32:25.504Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="succeed_in_build_nginx_module">
 <meta name="twitter:description" content="开发nginx入门竟然成功了，下面就是我的路程向上图说明一下nginx模块工作流程">
@@ -244,154 +244,8 @@ make install
 <pre><code>curl -i http://localhost/
 </code></pre><p>就可以检测Nginx是否已经成功运行。或者也可以在浏览器中输入<a href="http://localhost/，应该可以看到Nginx的欢迎页面了。启动后如果想停止Nginx可以使用：" target="_blank" rel="external">http://localhost/，应该可以看到Nginx的欢迎页面了。启动后如果想停止Nginx可以使用：</a></p>
 <pre><code>/usr/local/nginx/sbin/nginx -s stop
-</code></pre><h2 id="开发模块源码"><a href="#开发模块源码" class="headerlink" title="开发模块源码"></a>开发模块源码</h2><pre><code>#include&lt;ngx_config.h&gt;
-#include&lt;ngx_core.h&gt;
-#include&lt;ngx_http.h&gt;
-//定义模块配置结构
-typedef struct{
-    ngx_str_t ed;//用于存储echo指令指定输出字符串
-}ngx_http_echo_loc_conf_t;
-
-//函数声明
-static char *ngx_http_echo(ngx_conf_t *cf, ngx_command_t *cmd, void *conf);
-static void *ngx_http_echo_create_loc_conf(ngx_conf_t *cf);
-static char *ngx_http_echo_merge_loc_conf(ngx_conf_t *cf, void *parent, void *child);
-
-//定义指令
-static ngx_command_t ngx_http_echo_commands[]={
-{
-    ngx_string(&quot;echo&quot;),
-    NGX_HTTP_LOC_CONF|NGX_CONF_TAKE1,
-    ngx_http_echo,
-    NGX_HTTP_LOC_CONF_OFFSET,
-    offsetof(ngx_http_echo_loc_conf_t, ed),
-    NULL
-},
-ngx_null_command//指令数组最后一个结尾元素
-};
-
-//模块echo的context结构配置
-    static ngx_http_module_t ngx_http_echo_module_ctx={
-    NULL,                                 //pre configuration
-    NULL,                                 //post configuration
-    NULL,                                 //create main configuration
-    NULL,                                 //init main configuration
-    NULL,                                 //create server configuration
-    NULL,                                 //merge server configuration
-    ngx_http_echo_create_loc_conf,         //create location configuration
-    ngx_http_echo_merge_loc_conf         //merge location configuration
-};
-
-
-//echo模块的模块主体定义
-ngx_module_t  ngx_http_echo_module = {
-    NGX_MODULE_V1,
-    &amp;ngx_http_echo_module_ctx,             /* module context */
-    ngx_http_echo_commands,                /* module directives*/
-    NGX_HTTP_MODULE,                       /* module type */
-    NULL,                                  /* init master */
-    NULL,                                  /* init module */
-    NULL,                                  /* init process */
-    NULL,                                  /* init thread */
-    NULL,                                  /* exit thread */
-    NULL,                                  /* exit process */
-    NULL,                                  /* exit master */
-    NGX_MODULE_V1_PADDING
-};
-
-
-/*
-*模块的handler函数编写.主要有4个职责
-*        读入模块配置
-*        处理业务功能
-*        产生HTTP Header
-*        产生HTTP body
-*/
-static ngx_int_t ngx_http_echo_handler(ngx_http_request_t *r)
-{
-    ngx_int_t rc;
-    ngx_buf_t *b;
-    ngx_chain_t out;
-    ngx_http_echo_loc_conf_t *elcf;
-
-    elcf = ngx_http_get_module_loc_conf(r, ngx_http_echo_module);
-    if(!(r-&gt;method &amp; (NGX_HTTP_HEAD | NGX_HTTP_GET | NGX_HTTP_POST)))
-    {
-        return NGX_HTTP_NOT_ALLOWED;
-    }
-    r-&gt;headers_out.content_type.len = sizeof(&quot;text/html&quot;)-1;
-    r-&gt;headers_out.content_type.data = (u_char *)&quot;text/html&quot;;
-    r-&gt;headers_out.status = NGX_HTTP_OK;
-    r-&gt;headers_out.content_length_n = elcf-&gt;ed.len;
-    if(r-&gt;method == NGX_HTTP_HEAD)
-    {
-        rc = ngx_http_send_header(r);
-        if(rc != NGX_OK)
-        {
-            return rc;
-        }
-    }
-    b = ngx_pcalloc(r-&gt;pool, sizeof(ngx_buf_t));
-    if(b == NULL)
-    {
-        ngx_log_error(NGX_LOG_ERR, r-&gt;connection-&gt;log, 0, &quot;Fail to allocate response buffer.&quot;);
-        return NGX_HTTP_INTERNAL_SERVER_ERROR;
-    }
-    out.buf = b;
-    out.next = NULL;
-    b-&gt;pos = elcf-&gt;ed.data;
-    b-&gt;last = elcf-&gt;ed.data + (elcf-&gt;ed.len);
-    b-&gt;memory =1;
-    b-&gt;last_buf = 1;
-
-    rc = ngx_http_send_header(r);
-    if(rc != NGX_OK)
-    {
-        return rc;
-    }
-
-    return ngx_http_output_filter(r, &amp;out);
-}
-
-//指令中函数指针的实现
-static char* ngx_http_echo(ngx_conf_t *cf, ngx_command_t *cmd, void *conf)
-{
-    ngx_http_core_loc_conf_t *clcf;
-
-    clcf = ngx_http_conf_get_module_loc_conf(cf, ngx_http_core_module);
-    clcf-&gt;handler = ngx_http_echo_handler;
-    ngx_conf_set_str_slot(cf, cmd, conf);
-
-    return NGX_CONF_OK;
-}
-
-//初始化一个配置结构体
-static void* ngx_http_echo_create_loc_conf(ngx_conf_t *cf)
-{
-    ngx_http_echo_loc_conf_t *conf;
-
-    conf = ngx_pcalloc(cf-&gt;pool, sizeof(ngx_http_echo_loc_conf_t));
-    if(conf == NULL)
-    {
-        return NGX_CONF_ERROR;
-    }
-    conf-&gt;ed.len = 0;
-    conf-&gt;ed.data = NULL;
-
-    return conf;
-}
-
-//合并配置结构体(将父类配置信息合并到此)
-static char* ngx_http_echo_merge_loc_conf(ngx_conf_t *cf, void *parent,void *child)
-{
-    ngx_http_echo_loc_conf_t *pre = parent;
-    ngx_http_echo_loc_conf_t *conf = child;
-
-    ngx_conf_merge_str_value(conf-&gt;ed, pre-&gt;ed, &quot;&quot;)//具体合并的实现是一个宏定义
-
-    return NGX_CONF_OK;
-}
-</code></pre><h2 id="Nginx模块的安装"><a href="#Nginx模块的安装" class="headerlink" title="Nginx模块的安装"></a>Nginx模块的安装</h2><p>Nginx不支持动态链接模块，所以安装模块需要将模块代码与Nginx源代码进行重新编译。安装模块的步骤如下：</p>
+</code></pre><h2 id="开发模块源码"><a href="#开发模块源码" class="headerlink" title="开发模块源码"></a>开发模块源码</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">   <span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;ngx_config.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;ngx_core.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;ngx_http.h&gt;</span></span></div><div class="line"><span class="comment">//定义模块配置结构</span></div><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span>&#123;</div><div class="line">	<span class="keyword">ngx_str_t</span> ed;<span class="comment">//用于存储echo指令指定输出字符串</span></div><div class="line">&#125;<span class="keyword">ngx_http_echo_loc_conf_t</span>;</div><div class="line"></div><div class="line"><span class="comment">//函数声明</span></div><div class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">char</span> *<span class="title">ngx_http_echo</span><span class="params">(<span class="keyword">ngx_conf_t</span> *cf, <span class="keyword">ngx_command_t</span> *cmd, <span class="keyword">void</span> *conf)</span></span>;</div><div class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> *<span class="title">ngx_http_echo_create_loc_conf</span><span class="params">(<span class="keyword">ngx_conf_t</span> *cf)</span></span>;</div><div class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">char</span> *<span class="title">ngx_http_echo_merge_loc_conf</span><span class="params">(<span class="keyword">ngx_conf_t</span> *cf, <span class="keyword">void</span> *parent, <span class="keyword">void</span> *child)</span></span>;</div><div class="line"></div><div class="line"><span class="comment">//定义指令</span></div><div class="line"><span class="keyword">static</span> <span class="keyword">ngx_command_t</span> ngx_http_echo_commands[]=&#123;</div><div class="line">&#123;</div><div class="line">	ngx_string(<span class="string">"echo"</span>),</div><div class="line">	NGX_HTTP_LOC_CONF|NGX_CONF_TAKE1,</div><div class="line">	ngx_http_echo,</div><div class="line">	NGX_HTTP_LOC_CONF_OFFSET,</div><div class="line">	offsetof(<span class="keyword">ngx_http_echo_loc_conf_t</span>, ed),</div><div class="line">	<span class="literal">NULL</span></div><div class="line">&#125;,</div><div class="line">ngx_null_command<span class="comment">//指令数组最后一个结尾元素</span></div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="comment">//模块echo的context结构配置</span></div><div class="line">	<span class="keyword">static</span> <span class="keyword">ngx_http_module_t</span> ngx_http_echo_module_ctx=&#123;</div><div class="line">	<span class="literal">NULL</span>,								 <span class="comment">//pre configuration</span></div><div class="line">	<span class="literal">NULL</span>,								 <span class="comment">//post configuration</span></div><div class="line">	<span class="literal">NULL</span>,								 <span class="comment">//create main configuration</span></div><div class="line">	<span class="literal">NULL</span>,								 <span class="comment">//init main configuration</span></div><div class="line">	<span class="literal">NULL</span>,								 <span class="comment">//create server configuration</span></div><div class="line">	<span class="literal">NULL</span>,								 <span class="comment">//merge server configuration</span></div><div class="line">	ngx_http_echo_create_loc_conf,		 <span class="comment">//create location configuration</span></div><div class="line">	ngx_http_echo_merge_loc_conf		 <span class="comment">//merge location configuration</span></div><div class="line">&#125;;</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">//echo模块的模块主体定义</span></div><div class="line"><span class="keyword">ngx_module_t</span>  ngx_http_echo_module = &#123;</div><div class="line">    NGX_MODULE_V1,</div><div class="line">    &amp;ngx_http_echo_module_ctx,             <span class="comment">/* module context */</span></div><div class="line">    ngx_http_echo_commands,                <span class="comment">/* module directives*/</span></div><div class="line">    NGX_HTTP_MODULE,                       <span class="comment">/* module type */</span></div><div class="line">    <span class="literal">NULL</span>,                                  <span class="comment">/* init master */</span></div><div class="line">    <span class="literal">NULL</span>,                                  <span class="comment">/* init module */</span></div><div class="line">    <span class="literal">NULL</span>,                                  <span class="comment">/* init process */</span></div><div class="line">    <span class="literal">NULL</span>,                                  <span class="comment">/* init thread */</span></div><div class="line">    <span class="literal">NULL</span>,                                  <span class="comment">/* exit thread */</span></div><div class="line">    <span class="literal">NULL</span>,                                  <span class="comment">/* exit process */</span></div><div class="line">    <span class="literal">NULL</span>,                                  <span class="comment">/* exit master */</span></div><div class="line">    NGX_MODULE_V1_PADDING</div><div class="line">&#125;;</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">/*</span></div><div class="line">*模块的handler函数编写.主要有4个职责</div><div class="line">*		读入模块配置</div><div class="line">*		处理业务功能</div><div class="line">*		产生HTTP Header</div><div class="line">*		产生HTTP body</div><div class="line">*/</div><div class="line"><span class="function"><span class="keyword">static</span> ngx_int_t <span class="title">ngx_http_echo_handler</span><span class="params">(<span class="keyword">ngx_http_request_t</span> *r)</span></span></div><div class="line">&#123;</div><div class="line">	<span class="keyword">ngx_int_t</span> rc;</div><div class="line">	<span class="keyword">ngx_buf_t</span> *b;</div><div class="line">	<span class="keyword">ngx_chain_t</span> out;</div><div class="line">	<span class="keyword">ngx_http_echo_loc_conf_t</span> *elcf;</div><div class="line"></div><div class="line">	elcf = ngx_http_get_module_loc_conf(r, ngx_http_echo_module);</div><div class="line">	<span class="keyword">if</span>(!(r-&gt;method &amp; (NGX_HTTP_HEAD | NGX_HTTP_GET | NGX_HTTP_POST)))</div><div class="line">	&#123;</div><div class="line">		<span class="keyword">return</span> NGX_HTTP_NOT_ALLOWED;</div><div class="line">	&#125;</div><div class="line">	r-&gt;headers_out.content_type.len = <span class="keyword">sizeof</span>(<span class="string">"text/html"</span>)<span class="number">-1</span>;</div><div class="line">	r-&gt;headers_out.content_type.data = (u_char *)<span class="string">"text/html"</span>;</div><div class="line">	r-&gt;headers_out.status = NGX_HTTP_OK;</div><div class="line">	r-&gt;headers_out.content_length_n = elcf-&gt;ed.len;</div><div class="line">	<span class="keyword">if</span>(r-&gt;method == NGX_HTTP_HEAD)</div><div class="line">	&#123;</div><div class="line">		rc = ngx_http_send_header(r);</div><div class="line">		<span class="keyword">if</span>(rc != NGX_OK)</div><div class="line">		&#123;</div><div class="line">			<span class="keyword">return</span> rc;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	b = ngx_pcalloc(r-&gt;pool, <span class="keyword">sizeof</span>(<span class="keyword">ngx_buf_t</span>));</div><div class="line">	<span class="keyword">if</span>(b == <span class="literal">NULL</span>)</div><div class="line">	&#123;</div><div class="line">		ngx_log_error(NGX_LOG_ERR, r-&gt;connection-&gt;<span class="built_in">log</span>, <span class="number">0</span>, <span class="string">"Fail to allocate response buffer."</span>);</div><div class="line">		<span class="keyword">return</span> NGX_HTTP_INTERNAL_SERVER_ERROR;</div><div class="line">	&#125;</div><div class="line">	out.buf = b;</div><div class="line">	out.next = <span class="literal">NULL</span>;</div><div class="line">	b-&gt;pos = elcf-&gt;ed.data;</div><div class="line">	b-&gt;last = elcf-&gt;ed.data + (elcf-&gt;ed.len);</div><div class="line">	b-&gt;memory =<span class="number">1</span>;</div><div class="line">	b-&gt;last_buf = <span class="number">1</span>;</div><div class="line">	</div><div class="line">	rc = ngx_http_send_header(r);</div><div class="line">	<span class="keyword">if</span>(rc != NGX_OK)</div><div class="line">	&#123;</div><div class="line">		<span class="keyword">return</span> rc;</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">	<span class="keyword">return</span> ngx_http_output_filter(r, &amp;out);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//指令中函数指针的实现</span></div><div class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">char</span>* <span class="title">ngx_http_echo</span><span class="params">(<span class="keyword">ngx_conf_t</span> *cf, <span class="keyword">ngx_command_t</span> *cmd, <span class="keyword">void</span> *conf)</span></span></div><div class="line">&#123;</div><div class="line">	<span class="keyword">ngx_http_core_loc_conf_t</span> *clcf;</div><div class="line"></div><div class="line">	clcf = ngx_http_conf_get_module_loc_conf(cf, ngx_http_core_module);</div><div class="line">	clcf-&gt;handler = ngx_http_echo_handler;</div><div class="line">	ngx_conf_set_str_slot(cf, cmd, conf);</div><div class="line"></div><div class="line">	<span class="keyword">return</span> NGX_CONF_OK;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//初始化一个配置结构体</span></div><div class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span>* <span class="title">ngx_http_echo_create_loc_conf</span><span class="params">(<span class="keyword">ngx_conf_t</span> *cf)</span></span></div><div class="line">&#123;</div><div class="line">	<span class="keyword">ngx_http_echo_loc_conf_t</span> *conf;</div><div class="line">	</div><div class="line">	conf = ngx_pcalloc(cf-&gt;pool, <span class="keyword">sizeof</span>(<span class="keyword">ngx_http_echo_loc_conf_t</span>));</div><div class="line">	<span class="keyword">if</span>(conf == <span class="literal">NULL</span>)</div><div class="line">	&#123;</div><div class="line">		<span class="keyword">return</span> NGX_CONF_ERROR;</div><div class="line">	&#125;</div><div class="line">	conf-&gt;ed.len = <span class="number">0</span>;</div><div class="line">	conf-&gt;ed.data = <span class="literal">NULL</span>;</div><div class="line"></div><div class="line">	<span class="keyword">return</span> conf;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//合并配置结构体(将父类配置信息合并到此)</span></div><div class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">char</span>* <span class="title">ngx_http_echo_merge_loc_conf</span><span class="params">(<span class="keyword">ngx_conf_t</span> *cf, <span class="keyword">void</span> *parent,<span class="keyword">void</span> *child)</span></span></div><div class="line">&#123;</div><div class="line">	<span class="keyword">ngx_http_echo_loc_conf_t</span> *pre = parent;</div><div class="line">	<span class="keyword">ngx_http_echo_loc_conf_t</span> *conf = child;</div><div class="line"></div><div class="line">	ngx_conf_merge_str_value(conf-&gt;ed, pre-&gt;ed, <span class="string">""</span>)<span class="comment">//具体合并的实现是一个宏定义</span></div><div class="line">	</div><div class="line">	<span class="keyword">return</span> NGX_CONF_OK;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="Nginx模块的安装"><a href="#Nginx模块的安装" class="headerlink" title="Nginx模块的安装"></a>Nginx模块的安装</h2><p>Nginx不支持动态链接模块，所以安装模块需要将模块代码与Nginx源代码进行重新编译。安装模块的步骤如下：</p>
 <p>1、编写模块config文件，这个文件需要放在和模块源代码文件放在同一目录下。文件内容如下：</p>
 <pre><code>ngx_addon_name=模块完整名称
 HTTP_MODULES=&quot;$HTTP_MODULES 模块完整名称&quot;
@@ -672,11 +526,11 @@ sudo make install
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">java thread</a>
+                <a href="javascript:void(0)" class="js-tag color5">eclipseForJava</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">python</a>
+                <a href="javascript:void(0)" class="js-tag color2">java thread</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -684,7 +538,7 @@ sudo make install
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">eclipseForJava</a>
+                <a href="javascript:void(0)" class="js-tag color2">python</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -692,19 +546,19 @@ sudo make install
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">jsp</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">java</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">links</a>
+                <a href="javascript:void(0)" class="js-tag color4">jsp</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">links</a>
               </li>
              
               <li class="article-tag-list-item">
