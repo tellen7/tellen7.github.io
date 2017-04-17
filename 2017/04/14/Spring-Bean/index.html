@@ -8,22 +8,29 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>Spring Bean | Tellenw</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Spring Bean的相关基础知识bean的配置 Id bean的唯一标识 *必须  Class 具体实现类 *必须  Scope 作用域范围    singleton ：单例，一个bean容器只存在一份 prototype ：每次请求创建新实例，destroy方式不生效 request ：每次http请求创建一个实例且仅在当前request内有效 session ：同上 global sess">
+  <meta name="description" content="Spring Bean的相关基础知识先上图：  bean的配置 Id bean的唯一标识 *必须 Class 具体实现类 *必须 Scope 作用域范围">
 <meta name="keywords" content="spring">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Spring Bean">
 <meta property="og:url" content="http://yoursite.com/2017/04/14/Spring-Bean/index.html">
 <meta property="og:site_name" content="Tellenw">
-<meta property="og:description" content="Spring Bean的相关基础知识bean的配置 Id bean的唯一标识 *必须  Class 具体实现类 *必须  Scope 作用域范围    singleton ：单例，一个bean容器只存在一份 prototype ：每次请求创建新实例，destroy方式不生效 request ：每次http请求创建一个实例且仅在当前request内有效 session ：同上 global sess">
+<meta property="og:description" content="Spring Bean的相关基础知识先上图：  bean的配置 Id bean的唯一标识 *必须 Class 具体实现类 *必须 Scope 作用域范围">
+<meta property="og:image" content="http://onhavnxj2.bkt.clouddn.com/spring.jpg">
+<meta property="og:image" content="http://onhavnxj2.bkt.clouddn.com/springBean/IMG_20170416_140739.jpg.JPG">
+<meta property="og:image" content="http://onhavnxj2.bkt.clouddn.com/springBean/IMG_20170416_141332.jpg.JPG">
 <meta property="og:image" content="http://onhavnxj2.bkt.clouddn.com/beanaotowire.png">
 <meta property="og:image" content="http://onhavnxj2.bkt.clouddn.com/resource.png">
 <meta property="og:image" content="http://onhavnxj2.bkt.clouddn.com/resourceloader.png">
 <meta property="og:image" content="http://onhavnxj2.bkt.clouddn.com/resourceloaderlocationtype.png">
-<meta property="og:updated_time" content="2017-04-16T14:46:59.246Z">
+<meta property="og:image" content="http://onhavnxj2.bkt.clouddn.com/springBean/Screenshot_2017-04-15-16-40-13-018.jpeg.JPG">
+<meta property="og:image" content="http://onhavnxj2.bkt.clouddn.com/springBean/Screenshot_2017-04-15-16-40-19-462.jpeg.JPG">
+<meta property="og:image" content="http://onhavnxj2.bkt.clouddn.com/springBean/Screenshot_2017-04-15-16-40-27-069.jpeg.JPG">
+<meta property="og:image" content="http://onhavnxj2.bkt.clouddn.com/springBean/Screenshot_2017-04-17-00-04-42-694.jpeg.JPG">
+<meta property="og:updated_time" content="2017-04-17T12:00:59.750Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spring Bean">
-<meta name="twitter:description" content="Spring Bean的相关基础知识bean的配置 Id bean的唯一标识 *必须  Class 具体实现类 *必须  Scope 作用域范围    singleton ：单例，一个bean容器只存在一份 prototype ：每次请求创建新实例，destroy方式不生效 request ：每次http请求创建一个实例且仅在当前request内有效 session ：同上 global sess">
-<meta name="twitter:image" content="http://onhavnxj2.bkt.clouddn.com/beanaotowire.png">
+<meta name="twitter:description" content="Spring Bean的相关基础知识先上图：  bean的配置 Id bean的唯一标识 *必须 Class 具体实现类 *必须 Scope 作用域范围">
+<meta name="twitter:image" content="http://onhavnxj2.bkt.clouddn.com/spring.jpg">
   
     <link rel="alternative" href="/atom.xml" title="Tellenw" type="application/atom+xml">
   
@@ -225,13 +232,13 @@ var _hmt = _hmt || [];
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="Spring-Bean的相关基础知识"><a href="#Spring-Bean的相关基础知识" class="headerlink" title="Spring Bean的相关基础知识"></a>Spring Bean的相关基础知识</h2><h3 id="bean的配置"><a href="#bean的配置" class="headerlink" title="bean的配置"></a>bean的配置</h3><ul>
-<li><p>Id bean的唯一标识 <strong>*必须</strong></p>
-</li>
-<li><p>Class 具体实现类 <strong>*必须</strong></p>
-</li>
+        <h2 id="Spring-Bean的相关基础知识"><a href="#Spring-Bean的相关基础知识" class="headerlink" title="Spring Bean的相关基础知识"></a>Spring Bean的相关基础知识</h2><p>先上图：</p>
+<p><img src="http://onhavnxj2.bkt.clouddn.com/spring.jpg" alt=""></p>
+<h3 id="bean的配置"><a href="#bean的配置" class="headerlink" title="bean的配置"></a>bean的配置</h3><ul>
+<li>Id bean的唯一标识 <strong>*必须</strong></li>
+<li>Class 具体实现类 <strong>*必须</strong></li>
 <li><p>Scope 作用域范围 </p>
-<!--  -->
+<a id="more"></a>
 <ol>
 <li>singleton ：单例，一个bean容器只存在一份</li>
 <li>prototype ：每次请求创建新实例，destroy方式不生效</li>
@@ -242,16 +249,11 @@ var _hmt = _hmt || [];
 </li>
 <li><p>Constructor arguments 构造器（构造函数），参数</p>
 </li>
-<li><p>Properties 属性</p>
-</li>
-<li><p>Autowiring mode 自动装配模式</p>
-</li>
-<li><p>lazy-initialization mode 懒加载模式</p>
-</li>
-<li><p>initialization/destruction method 初始化方法/销毁方法</p>
-</li>
-<li><p>等… …</p>
-</li>
+<li>Properties 属性</li>
+<li>Autowiring mode 自动装配模式</li>
+<li>lazy-initialization mode 懒加载模式</li>
+<li>initialization/destruction method 初始化方法/销毁方法</li>
+<li>等… …</li>
 </ul>
 <h2 id="bean的作用域"><a href="#bean的作用域" class="headerlink" title="bean的作用域"></a>bean的作用域</h2><ol>
 <li>singleton ：单例，一个bean容器只存在一份</li>
@@ -260,9 +262,12 @@ var _hmt = _hmt || [];
 <li>session ：同上</li>
 <li>global session ：基于protlet的web中有效（portlet中定义了global session），如果在web中，同session</li>
 </ol>
-<h2 id="bean的生命周期"><a href="#bean的生命周期" class="headerlink" title="bean的生命周期"></a>bean的生命周期</h2><ul>
-<li><p>定义    </p>
-</li>
+<h2 id="bean的生命周期"><a href="#bean的生命周期" class="headerlink" title="bean的生命周期"></a>bean的生命周期</h2><p>上图：</p>
+<p><img src="http://onhavnxj2.bkt.clouddn.com/springBean/IMG_20170416_140739.jpg.JPG" alt=""></p>
+<p>接下来：</p>
+<p><img src="http://onhavnxj2.bkt.clouddn.com/springBean/IMG_20170416_141332.jpg.JPG" alt=""></p>
+<ul>
+<li>定义    </li>
 <li><p>初始化 </p>
 <p>  1.设置全局的初始化方法default-init-method或对单个bean设置init-method</p>
 <p>  2.实现<strong>org.sringframework.beans.factory.InitializingBean</strong>接口，覆盖afterPropertiesSet方法</p>
@@ -349,8 +354,14 @@ public UseCd randomMentod(){
 <li>@Inject//注入</li>
 <li>@Autowired</li>
 <li>@ContextConfiguration//从哪加载配置</li>
+<li>@Repositroy</li>
 </ul>
-<p>（PS：下面是web.xml配置文件的详解）<br><a href="http://mianhuaman.iteye.com/blog/1105522" title="web.xml配置详解" target="_blank" rel="external">web.xml配置详解</a></p>
+<p><img src="http://onhavnxj2.bkt.clouddn.com/springBean/Screenshot_2017-04-15-16-40-13-018.jpeg.JPG" alt=""></p>
+<p><img src="http://onhavnxj2.bkt.clouddn.com/springBean/Screenshot_2017-04-15-16-40-19-462.jpeg.JPG" alt=""></p>
+<p><img src="http://onhavnxj2.bkt.clouddn.com/springBean/Screenshot_2017-04-15-16-40-27-069.jpeg.JPG" alt=""></p>
+<p><img src="http://onhavnxj2.bkt.clouddn.com/springBean/Screenshot_2017-04-17-00-04-42-694.jpeg.JPG" alt=""></p>
+<p>（PS：下面是web.xml配置文件的详解）</p>
+<p><a href="http://mianhuaman.iteye.com/blog/1105522" title="web.xml配置详解" target="_blank" rel="external">web.xml配置详解</a></p>
 
       
 
@@ -597,6 +608,10 @@ public UseCd randomMentod(){
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">spring</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">python</a>
               </li>
              
@@ -613,15 +628,11 @@ public UseCd randomMentod(){
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">jsp</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">links</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+                <a href="javascript:void(0)" class="js-tag color4">jsp</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -633,7 +644,7 @@ public UseCd randomMentod(){
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">spring</a>
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
               <li class="article-tag-list-item">

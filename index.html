@@ -220,133 +220,15 @@ var _hmt = _hmt || [];
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="Spring-Bean的相关基础知识"><a href="#Spring-Bean的相关基础知识" class="headerlink" title="Spring Bean的相关基础知识"></a>Spring Bean的相关基础知识</h2><h3 id="bean的配置"><a href="#bean的配置" class="headerlink" title="bean的配置"></a>bean的配置</h3><ul>
-<li><p>Id bean的唯一标识 <strong>*必须</strong></p>
-</li>
-<li><p>Class 具体实现类 <strong>*必须</strong></p>
-</li>
+        <h2 id="Spring-Bean的相关基础知识"><a href="#Spring-Bean的相关基础知识" class="headerlink" title="Spring Bean的相关基础知识"></a>Spring Bean的相关基础知识</h2><p>先上图：</p>
+<p><img src="http://onhavnxj2.bkt.clouddn.com/spring.jpg" alt=""></p>
+<h3 id="bean的配置"><a href="#bean的配置" class="headerlink" title="bean的配置"></a>bean的配置</h3><ul>
+<li>Id bean的唯一标识 <strong>*必须</strong></li>
+<li>Class 具体实现类 <strong>*必须</strong></li>
 <li><p>Scope 作用域范围 </p>
-<!--  -->
-<ol>
-<li>singleton ：单例，一个bean容器只存在一份</li>
-<li>prototype ：每次请求创建新实例，destroy方式不生效</li>
-<li>request ：每次http请求创建一个实例且仅在当前request内有效</li>
-<li>session ：同上</li>
-<li>global session ：基于protlet的web中有效（portlet中定义了global session），如果在web中，同session</li>
-</ol>
-</li>
-<li><p>Constructor arguments 构造器（构造函数），参数</p>
-</li>
-<li><p>Properties 属性</p>
-</li>
-<li><p>Autowiring mode 自动装配模式</p>
-</li>
-<li><p>lazy-initialization mode 懒加载模式</p>
-</li>
-<li><p>initialization/destruction method 初始化方法/销毁方法</p>
-</li>
-<li><p>等… …</p>
-</li>
-</ul>
-<h2 id="bean的作用域"><a href="#bean的作用域" class="headerlink" title="bean的作用域"></a>bean的作用域</h2><ol>
-<li>singleton ：单例，一个bean容器只存在一份</li>
-<li>prototype ：每次请求创建新实例，destroy方式不生效</li>
-<li>request ：每次http请求创建一个实例且仅在当前request内有效</li>
-<li>session ：同上</li>
-<li>global session ：基于protlet的web中有效（portlet中定义了global session），如果在web中，同session</li>
-</ol>
-<h2 id="bean的生命周期"><a href="#bean的生命周期" class="headerlink" title="bean的生命周期"></a>bean的生命周期</h2><ul>
-<li><p>定义    </p>
-</li>
-<li><p>初始化 </p>
-<p>  1.设置全局的初始化方法default-init-method或对单个bean设置init-method</p>
-<p>  2.实现<strong>org.sringframework.beans.factory.InitializingBean</strong>接口，覆盖afterPropertiesSet方法</p>
-</li>
-<li><p>使用</p>
-</li>
-<li><p>销毁</p>
-<p>  1.设置全局的销毁方法default-destroy-method或对单个bean设置destroy-method</p>
-<p>  2.实现<strong>org.sringframework.beans.factory.DisposeableBean</strong>接口，覆盖destroy方法</p>
-</li>
-</ul>
-<h2 id="bean的自动装配"><a href="#bean的自动装配" class="headerlink" title="bean的自动装配"></a>bean的自动装配</h2><blockquote>
-<p>Spring中提供了一些一Aware结尾的接口，实现了Aware接口的bean在被初始化后，可以获取相应的资源。</p>
-<p>通过Aware接口可以对spring相应资源进行操作</p>
-</blockquote>
-<p><img src="http://onhavnxj2.bkt.clouddn.com/beanaotowire.png" alt="图"></p>
-<p>设置默认自动装配，spring容器中就不需要再为bean手动设置属性引用关系，容器会自动寻找和bean属性名相同的bean的id，并且自动完成bean的装配：</p>
-<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
-xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
-xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans 
-http://www.springframework.org/schema/beans/spring-beans.xsd&quot;
-default-autowire=&quot;byName&quot;&gt;
-
-&lt;bean id=&quot;injectionDao&quot; class=&quot;com.laowang.dao.InjectionDAOImp&quot;/&gt;
-&lt;bean id=&quot;injectionservice&quot; class=&quot;com.laowang.service.InjectionServiceImp&quot;/&gt;
-&lt;!-- &lt;property name=&quot;injectiondao&quot; ref=&quot;injectionDao&quot;&gt;&lt;/property&gt;通过设置自动装配，就不用单独为bean装配了 --&gt;
-&lt;/beans&gt;
-</code></pre><h2 id="Resource-amp-ResourceLoader"><a href="#Resource-amp-ResourceLoader" class="headerlink" title="Resource&amp;ResourceLoader"></a>Resource&amp;ResourceLoader</h2><p><img src="http://onhavnxj2.bkt.clouddn.com/resource.png" alt=""></p>
-<p>下面是resourceLoader</p>
-<p><img src="http://onhavnxj2.bkt.clouddn.com/resourceloader.png" alt=""></p>
-<p>resourceloader加载文件的location类型</p>
-<p><img src="http://onhavnxj2.bkt.clouddn.com/resourceloaderlocationtype.png" alt=""></p>
-<hr>
-<p>//第一次更新。最近读了spring实战，对spring bean的配置又多了一点知识储备。</p>
-<h3 id="装配bean有三种机制"><a href="#装配bean有三种机制" class="headerlink" title="装配bean有三种机制"></a><strong>装配bean有三种机制</strong></h3><ol>
-<li>基于xml配置显示的装配bean</li>
-<li>基于javaConfig的配置类(<strong>@Configuration</strong>)显示装配bean</li>
-<li>隐式的bean发现机制和自动装配(需要<strong>@Configuration</strong>和<strong>@ComponentScan</strong>)</li>
-</ol>
-<p>关于第三种机制的使用规制</p>
-<pre><code>//spring配置之隐式bean发现和自动装配
-@Configuration
-@ComponentScan//也可用Named替换,默认扫面package包内注解
-//@ComponentScan(basePackages={&quot;com.laowang.chapter02&quot;})指定扫描的package
-//@ComponentScan(basePackageClasses={Cd.class,UseCd.class})指定扫描的类
-//@ImportResource(&quot;classpath:spring-beans.xml&quot;)//
-public class Config {
-}
-</code></pre><p>关于第二种机制的使用例子</p>
-<pre><code>@Configuration
-public class javaConfig {
-
-//只是用@Bean话，bean的id将会初始化为方法名
-@Bean(name=&quot;cd&quot;)
-public Cd getCd(){
-    return new Cd();
-}
-
-//通过setter方法自动装配bean引用
-@Bean(name=&quot;useCd&quot;)
-public UseCd randomMentod(){
-    UseCd useCd = new UseCd();
-    useCd.setCd(getCd());
-    return useCd;
-}
-
-//通过构造器自动装配bean
-//    @Bean(name=&quot;useCd&quot;)
-//    public UseCd getByConstructor(){
-//        return new UseCd(getCd());
-//    }
-
-}
-</code></pre><p><em>关于第一种使用规则就比较多了，需要的时候再搜索吧</em></p>
-<h3 id="接下来是基础的spring-bean的注解"><a href="#接下来是基础的spring-bean的注解" class="headerlink" title="接下来是基础的spring bean的注解"></a>接下来是基础的spring bean的注解</h3><ul>
-<li>@Component 该类作为组建类，告知spring为这个类创建bean</li>
-<li>@Named//bean命名</li>
-<li>@Configuration</li>
-<li>@ComponentScan</li>
-<li>@Bean</li>
-<li>@Import</li>
-<li>@ImportResource</li>
-<li>@Inject//注入</li>
-<li>@Autowired</li>
-<li>@ContextConfiguration//从哪加载配置</li>
-</ul>
-<p>（PS：下面是web.xml配置文件的详解）<br><a href="http://mianhuaman.iteye.com/blog/1105522" title="web.xml配置详解" target="_blank" rel="external">web.xml配置详解</a></p>
-
+        
+          <a class="article-more-a" href="/2017/04/14/Spring-Bean/#more">more >></a>
+        
       
 
       
@@ -1073,6 +955,10 @@ public UseCd randomMentod(){
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">spring</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">python</a>
               </li>
              
@@ -1089,15 +975,11 @@ public UseCd randomMentod(){
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">jsp</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">links</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+                <a href="javascript:void(0)" class="js-tag color4">jsp</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1109,7 +991,7 @@ public UseCd randomMentod(){
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">spring</a>
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
               <li class="article-tag-list-item">
