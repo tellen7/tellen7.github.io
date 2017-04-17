@@ -26,7 +26,7 @@
 <meta property="og:image" content="http://onhavnxj2.bkt.clouddn.com/springBean/Screenshot_2017-04-15-16-40-19-462.jpeg.JPG">
 <meta property="og:image" content="http://onhavnxj2.bkt.clouddn.com/springBean/Screenshot_2017-04-15-16-40-27-069.jpeg.JPG">
 <meta property="og:image" content="http://onhavnxj2.bkt.clouddn.com/springBean/Screenshot_2017-04-17-00-04-42-694.jpeg.JPG">
-<meta property="og:updated_time" content="2017-04-17T12:00:59.750Z">
+<meta property="og:updated_time" content="2017-04-17T12:37:36.177Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spring Bean">
 <meta name="twitter:description" content="Spring Bean的相关基础知识先上图：  bean的配置 Id bean的唯一标识 *必须 Class 具体实现类 *必须 Scope 作用域范围">
@@ -285,18 +285,8 @@ var _hmt = _hmt || [];
 </blockquote>
 <p><img src="http://onhavnxj2.bkt.clouddn.com/beanaotowire.png" alt="图"></p>
 <p>设置默认自动装配，spring容器中就不需要再为bean手动设置属性引用关系，容器会自动寻找和bean属性名相同的bean的id，并且自动完成bean的装配：</p>
-<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
-xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
-xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans 
-http://www.springframework.org/schema/beans/spring-beans.xsd&quot;
-default-autowire=&quot;byName&quot;&gt;
-
-&lt;bean id=&quot;injectionDao&quot; class=&quot;com.laowang.dao.InjectionDAOImp&quot;/&gt;
-&lt;bean id=&quot;injectionservice&quot; class=&quot;com.laowang.service.InjectionServiceImp&quot;/&gt;
-&lt;!-- &lt;property name=&quot;injectiondao&quot; ref=&quot;injectionDao&quot;&gt;&lt;/property&gt;通过设置自动装配，就不用单独为bean装配了 --&gt;
-&lt;/beans&gt;
-</code></pre><h2 id="Resource-amp-ResourceLoader"><a href="#Resource-amp-ResourceLoader" class="headerlink" title="Resource&amp;ResourceLoader"></a>Resource&amp;ResourceLoader</h2><p><img src="http://onhavnxj2.bkt.clouddn.com/resource.png" alt=""></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">   &lt;?xml version="1.0" encoding="UTF-8"?&gt;</div><div class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span></span></div><div class="line"><span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></div><div class="line"><span class="attr">xsi:schemaLocation</span>=<span class="string">"http://www.springframework.org/schema/beans </span></div><div class="line">http://www.springframework.org/schema/beans/spring-beans.xsd"</div><div class="line"><span class="attr">default-autowire</span>=<span class="string">"byName"</span>&gt;</div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"injectionDao"</span> <span class="attr">class</span>=<span class="string">"com.laowang.dao.InjectionDAOImp"</span>/&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"injectionservice"</span> <span class="attr">class</span>=<span class="string">"com.laowang.service.InjectionServiceImp"</span>/&gt;</span></div><div class="line"><span class="comment">&lt;!-- &lt;property name="injectiondao" ref="injectionDao"&gt;&lt;/property&gt;通过设置自动装配，就不用单独为bean装配了 --&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></div></pre></td></tr></table></figure>
+<h2 id="Resource-amp-ResourceLoader"><a href="#Resource-amp-ResourceLoader" class="headerlink" title="Resource&amp;ResourceLoader"></a>Resource&amp;ResourceLoader</h2><p><img src="http://onhavnxj2.bkt.clouddn.com/resource.png" alt=""></p>
 <p>下面是resourceLoader</p>
 <p><img src="http://onhavnxj2.bkt.clouddn.com/resourceloader.png" alt=""></p>
 <p>resourceloader加载文件的location类型</p>
@@ -309,40 +299,9 @@ default-autowire=&quot;byName&quot;&gt;
 <li>隐式的bean发现机制和自动装配(需要<strong>@Configuration</strong>和<strong>@ComponentScan</strong>)</li>
 </ol>
 <p>关于第三种机制的使用规制</p>
-<pre><code>//spring配置之隐式bean发现和自动装配
-@Configuration
-@ComponentScan//也可用Named替换,默认扫面package包内注解
-//@ComponentScan(basePackages={&quot;com.laowang.chapter02&quot;})指定扫描的package
-//@ComponentScan(basePackageClasses={Cd.class,UseCd.class})指定扫描的类
-//@ImportResource(&quot;classpath:spring-beans.xml&quot;)//
-public class Config {
-}
-</code></pre><p>关于第二种机制的使用例子</p>
-<pre><code>@Configuration
-public class javaConfig {
-
-//只是用@Bean话，bean的id将会初始化为方法名
-@Bean(name=&quot;cd&quot;)
-public Cd getCd(){
-    return new Cd();
-}
-
-//通过setter方法自动装配bean引用
-@Bean(name=&quot;useCd&quot;)
-public UseCd randomMentod(){
-    UseCd useCd = new UseCd();
-    useCd.setCd(getCd());
-    return useCd;
-}
-
-//通过构造器自动装配bean
-//    @Bean(name=&quot;useCd&quot;)
-//    public UseCd getByConstructor(){
-//        return new UseCd(getCd());
-//    }
-
-}
-</code></pre><p><em>关于第一种使用规则就比较多了，需要的时候再搜索吧</em></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//spring配置之隐式bean发现和自动装配</span></div><div class="line"><span class="meta">@Configuration</span></div><div class="line"><span class="meta">@ComponentScan</span><span class="comment">//也可用Named替换,默认扫面package包内注解</span></div><div class="line"><span class="comment">//@ComponentScan(basePackages=&#123;"com.laowang.chapter02"&#125;)指定扫描的package</span></div><div class="line"><span class="comment">//@ComponentScan(basePackageClasses=&#123;Cd.class,UseCd.class&#125;)指定扫描的类</span></div><div class="line"><span class="comment">//@ImportResource("classpath:spring-beans.xml")//</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Config</span> </span>&#123;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>关于第二种机制的使用例子<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Configuration</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">javaConfig</span> </span>&#123;</div><div class="line"></div><div class="line"><span class="comment">//只是用@Bean话，bean的id将会初始化为方法名</span></div><div class="line"><span class="meta">@Bean</span>(name=<span class="string">"cd"</span>)</div><div class="line"><span class="function"><span class="keyword">public</span> Cd <span class="title">getCd</span><span class="params">()</span></span>&#123;</div><div class="line">	<span class="keyword">return</span> <span class="keyword">new</span> Cd();</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//通过setter方法自动装配bean引用</span></div><div class="line"><span class="meta">@Bean</span>(name=<span class="string">"useCd"</span>)</div><div class="line"><span class="function"><span class="keyword">public</span> UseCd <span class="title">randomMentod</span><span class="params">()</span></span>&#123;</div><div class="line">	UseCd useCd = <span class="keyword">new</span> UseCd();</div><div class="line">	useCd.setCd(getCd());</div><div class="line">	<span class="keyword">return</span> useCd;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//通过构造器自动装配bean</span></div><div class="line"><span class="comment">//	@Bean(name="useCd")</span></div><div class="line"><span class="comment">//	public UseCd getByConstructor()&#123;</span></div><div class="line"><span class="comment">//		return new UseCd(getCd());</span></div><div class="line"><span class="comment">//	&#125;</span></div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><em>关于第一种使用规则就比较多了，需要的时候再搜索吧</em></p>
 <h3 id="接下来是基础的spring-bean的注解"><a href="#接下来是基础的spring-bean的注解" class="headerlink" title="接下来是基础的spring bean的注解"></a>接下来是基础的spring bean的注解</h3><ul>
 <li>@Component 该类作为组建类，告知spring为这个类创建bean</li>
 <li>@Named//bean命名</li>
@@ -604,11 +563,11 @@ public UseCd randomMentod(){
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">eclipseForJava</a>
+                <a href="javascript:void(0)" class="js-tag color2">java thread</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">java thread</a>
+                <a href="javascript:void(0)" class="js-tag color2">python</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -616,7 +575,7 @@ public UseCd randomMentod(){
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">python</a>
+                <a href="javascript:void(0)" class="js-tag color5">eclipseForJava</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -632,11 +591,11 @@ public UseCd randomMentod(){
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+                <a href="javascript:void(0)" class="js-tag color1">links</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">links</a>
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
               <li class="article-tag-list-item">
