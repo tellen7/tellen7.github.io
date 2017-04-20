@@ -222,89 +222,15 @@ var _hmt = _hmt || [];
       
         <h3 id="用spring注解-Value绑定属性失败"><a href="#用spring注解-Value绑定属性失败" class="headerlink" title="用spring注解@Value绑定属性失败"></a>用spring注解@Value绑定属性失败</h3><p>环境：</p>
 <ul>
-<li><p>eclipse Version: Luna Release (4.4.0)</p>
-</li>
-<li><p>spring 4.0</p>
-</li>
-<li><p>Junit4</p>
-</li>
-</ul>
-<ul>
+<li>eclipse Version: Luna Release (4.4.0)</li>
+<li>spring 4.0</li>
+<li>Junit4</li>
 <li>其他依赖包</li>
 </ul>
-<p><strong>描述：</strong></p>
-<p><strong>JsrDAO类，在该类中使用了SpEL和spring注解</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.laowang.annotationBase;</div><div class="line"></div><div class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Value;</div><div class="line"><span class="keyword">import</span> org.springframework.context.annotation.ImportResource;</div><div class="line"><span class="keyword">import</span> org.springframework.stereotype.Repository;</div><div class="line"></div><div class="line"><span class="meta">@Repository</span>(<span class="string">"dao"</span>)</div><div class="line"><span class="meta">@ImportResource</span>(<span class="string">"classpath*:jdbc.properties"</span>)</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JsrDAO</span> </span>&#123;</div><div class="line">	</div><div class="line">	<span class="meta">@Value</span>(<span class="string">"$&#123;url&#125;"</span>)<span class="comment">//加载配置文件中key为url的value值注入</span></div><div class="line">	<span class="keyword">private</span> String url;</div><div class="line">	</div><div class="line">	<span class="meta">@Value</span>(<span class="string">"$&#123;name&#125;"</span>)</div><div class="line">	<span class="keyword">private</span> String name;</div><div class="line">	</div><div class="line">	<span class="meta">@Value</span>(<span class="string">"$&#123;password&#125;"</span>)</div><div class="line">	<span class="keyword">private</span> String password;</div><div class="line">	</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">save</span><span class="params">()</span></span>&#123;</div><div class="line">		System.out.println(<span class="string">"jsr saving..."</span>);</div><div class="line">		System.out.println(<span class="string">"url: "</span>+url);</div><div class="line">		System.out.println(<span class="string">"name: "</span>+name);</div><div class="line">		System.out.println(<span class="string">"password: "</span>+password);</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span></span>&#123;</div><div class="line">		System.out.println(<span class="string">"init jsrDAO Bean ..."</span>);</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">destroy</span><span class="params">()</span></span>&#123;</div><div class="line">		System.out.println(<span class="string">"destroy jsrDAO Bean ..."</span>);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>资源文件内容</p>
-<pre><code>url=http\://localhost\:3306/database
-name=root
-password=root
-</code></pre><p><strong>JavaConfig类，Bean的装配工作</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">package</span> com.laowang.annotationBase;</div><div class="line"></div><div class="line"><span class="keyword">import</span> org.springframework.context.annotation.Bean;</div><div class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</div><div class="line"><span class="keyword">import</span> org.springframework.context.annotation.ImportResource;</div><div class="line"><span class="keyword">import</span> org.springframework.test.context.ContextConfiguration;</div><div class="line"></div><div class="line"><span class="meta">@Configuration</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JavaConfig</span> </span>&#123;</div><div class="line"></div><div class="line">	<span class="meta">@Bean</span>(name=<span class="string">"dao"</span>, initMethod=<span class="string">"init"</span>, destroyMethod=<span class="string">"destroy"</span>)</div><div class="line">	<span class="function"><span class="keyword">public</span> JsrDAO <span class="title">getJseDAO</span><span class="params">()</span></span>&#123;</div><div class="line">		<span class="keyword">return</span> <span class="keyword">new</span> JsrDAO();</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><strong>测试类</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.laowang.annotationBase;</div><div class="line"></div><div class="line"><span class="keyword">import</span> org.junit.Test;</div><div class="line"><span class="keyword">import</span> org.junit.runner.RunWith;</div><div class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</div><div class="line"><span class="keyword">import</span> org.springframework.test.context.ContextConfiguration;</div><div class="line"><span class="keyword">import</span> org.springframework.test.context.junit4.SpringJUnit4ClassRunner;</div><div class="line"></div><div class="line"><span class="meta">@RunWith</span>(SpringJUnit4ClassRunner.class)</div><div class="line"><span class="meta">@ContextConfiguration</span>(classes=JavaConfig.class)</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestA</span> </span>&#123;</div><div class="line">	</div><div class="line">	<span class="meta">@Autowired</span></div><div class="line">	<span class="keyword">private</span> JsrDAO jsDao;</div><div class="line">	</div><div class="line">	<span class="meta">@Test</span></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testDAO</span><span class="params">()</span></span>&#123;</div><div class="line">		jsDao.save();</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>结果获得数据显示为</p>
-<pre><code>init jsrDAO Bean ...
-jsr saving...
-url: ${url}
-name: ${name}
-password: ${password}
-destroy jsrDAO Bean ...
-</code></pre><p>问题出现在用SpEL占位符绑定bean的三个属性没有成功，正确的结果应该是这样的</p>
-<pre><code>init jsrDAO Bean ...
-jsr saving...
-url: http://localhost:3306/database
-name: root
-password: root
-destroy jsrDAO Bean ...
-</code></pre><p>问题出现在哪里呢？按理说应该不会错的。于是百度、谷歌搜索，都没解决，最后去了spring官方文档看到正确使用方式</p>
-<p><img src="http://onhavnxj2.bkt.clouddn.com/@Value%E7%9B%B8%E5%85%B3.jpg" alt=""></p>
-<p>所以只需要修改JavaConfig文件就可以了，添加一行注解，变成如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.laowang.annotationBase;</div><div class="line"></div><div class="line"><span class="keyword">import</span> org.springframework.context.annotation.Bean;</div><div class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</div><div class="line"><span class="keyword">import</span> org.springframework.context.annotation.ImportResource;</div><div class="line"></div><div class="line"><span class="meta">@Configuration</span></div><div class="line"><span class="meta">@ImportResource</span>(<span class="string">"classpath*:spring-annotationBase.xml"</span>)<span class="comment">//这个必须要引入，否者得到配置文件中的值是有问题的，有了这个可以不用在JsrDAO中重配置了，多了也无妨</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JavaConfig</span> </span>&#123;</div><div class="line"></div><div class="line">	<span class="meta">@Bean</span>(name=<span class="string">"dao"</span>, initMethod=<span class="string">"init"</span>, destroyMethod=<span class="string">"destroy"</span>)</div><div class="line">	<span class="function"><span class="keyword">public</span> JsrDAO <span class="title">getJseDAO</span><span class="params">()</span></span>&#123;</div><div class="line">		<span class="keyword">return</span> <span class="keyword">new</span> JsrDAO();</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">	<span class="meta">@Bean</span></div><div class="line">	<span class="function"><span class="keyword">public</span> JsrService <span class="title">getJsrService</span><span class="params">()</span></span>&#123;</div><div class="line">		JsrService service =<span class="keyword">new</span> JsrService();</div><div class="line">		service.setJsrDAO(getJseDAO());</div><div class="line">		<span class="keyword">return</span> service;</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>同时再添加一个对应的xml配置文件，指定属性配置文件的位置，此时JsrDAo中属性文件位置的指定也可以不用了。<br>下面是对应的xml文件</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</div><div class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span></span></div><div class="line">	<span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></div><div class="line">	<span class="attr">xmlns:context</span>=<span class="string">"http://www.springframework.org/schema/context"</span></div><div class="line">	<span class="attr">xsi:schemaLocation</span>=<span class="string">"http://www.springframework.org/schema/beans </span></div><div class="line">	http://www.springframework.org/schema/beans/spring-beans.xsd</div><div class="line">	http://www.springframework.org/schema/context</div><div class="line">    http://www.springframework.org/schema/context/spring-context.xsd"&gt;</div><div class="line"></div><div class="line">	<span class="tag">&lt;<span class="name">context:property-placeholder</span> <span class="attr">location</span>=<span class="string">"classpath:/properties/jdbc.properties"</span>/&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></div></pre></td></tr></table></figure>
-<hr>
-<h2 id="PS：下面补充一点知识"><a href="#PS：下面补充一点知识" class="headerlink" title="PS：下面补充一点知识"></a>PS：下面补充一点知识</h2><p>关于<strong>代理模式</strong>，如图</p>
-<p><img src="http://onhavnxj2.bkt.clouddn.com/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F1.jpg" alt=""></p>
-<p><img src="http://onhavnxj2.bkt.clouddn.com/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F2.jpg" alt=""></p>
-<h3 id="运行时注入"><a href="#运行时注入" class="headerlink" title="运行时注入"></a>运行时注入</h3><ol>
-<li>属性占位符（Property Placeholder）</li>
-<li>Spring 表达式语言SpEL</li>
-</ol>
-<p>属性占位符（Property Placeholder）</p>
-<p>加载资源配置文件后，通过环境对象（Environment）env获取配置文件内容，如<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">env.getProperty(<span class="string">"jdbc.name"</span>);</div></pre></td></tr></table></figure></p>
-<p>具体使用要参考文档</p>
-<p>解析属性占位符一般使用SpEL语言<br>SpEL语言特性如下：</p>
-<ul>
-<li>使用bean的ID来引用bean</li>
-<li>调用方法和访问对象的属性</li>
-<li>对值进行算术、关系和逻辑运算</li>
-<li>正则表达式匹配</li>
-<li>集合操作</li>
-</ul>
-<p><em>详</em></p>
-<p>“#{…}”=======表达式<br>“${…}”=======占位符</p>
-<ul>
-<li><p><strong>字面常量</strong><br>“#{1}”=======计算结果为1</p>
-</li>
-<li><p><strong>引用bean、属性和方法</strong><br>“#{bean}”=======引用bean<br>“#{bean.attr}”=======计算得到（引用）bean的属性<br>“#{systemProperties[‘jdbc.name’]}”=======通过systemProperties对象引用系统属性（个人理解为引用形同加载配置文件中的属性的值）<br>“#{bean.method()}”=======调用bean的方法<br>“#{bean.method()?.toUpperCase()}”=======方法返回不为空时继续调用toUpperCase()，否则不调用</p>
-</li>
-<li><p><strong>在表达式中使用类型</strong><br>“#{T(java.lang.Math).random}”=======只能调用类的静态方法和常量</p>
-</li>
-<li><p><strong>SpEL 运算符</strong><br><em>不说了</em></p>
-</li>
-<li><p><strong>计算正则表达式：文本（matches）正则表达式</strong><br>“#{admin.email matches ‘[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.com’}”=======邮件验证</p>
-</li>
-<li><p><strong>计算集合</strong><br>“#{bean.list[2].attr}”=======获取bean中结合list第3个元素的attr属性</p>
-</li>
-</ul>
-<p><em>SpEL 其他运算符</em></p>
-<ul>
-<li>（.?[]）对集合进行过滤。[]里面是表达式<br>“#{bean.list.?[attr eq ‘laowang’]}”</li>
-<li>.^[] 集合中查询第一个匹配项</li>
-<li>.$[] 集合中查询最后一个匹配项</li>
-</ul>
-
+<p><strong>描述：</strong><br>
+        
+          <a class="article-more-a" href="/2017/04/20/spring基于-Value绑定属Bean性失/#more">more >></a>
+        
       
 
       
@@ -317,7 +243,7 @@ destroy jsrDAO Bean ...
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">spring    SpEL</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">spring</a>
         		</li>
       		
 		</ul>
@@ -1034,11 +960,11 @@ destroy jsrDAO Bean ...
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">java thread</a>
+                <a href="javascript:void(0)" class="js-tag color2">spring</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">spring</a>
+                <a href="javascript:void(0)" class="js-tag color2">java thread</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1066,11 +992,11 @@ destroy jsrDAO Bean ...
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Nginx</a>
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+                <a href="javascript:void(0)" class="js-tag color1">Nginx</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1087,10 +1013,6 @@ destroy jsrDAO Bean ...
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">闯关游戏</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">spring    SpEL</a>
               </li>
             
             <div class="clearfix"></div>
