@@ -6,17 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2016/5 | Tellenw</title>
+  <title>使用git的基本式jgit的基本（优雅）方式“ | Tellenw</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Believing future is attractive.">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Tellenw">
-<meta property="og:url" content="http://yoursite.com/archives/2016/05/index.html">
+  <meta name="description" content="从开始使用git到养成习惯，就是这么简单先上图表示一下基本流程">
+<meta name="keywords" content="git">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用git的基本式jgit的基本（优雅）方式“">
+<meta property="og:url" content="http://yoursite.com/2017/04/21/使用git的基本式jgit的基本（优雅）方式“/index.html">
 <meta property="og:site_name" content="Tellenw">
-<meta property="og:description" content="Believing future is attractive.">
+<meta property="og:description" content="从开始使用git到养成习惯，就是这么简单先上图表示一下基本流程">
+<meta property="og:image" content="http://onhavnxj2.bkt.clouddn.com/git/git_map.jpg">
+<meta property="og:image" content="http://onhavnxj2.bkt.clouddn.com/git/git_order.png">
+<meta property="og:updated_time" content="2017-04-21T15:29:56.805Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Tellenw">
-<meta name="twitter:description" content="Believing future is attractive.">
+<meta name="twitter:title" content="使用git的基本式jgit的基本（优雅）方式“">
+<meta name="twitter:description" content="从开始使用git到养成习惯，就是这么简单先上图表示一下基本流程">
+<meta name="twitter:image" content="http://onhavnxj2.bkt.clouddn.com/git/git_map.jpg">
   
     <link rel="alternative" href="/atom.xml" title="Tellenw" type="application/atom+xml">
   
@@ -198,174 +203,195 @@ var _hmt = _hmt || [];
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-使用git的基本式jgit的基本（优雅）方式“" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      使用git的基本式jgit的基本（优雅）方式“
+    </h1>
+  
+
+        
+        <a href="/2017/04/21/使用git的基本式jgit的基本（优雅）方式“/" class="archive-article-date">
+  	<time datetime="2017-04-21T15:17:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-21</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="从开始使用git到养成习惯，就是这么简单"><a href="#从开始使用git到养成习惯，就是这么简单" class="headerlink" title="从开始使用git到养成习惯，就是这么简单"></a>从开始使用git到养成习惯，就是这么简单</h3><p><strong>先上图表示一下基本流程</strong><br><img src="http://onhavnxj2.bkt.clouddn.com/git/git_map.jpg" alt=""><br><a id="more"></a></p>
+<ol>
+<li>首先下载git for windows,直接安装。</li>
+<li>添加SSH KEY，在github上“setting”里面按照步骤进行。</li>
+<li>在github上创建一个仓库，例如test。</li>
+<li>在本地的项目（test项目）文件夹下右键Git bash here。</li>
+<li>输入 git init，这个命令会在项目目录下生成一个.git的目录，这里面存放的就是项目的版本库和git配置文件。</li>
+<li>为了利用github给你智能生成的.gitignore和readme.md文件，先将github上的仓库pull一下，在git bash终端输入git pull <a href="https://github.com/~~~/test.git" target="_blank" rel="external">https://github.com/~~~/test.git</a></li>
+<li>添加项目更新，git add .</li>
+<li>提交项目更新，git commit -m “first time commit”</li>
+<li>建立远程仓库，git remote add origin <a href="https://github.com/~~~/test.git" target="_blank" rel="external">https://github.com/~~~/test.git</a></li>
+<li>push更新，git push -u origin master</li>
+</ol>
+<p>这样本地仓库就与github上面仓库建立联系啦，以后就可以愉快的玩耍了。</p>
+<p><strong>PS：下面附赠git常用命令行</strong><br><img src="http://onhavnxj2.bkt.clouddn.com/git/git_order.png" alt=""></p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你的打赏<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/alipay.jpeg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/weixinpay.jpeg">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2016" class="archive-year">2016</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-python">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2016/05/21/error/" class="archive-article-date">
-  	<time datetime="2016-05-21T13:50:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-05-21</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/05/21/error/">error</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">git</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2017/04/21/使用git的基本式jgit的基本（优雅）方式“/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2016/05/14/php-install/" class="archive-article-date">
-  	<time datetime="2016-05-14T09:22:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-05-14</time>
-</a>
-        </div>
-    	 
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/05/14/php-install/">php_install</a>
-    </h1>
+    <a href="/2017/04/20/spring基于-Value绑定属Bean性失/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          spring基于@Value绑定属Bean性失
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+
+
+
+
+
+  
+  <div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="使用git的基本式jgit的基本（优雅）方式“" data-title="使用git的基本式jgit的基本（优雅）方式“" data-url="http://yoursite.com/2017/04/21/使用git的基本式jgit的基本（优雅）方式“/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"tellenw"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">php</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2016/05/03/install-wampServer/" class="archive-article-date">
-  	<time datetime="2016-05-03T05:00:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-05-03</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/05/03/install-wampServer/">install wampServer</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">php</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2016/05/01/linux-foundation/" class="archive-article-date">
-  	<time datetime="2016-05-01T15:47:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-05-01</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/05/01/linux-foundation/">linux foundation</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -388,8 +414,8 @@ var _hmt = _hmt || [];
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
