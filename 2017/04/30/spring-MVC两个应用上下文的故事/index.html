@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="Tellenw">
 <meta property="og:description" content="最靓仔学习spring mvc时，对web.xml文件中配置的应用上下文感到困惑。于是上网找了资料。 《spring Action》书中说到：    当DispatcherServlet启动时，会创建Spring应用上下文，并加载配置文件或配置类中所声明的bean。但是在Spring Web应用中还有另外一个应用上下文，由ContextLoaderListener创建的。  我们希望Dispatc">
 <meta property="og:image" content="http://www.it165.net/uploadfile/files/2015/0201/2015020117491892.png">
-<meta property="og:updated_time" content="2017-04-30T05:38:32.007Z">
+<meta property="og:updated_time" content="2017-04-30T05:41:01.551Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="spring MVC两个应用上下文的故事">
 <meta name="twitter:description" content="最靓仔学习spring mvc时，对web.xml文件中配置的应用上下文感到困惑。于是上网找了资料。 《spring Action》书中说到：    当DispatcherServlet启动时，会创建Spring应用上下文，并加载配置文件或配置类中所声明的bean。但是在Spring Web应用中还有另外一个应用上下文，由ContextLoaderListener创建的。  我们希望Dispatc">
@@ -239,7 +239,10 @@ var _hmt = _hmt || [];
 <p>web.xml中可以定义两种参数：<br>一个是全局参数(ServletContext)，通过</p>
 <pre><code>&lt;context-param&gt;&lt;/context-param&gt;
 </code></pre><p>另一个是servlet参数，通过在servlet中声明</p>
-<pre><code>&lt;init-param&gt;                                                                           &lt;param-name&gt;param1&lt;/param-name&gt;                                                                           &lt;param-value&gt;avalible in servlet init()&lt;/param-value&gt;                                                                        &lt;/init-param&gt;        
+<pre><code>&lt;init-param&gt;
+  &lt;param-name&gt;param1&lt;/param-name&gt;
+  &lt;param-value&gt;avalible in servlet init()&lt;/param-  value&gt;
+&lt;/init-param&gt;        
 </code></pre><p><em>note：</em>第一种参数在servlet里面可以通过getServletContext().getInitParameter(‘context/param’)得到；第二种参数只能在servlet的init()方法中通过this.getInitParameter(‘param1’)取得。</p>
 <p><strong>spring上下文的初始化</strong></p>
 <ol>
@@ -492,11 +495,11 @@ var _hmt = _hmt || [];
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">python</a>
+                <a href="javascript:void(0)" class="js-tag color2">java thread</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">java thread</a>
+                <a href="javascript:void(0)" class="js-tag color2">python</a>
               </li>
              
               <li class="article-tag-list-item">
