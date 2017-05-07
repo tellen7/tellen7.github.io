@@ -17,7 +17,7 @@
 <meta property="og:description" content="简要步骤step 1 wget -qO- https://get.docker.com/ | sh">
 <meta property="og:image" content="http://i.imgur.com/QZJOEoy.png">
 <meta property="og:image" content="http://i.imgur.com/tlytmqo.png">
-<meta property="og:updated_time" content="2017-04-27T12:54:08.203Z">
+<meta property="og:updated_time" content="2017-05-07T15:53:34.858Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Ubuntu安装docker">
 <meta name="twitter:description" content="简要步骤step 1 wget -qO- https://get.docker.com/ | sh">
@@ -316,7 +316,21 @@ wyh@ubuntu:~$ sudo docker rm 202
 202 移除容器
 wyh@ubuntu:~$ sudo docker restart 202 查看是否成功移除
 Error response from daemon: No such container: 202
-</code></pre><p><a href="http://www.runoob.com/docker/docker-command-manual.html" target="_blank" rel="external">docker命令大全</a>外链</p>
+</code></pre><p>=============================5月7号晚上更新</p>
+<h2 id="自定义docker镜像"><a href="#自定义docker镜像" class="headerlink" title="自定义docker镜像"></a>自定义docker镜像</h2><ol>
+<li>创建Dockerfile文件</li>
+<li>编写如下内容<blockquote>
+<p>from hub.c.163.com/library/tomcat #拓展自哪个镜像 </p>
+<p>MAINTAINER laowang 643710049@qq.com #用户名。邮箱</p>
+<p>COPY jpress.war /usr/local/tomcat/webapps/ #copy本地文件到镜像目标文件夹</p>
+</blockquote>
+</li>
+<li><p><code>docker build -t jpress:latest .</code><br><strong>提示如下</strong></p>
+<p>  Sending build context to Docker daemon   20.8MB<br> Step 1/3 : FROM hub.c.163.com/library/tomcat<br>  —&gt; 1f6eab5f63d3<br> Step 2/3 : MAINTAINER laowang 643710049@qq.com<br>  —&gt; Running in becafadad4b1<br>  —&gt; 6639dfe8255f<br> Removing intermediate container becafadad4b1<br> Step 3/3 : COPY jpress.war /usr/local/tomcat/webapps/<br>  —&gt; af1cb028eaa0<br> Removing intermediate container 88c6cbcb6a6b<br> Successfully built af1cb028eaa0</p>
+</li>
+</ol>
+<p>成功了</p>
+<p><a href="http://www.runoob.com/docker/docker-command-manual.html" target="_blank" rel="external">docker命令大全</a>外链</p>
 
       
 
@@ -568,15 +582,7 @@ Error response from daemon: No such container: 202
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">python</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">spring</a>
+                <a href="javascript:void(0)" class="js-tag color5">eclipseForJava</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -584,11 +590,7 @@ Error response from daemon: No such container: 202
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">eclipseForJava</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">php</a>
+                <a href="javascript:void(0)" class="js-tag color2">python</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -596,11 +598,11 @@ Error response from daemon: No such container: 202
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">jsp</a>
+                <a href="javascript:void(0)" class="js-tag color4">php</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">links</a>
+                <a href="javascript:void(0)" class="js-tag color4">jsp</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -608,7 +610,19 @@ Error response from daemon: No such container: 202
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">links</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Nginx</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">spring</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -624,15 +638,15 @@ Error response from daemon: No such container: 202
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">闯关游戏</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
             
             <div class="clearfix"></div>
