@@ -17,7 +17,7 @@
 <meta property="og:description" content="简要步骤step 1 wget -qO- https://get.docker.com/ | sh">
 <meta property="og:image" content="http://i.imgur.com/QZJOEoy.png">
 <meta property="og:image" content="http://i.imgur.com/tlytmqo.png">
-<meta property="og:updated_time" content="2017-05-07T15:53:34.858Z">
+<meta property="og:updated_time" content="2017-05-07T15:56:42.358Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Ubuntu安装docker">
 <meta name="twitter:description" content="简要步骤step 1 wget -qO- https://get.docker.com/ | sh">
@@ -325,10 +325,9 @@ Error response from daemon: No such container: 202
 <p>COPY jpress.war /usr/local/tomcat/webapps/ #copy本地文件到镜像目标文件夹</p>
 </blockquote>
 </li>
-<li><p><code>docker build -t jpress:latest .</code><br><strong>提示如下</strong></p>
-<p>  Sending build context to Docker daemon   20.8MB<br> Step 1/3 : FROM hub.c.163.com/library/tomcat<br>  —&gt; 1f6eab5f63d3<br> Step 2/3 : MAINTAINER laowang 643710049@qq.com<br>  —&gt; Running in becafadad4b1<br>  —&gt; 6639dfe8255f<br> Removing intermediate container becafadad4b1<br> Step 3/3 : COPY jpress.war /usr/local/tomcat/webapps/<br>  —&gt; af1cb028eaa0<br> Removing intermediate container 88c6cbcb6a6b<br> Successfully built af1cb028eaa0</p>
-</li>
+<li><code>docker build -t jpress:latest .</code><br><strong>提示如下</strong></li>
 </ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"> Sending build context to Docker daemon   20.8MB</div><div class="line">Step 1/3 : FROM hub.c.163.com/library/tomcat</div><div class="line"> ---&gt; 1f6eab5f63d3</div><div class="line">Step 2/3 : MAINTAINER laowang 643710049@qq.com</div><div class="line"> ---&gt; Running in becafadad4b1</div><div class="line"> ---&gt; 6639dfe8255f</div><div class="line">Removing intermediate container becafadad4b1</div><div class="line">Step 3/3 : COPY jpress.war /usr/local/tomcat/webapps/</div><div class="line"> ---&gt; af1cb028eaa0</div><div class="line">Removing intermediate container 88c6cbcb6a6b</div><div class="line">Successfully built af1cb028eaa0</div></pre></td></tr></table></figure>
 <p>成功了</p>
 <p><a href="http://www.runoob.com/docker/docker-command-manual.html" target="_blank" rel="external">docker命令大全</a>外链</p>
 
@@ -578,6 +577,10 @@ Error response from daemon: No such container: 202
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">java thread</a>
               </li>
              
@@ -586,19 +589,7 @@ Error response from daemon: No such container: 202
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">docker</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">python</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">java</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">php</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -606,11 +597,19 @@ Error response from daemon: No such container: 202
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+                <a href="javascript:void(0)" class="js-tag color2">docker</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">php</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">links</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -623,10 +622,6 @@ Error response from daemon: No such container: 202
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">spring</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">spring mvc</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -643,6 +638,10 @@ Error response from daemon: No such container: 202
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">闯关游戏</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">spring mvc</a>
               </li>
              
               <li class="article-tag-list-item">
