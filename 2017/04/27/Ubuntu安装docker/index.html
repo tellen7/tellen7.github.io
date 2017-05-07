@@ -17,7 +17,7 @@
 <meta property="og:description" content="简要步骤step 1 wget -qO- https://get.docker.com/ | sh">
 <meta property="og:image" content="http://i.imgur.com/QZJOEoy.png">
 <meta property="og:image" content="http://i.imgur.com/tlytmqo.png">
-<meta property="og:updated_time" content="2017-05-07T15:56:42.358Z">
+<meta property="og:updated_time" content="2017-05-07T15:58:28.704Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Ubuntu安装docker">
 <meta name="twitter:description" content="简要步骤step 1 wget -qO- https://get.docker.com/ | sh">
@@ -281,42 +281,8 @@ cf69880d847f        ubuntu              &quot;/bin/sh -c &apos;while...&quot;   
 8d1cb9c07119        training/webapp     &quot;python app.py&quot;     About a minute ago   Up About a minute   0.0.0.0:32768-&gt;5000/tcp   confident_rosalind
 </code></pre><p>接下来再本机浏览器中输入<code>http://127.0.0.1:32768/</code>即可查看到内容，127.0.0.1也可以换成docker的ip，试过了，一样！</p>
 <p>指定端口<code>sudo docker run -d -p 5000:5000 training/webapp python app.py</code></p>
-<pre><code>wyh@ubuntu:~$ sudo docker port flamboyant_neumann 查看某容器的端口
-5000/tcp -&gt; 0.0.0.0:5000
-wyh@ubuntu:~$ sudo docker logs -f 202 查看容器内部的标准输出（-f:让 dokcer logs 像使用 tail -f 一样来输出容器内部的标准输出。）
- * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
-172.17.0.1 - - [27/Apr/2017 12:24:16] &quot;GET / HTTP/1.1&quot; 200 -
-172.17.0.1 - - [27/Apr/2017 12:24:16] &quot;GET /favicon.ico HTTP/1.1&quot; 404 -
-172.17.0.1 - - [27/Apr/2017 12:24:16] &quot;GET /favicon.ico HTTP/1.1&quot; 404 -
-^Z
-[7]+  已停止               sudo docker logs -f 202
-wyh@ubuntu:~$ sudo docker top 202 查看容器内进程
-UID                 PID                 PPID                C                   STIME               TTY                 TIME                CMD
-root                15167               15149               0                   20:22               ?                   00:00:00            python app.py
-wyh@ubuntu:~$ sudo docker inspect 202  它会返回一个 JSON 文件记录着 Docker 容器的配置和状态信息。
-
-runoob@runoob:~$ docker inspect determined_swanson
-[
-    {
-        &quot;Id&quot;: &quot;7a38a1ad55c6914b360b565819604733db751d86afd2575236a70a2519527361&quot;,
-        &quot;Created&quot;: &quot;2016-05-09T16:20:45.427996598Z&quot;,
-        &quot;Path&quot;: &quot;python&quot;,
-        &quot;Args&quot;: [
-            &quot;app.py&quot;
-        ],
-    ...
-
-wyh@ubuntu:~$ sudo docker ps -l 查看最后一次启动的容器
-CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS                        PORTS               NAMES
-202def58eb83        training/webapp     &quot;python app.py&quot;     10 minutes ago      Exited (137) 22 seconds ago                       flamboyant_neumann
-wyh@ubuntu:~$ sudo docker restart 202  重启（最后一次启动的）容器
-wyh@ubuntu:~$ sudo docker stop 202
-202 停止容器
-wyh@ubuntu:~$ sudo docker rm 202
-202 移除容器
-wyh@ubuntu:~$ sudo docker restart 202 查看是否成功移除
-Error response from daemon: No such container: 202
-</code></pre><p>=============================5月7号晚上更新</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">wyh@ubuntu:~$ sudo docker port flamboyant_neumann 查看某容器的端口</div><div class="line">5000/tcp -&gt; 0.0.0.0:5000</div><div class="line">wyh@ubuntu:~$ sudo docker logs <span class="_">-f</span> 202 查看容器内部的标准输出（<span class="_">-f</span>:让 dokcer logs 像使用 tail <span class="_">-f</span> 一样来输出容器内部的标准输出。）</div><div class="line"> * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)</div><div class="line">172.17.0.1 - - [27/Apr/2017 12:24:16] <span class="string">"GET / HTTP/1.1"</span> 200 -</div><div class="line">172.17.0.1 - - [27/Apr/2017 12:24:16] <span class="string">"GET /favicon.ico HTTP/1.1"</span> 404 -</div><div class="line">172.17.0.1 - - [27/Apr/2017 12:24:16] <span class="string">"GET /favicon.ico HTTP/1.1"</span> 404 -</div><div class="line">^Z</div><div class="line">[7]+  已停止               sudo docker logs <span class="_">-f</span> 202</div><div class="line">wyh@ubuntu:~$ sudo docker top 202 查看容器内进程</div><div class="line">UID                 PID                 PPID                C                   STIME               TTY                 TIME                CMD</div><div class="line">root                15167               15149               0                   20:22               ?                   00:00:00            python app.py</div><div class="line">wyh@ubuntu:~$ sudo docker inspect 202  它会返回一个 JSON 文件记录着 Docker 容器的配置和状态信息。</div><div class="line"></div><div class="line">runoob@runoob:~$ docker inspect determined_swanson</div><div class="line">[</div><div class="line">    &#123;</div><div class="line">        <span class="string">"Id"</span>: <span class="string">"7a38a1ad55c6914b360b565819604733db751d86afd2575236a70a2519527361"</span>,</div><div class="line">        <span class="string">"Created"</span>: <span class="string">"2016-05-09T16:20:45.427996598Z"</span>,</div><div class="line">        <span class="string">"Path"</span>: <span class="string">"python"</span>,</div><div class="line">        <span class="string">"Args"</span>: [</div><div class="line">            <span class="string">"app.py"</span></div><div class="line">        ],</div><div class="line">	...</div><div class="line"></div><div class="line">wyh@ubuntu:~$ sudo docker ps <span class="_">-l</span> 查看最后一次启动的容器</div><div class="line">CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS                        PORTS               NAMES</div><div class="line">202def58eb83        training/webapp     <span class="string">"python app.py"</span>     10 minutes ago      Exited (137) 22 seconds ago                       flamboyant_neumann</div><div class="line">wyh@ubuntu:~$ sudo docker restart 202  重启（最后一次启动的）容器</div><div class="line">wyh@ubuntu:~$ sudo docker stop 202</div><div class="line">202 停止容器</div><div class="line">wyh@ubuntu:~$ sudo docker rm 202</div><div class="line">202 移除容器</div><div class="line">wyh@ubuntu:~$ sudo docker restart 202 查看是否成功移除</div><div class="line">Error response from daemon: No such container: 202</div></pre></td></tr></table></figure>
+<p>=============================5月7号晚上更新</p>
 <h2 id="自定义docker镜像"><a href="#自定义docker镜像" class="headerlink" title="自定义docker镜像"></a>自定义docker镜像</h2><ol>
 <li>创建Dockerfile文件</li>
 <li>编写如下内容<blockquote>
@@ -577,23 +543,7 @@ Error response from daemon: No such container: 202
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">python</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">java thread</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">eclipseForJava</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">jsp</a>
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -601,7 +551,19 @@ Error response from daemon: No such container: 202
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">php</a>
+                <a href="javascript:void(0)" class="js-tag color2">java thread</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">java</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">eclipseForJava</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -609,11 +571,11 @@ Error response from daemon: No such container: 202
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+                <a href="javascript:void(0)" class="js-tag color4">jsp</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+                <a href="javascript:void(0)" class="js-tag color4">php</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -621,11 +583,15 @@ Error response from daemon: No such container: 202
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">spring</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
+                <a href="javascript:void(0)" class="js-tag color1">spring mvc</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -633,7 +599,7 @@ Error response from daemon: No such container: 202
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
+                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -641,7 +607,7 @@ Error response from daemon: No such container: 202
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">spring mvc</a>
+                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
               </li>
              
               <li class="article-tag-list-item">
