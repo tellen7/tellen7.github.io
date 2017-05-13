@@ -15,7 +15,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/05/13/hadoop入门/index.html">
 <meta property="og:site_name" content="Tellenw">
 <meta property="og:description" content="准备工作 linux环境 安装并配置好jdk(java) 安装并配置好hadoop">
-<meta property="og:updated_time" content="2017-05-13T10:47:20.782Z">
+<meta property="og:updated_time" content="2017-05-13T10:50:41.418Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="hadoop入门">
 <meta name="twitter:description" content="准备工作 linux环境 安装并配置好jdk(java) 安装并配置好hadoop">
@@ -223,19 +223,20 @@ var _hmt = _hmt || [];
         <h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><ol>
 <li>linux环境</li>
 <li>安装并配置好jdk(java)</li>
-<li>安装并配置好hadoop<a id="more"></a>
-<strong>linux环境</strong><br>可以使用虚拟机，也可以租用云主机</li>
+<li>安装并配置好hadoop</li>
 </ol>
+<a id="more"></a>
+<p><strong>linux环境</strong><br>可以使用虚拟机，也可以租用云主机</p>
 <p><strong>安装jdk</strong></p>
 <ol>
 <li>先javac会提示没有安装，同时还会提示怎么安装</li>
 <li>按照提示安装open jdk …<code>apt-get install ...</code></li>
 <li>根据安装提示，找到安装路径，配置java环境变量<blockquote>
 <p><code>/usr/lib/jvm/java-7-openjdk-amd64/...</code>复制备用<br><code>vi /etc/profile</code>添加配置信息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64</div><div class="line">export JRE_HOME=$JAVAHOME/jre</div><div class="line">export CLASSPATH=$JAVA_HOME/lib:$JRE_HOME/lib:$CLASSPATH</div><div class="line">export PATH=$JAVA_HOME/bin:$JRE_HOME/bin:$HADOOP_HOME/bin:$PATH</div></pre></td></tr></table></figure>
 </blockquote>
 </li>
 </ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64</div><div class="line">export JRE_HOME=$JAVAHOME/jre</div><div class="line">export CLASSPATH=$JAVA_HOME/lib:$JRE_HOME/lib:$CLASSPATH</div><div class="line">export PATH=$JAVA_HOME/bin:$JRE_HOME/bin:$HADOOP_HOME/bin:$PATH</div></pre></td></tr></table></figure>
 <blockquote>
 <p><code>source /etc/profile</code>使配置的环境变量生效</p>
 <ol>
@@ -247,10 +248,9 @@ var _hmt = _hmt || [];
 <li>下载hadoop <a href="http://www.apache.org/dyn/closer.cgi/hadoop/common/" target="_blank" rel="external">http://www.apache.org/dyn/closer.cgi/hadoop/common/</a> 选好镜像版本复制下载链接，在terminal中用<code>wget http://...（下载地址）</code></li>
 <li>（可选）移动hadoop到/opt目录下，并解压<code>tar -xzvf ...</code></li>
 <li><code>vi hadoop-env.sh</code>配置JAVA_HOME(echo $JAVA_HOME)</li>
-<li>到conf目录下<code>vi core-site.xml</code>添加下面配置信息</li>
-</ol>
+<li><p>到conf目录下<code>vi core-site.xml</code>添加下面配置信息</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></div><div class="line"> <span class="tag">&lt;<span class="name">name</span>&gt;</span>fs.default.name<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">value</span>&gt;</span>hdfs://localhost:9000<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>hadoop.tmp.dir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line"> <span class="tag">&lt;<span class="name">value</span>&gt;</span>/hadoop<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.name.dir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line"> <span class="tag">&lt;<span class="name">value</span>&gt;</span>/hadoop/name<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></div></pre></td></tr></table></figure>
-<ol>
+</li>
 <li><p>配置<code>vi hdfs-site.xml</code></p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.data.dir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line"> <span class="tag">&lt;<span class="name">value</span>&gt;</span>/hadoop/data<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></div></pre></td></tr></table></figure>
 </li>
@@ -511,19 +511,7 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">python</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">docker</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">hadoop</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -531,7 +519,27 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">docker</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">eclipseForJava</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">hadoop</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">php</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">java</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -555,11 +563,7 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">eclipseForJava</a>
+                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -567,19 +571,15 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">闯关游戏</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
             
             <div class="clearfix"></div>
