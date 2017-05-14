@@ -15,7 +15,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/05/13/hadoop入门/index.html">
 <meta property="og:site_name" content="Tellenw">
 <meta property="og:description" content="准备工作 linux环境 安装并配置好jdk(java) 安装并配置好hadoop">
-<meta property="og:updated_time" content="2017-05-13T11:05:07.259Z">
+<meta property="og:updated_time" content="2017-05-14T10:59:31.069Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="hadoop入门">
 <meta name="twitter:description" content="准备工作 linux环境 安装并配置好jdk(java) 安装并配置好hadoop">
@@ -240,13 +240,21 @@ var _hmt = _hmt || [];
 <blockquote>
 <p><code>source /etc/profile</code>使配置的环境变量生效</p>
 <ol>
-<li>输入<code>javac</code>测试是否生效</li>
+<li>输入<code>javac</code>测试是否生效<br>warn：如果是桌面版Ubuntu 16.04 LTS的话，不能按照上述方法。配置java环境变量的文件在~/.bashrc文件下，如果更改/etc/profile文件，将会覆盖掉很大一部分linux命令，sudo都不能用，生效配置用source</li>
 </ol>
 </blockquote>
 <p><strong>安装并配置好hadoop</strong></p>
 <ol>
 <li>下载hadoop <a href="http://www.apache.org/dyn/closer.cgi/hadoop/common/" target="_blank" rel="external">http://www.apache.org/dyn/closer.cgi/hadoop/common/</a> 选好镜像版本复制下载链接，在terminal中用<code>wget http://...（下载地址）</code></li>
 <li>（可选）移动hadoop到/opt目录下，并解压<code>tar -xzvf ...</code></li>
+</ol>
+<h2 id="三种运行方式"><a href="#三种运行方式" class="headerlink" title="三种运行方式"></a>三种运行方式</h2><p><strong>1.单机模式</strong><br>默认情况下，Hadoop 被配置成以非分布式模式运行的一个独立 Java 进程。这对调试非常有帮助。</p>
+<p>下面的实例将已解压的 conf 目录拷贝作为输入，查找并显示匹配给定正则表达式的条目。输出写入到指定的 output 目录。</p>
+<blockquote>
+<p>cp LICENSE.txt input #把license.txt复制到input文件夹&gt;当中<br>cd .. ＃回到上一级目录<br>hadoop jar hadoop-examples-1.2.1.jar wordcount input &gt;output #运行wordcount例子，结果放到output文件夹当中<br>cat output/* #结果呈现</p>
+</blockquote>
+<p><strong>2.伪分布式Hadoop安装</strong></p>
+<ol>
 <li><code>vi hadoop-env.sh</code>配置JAVA_HOME(echo $JAVA_HOME)</li>
 <li><p>到conf目录下<code>vi core-site.xml</code>添加下面配置信息</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></div><div class="line"> <span class="tag">&lt;<span class="name">name</span>&gt;</span>fs.default.name<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">value</span>&gt;</span>hdfs://localhost:9000<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>hadoop.tmp.dir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line"> <span class="tag">&lt;<span class="name">value</span>&gt;</span>/hadoop<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.name.dir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line"> <span class="tag">&lt;<span class="name">value</span>&gt;</span>/hadoop/name<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></div></pre></td></tr></table></figure>
@@ -264,7 +272,9 @@ var _hmt = _hmt || [];
 <li>最后格式化。。。<code>hadoop namenode -format</code></li>
 </ol>
 <p><em>准备工作完结,以后再添加说明</em><br>cd到bin目录，启动start-all.sh<br>用jps查看hadoop是否正常运行<br><code>hadoop fs -ls /</code>查看hadoop下有哪些文件</p>
+<p>未完。。。。</p>
 <hr>
+<p>（补充：打开ssh服务，<code>/etc/init.d/ssh start</code>开启ssh-server）</p>
 
       
 
@@ -511,11 +521,15 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">python</a>
+                <a href="javascript:void(0)" class="js-tag color2">docker</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -523,11 +537,7 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">eclipseForJava</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java</a>
+                <a href="javascript:void(0)" class="js-tag color1">links</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -535,15 +545,7 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">links</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">jsp</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Nginx</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -555,7 +557,15 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">docker</a>
+                <a href="javascript:void(0)" class="js-tag color5">java</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">eclipseForJava</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Nginx</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -563,11 +573,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
+                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
+                <a href="javascript:void(0)" class="js-tag color1">spring mvc</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -575,7 +585,7 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">spring mvc</a>
+                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
               </li>
              
               <li class="article-tag-list-item">
