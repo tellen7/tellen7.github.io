@@ -6,22 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Ubuntu安装docker | Tellenw</title>
+  <title>正确使用谷歌 | Tellenw</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="简要步骤step 1 wget -qO- https://get.docker.com/ | sh">
-<meta name="keywords" content="docker">
+  <meta name="description" content="搜索中的hack我们平时使用搜索引擎，最简单直接的就是输入想要查找的内容，然后点击搜索。但是这种搜索效率不高！不能准确定位要查找的内容。下面将介绍搜索中的hack方法。 intext:这个就是把网页中的正文内容中的某个字符做为搜索条件.例如在google里输入:intext:动网.将返回所有在网页正文部分包含”动网”的网页. allintext:使用方法和intext类似. intitle:和上面">
+<meta name="keywords" content="搜索 技巧">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Ubuntu安装docker">
-<meta property="og:url" content="http://yoursite.com/2017/04/27/Ubuntu安装docker/index.html">
+<meta property="og:title" content="正确使用谷歌">
+<meta property="og:url" content="http://yoursite.com/2017/05/21/正确使用谷歌/index.html">
 <meta property="og:site_name" content="Tellenw">
-<meta property="og:description" content="简要步骤step 1 wget -qO- https://get.docker.com/ | sh">
-<meta property="og:image" content="http://i.imgur.com/QZJOEoy.png">
-<meta property="og:image" content="http://i.imgur.com/tlytmqo.png">
-<meta property="og:updated_time" content="2017-05-07T15:58:28.704Z">
+<meta property="og:description" content="搜索中的hack我们平时使用搜索引擎，最简单直接的就是输入想要查找的内容，然后点击搜索。但是这种搜索效率不高！不能准确定位要查找的内容。下面将介绍搜索中的hack方法。 intext:这个就是把网页中的正文内容中的某个字符做为搜索条件.例如在google里输入:intext:动网.将返回所有在网页正文部分包含”动网”的网页. allintext:使用方法和intext类似. intitle:和上面">
+<meta property="og:updated_time" content="2017-05-20T16:39:14.482Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Ubuntu安装docker">
-<meta name="twitter:description" content="简要步骤step 1 wget -qO- https://get.docker.com/ | sh">
-<meta name="twitter:image" content="http://i.imgur.com/QZJOEoy.png">
+<meta name="twitter:title" content="正确使用谷歌">
+<meta name="twitter:description" content="搜索中的hack我们平时使用搜索引擎，最简单直接的就是输入想要查找的内容，然后点击搜索。但是这种搜索效率不高！不能准确定位要查找的内容。下面将介绍搜索中的hack方法。 intext:这个就是把网页中的正文内容中的某个字符做为搜索条件.例如在google里输入:intext:动网.将返回所有在网页正文部分包含”动网”的网页. allintext:使用方法和intext类似. intitle:和上面">
   
     <link rel="alternative" href="/atom.xml" title="Tellenw" type="application/atom+xml">
   
@@ -203,99 +200,50 @@ var _hmt = _hmt || [];
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Ubuntu安装docker" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-正确使用谷歌" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Ubuntu安装docker
+      正确使用谷歌
     </h1>
   
 
         
-        <a href="/2017/04/27/Ubuntu安装docker/" class="archive-article-date">
-  	<time datetime="2017-04-27T10:51:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-27</time>
+        <a href="/2017/05/21/正确使用谷歌/" class="archive-article-date">
+  	<time datetime="2017-05-20T16:27:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-21</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="简要步骤"><a href="#简要步骤" class="headerlink" title="简要步骤"></a>简要步骤</h3><p><strong>step 1</strong></p>
-<pre><code>wget -qO- https://get.docker.com/ | sh
-</code></pre><a id="more"></a>
-<p>结果如下<br><img src="http://i.imgur.com/QZJOEoy.png" alt=""></p>
-<p><em>note</em></p>
-<ol>
-<li>我个人在ubuntu虚拟机中实验，32位的安装docker时，执行该命令有问题。什么i836的。64为的没有问题。</li>
-<li>在结果图中，更改docker运行用户的问题，不改的话，如果执行<code>docker run hello-world</code>时会有问题</li>
-</ol>
-<blockquote>
-<p>docker: Cannot connect to the Docker daemon. Is …</p>
-</blockquote>
-<p>报了docker守护线程没有开启，用<code>ps -ef</code>看了下是开启的。其实是用<code>sudo docker run</code>命令才对，不过还是有点问题。</p>
-<p><strong>step 2</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo usermod -aG docker (yourUsername)</div></pre></td></tr></table></figure></p>
-<p><strong>step 3</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">wyh@ubuntu:~$ sudo service docker start</div><div class="line">wyh@ubuntu:~$ sudo docker run hello-world</div></pre></td></tr></table></figure></p>
-<p>运行结果：<br><img src="http://i.imgur.com/tlytmqo.png" alt=""></p>
-<p>最后附上关闭docker服务的命令<br><code>sudo service docker stop</code></p>
-<p>================================================<br>更新，下面是一些实践</p>
-<ul>
-<li><p>安装ubuntu镜像（images）</p>
-<p>  sudo docker run ubuntu</p>
-</li>
-</ul>
-<p>说明：初次运行会检查本地是否有ubuntu镜像的虚拟机，如果没有将会从镜像库docker hub上下载公共镜像。<code>sudo docker run ubuntu echo &quot;hello world&quot;</code>该命令会在ubuntu虚拟机中执行echo命令并输出hello world。<br><em>note</em><br>运行交互式容器<code>sudo docker run -it ubuntu</code></p>
-<ul>
-<li>-t:在新容器内指定一个伪终端或终端。</li>
-<li>-i:允许你对容器内的标准输入 (STDIN) 进行交互。<br>进入交互式容器，说明你已经在容器内了，可以像使用ubuntu一样使用命令行。<br>退出交互式容器<code>ctrl+D</code></li>
-</ul>
-<p><strong>启动容器（后台模式）</strong></p>
-<p>使用以下命令创建一个以进程方式运行的容器</p>
-<pre><code>sudo docker run -d ubuntu:15.10 /bin/sh -c &quot;while true; do echo hello world; sleep 1; done&quot;
-</code></pre><blockquote>
-<p>在输出中，我们没有看到期望的”hello world”，而是一串长字符</p>
-<p>cf69880d847fb97e6eb8b5b2e513a9123a0b3e3d3fbdd4503b8ab14df1236923</p>
-<p>这个长字符串叫做容器ID，对每个容器来说都是唯一的，我们可以通过容器ID来查看对应的容器发生了什么。</p>
-</blockquote>
-<p>首先，我们需要确认容器有在运行，可以通过 <code>sudo docker ps</code> 来查看。结果如下：</p>
-<pre><code>wyh@ubuntu:~$ sudo docker ps
-CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS               NAMES
-cf69880d847f        ubuntu              &quot;/bin/sh -c &apos;while...&quot;   7 seconds ago       Up 7 seconds                            tender_stonebraker
-</code></pre><p>查看容器内的标准输出<code>wyh@ubuntu:~$ sudo docker logs cf69880d847fb97e6e</code></p>
-<p>停止容器<code>sudo docker stop cf69880d847f</code></p>
-<p>为了验证容器是否停止，查看容器镜像运行进程<code>sudo docker ps</code></p>
-<p><strong>查看docker的命令</strong><code>sudo docker</code></p>
-<p><strong>查看某个命令的帮助</strong><code>docker command --help</code></p>
-<h2 id="运行一个web应用"><a href="#运行一个web应用" class="headerlink" title="运行一个web应用"></a>运行一个web应用</h2><p>尝试使用 docker 构建一个 web 应用程序。</p>
-<p>在docker容器中运行一个 Python Flask 应用来运行一个web应用。</p>
-<pre><code>sudo docker run -d -P training/webapp python app.py
-</code></pre><p><em>参数说明:</em></p>
-<ul>
-<li>-d:让容器在后台运行。</li>
-<li>-P:将容器内部使用的网络端口映射到我们使用的主机上。</li>
-</ul>
-<p>运行<code>sudo docker ps</code></p>
-<pre><code>CONTAINER ID        IMAGE               COMMAND             CREATED              STATUS              PORTS                     NAMES
-8d1cb9c07119        training/webapp     &quot;python app.py&quot;     About a minute ago   Up About a minute   0.0.0.0:32768-&gt;5000/tcp   confident_rosalind
-</code></pre><p>接下来再本机浏览器中输入<code>http://127.0.0.1:32768/</code>即可查看到内容，127.0.0.1也可以换成docker的ip，试过了，一样！</p>
-<p>指定端口<code>sudo docker run -d -p 5000:5000 training/webapp python app.py</code></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">wyh@ubuntu:~$ sudo docker port flamboyant_neumann 查看某容器的端口</div><div class="line">5000/tcp -&gt; 0.0.0.0:5000</div><div class="line">wyh@ubuntu:~$ sudo docker logs <span class="_">-f</span> 202 查看容器内部的标准输出（<span class="_">-f</span>:让 dokcer logs 像使用 tail <span class="_">-f</span> 一样来输出容器内部的标准输出。）</div><div class="line"> * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)</div><div class="line">172.17.0.1 - - [27/Apr/2017 12:24:16] <span class="string">"GET / HTTP/1.1"</span> 200 -</div><div class="line">172.17.0.1 - - [27/Apr/2017 12:24:16] <span class="string">"GET /favicon.ico HTTP/1.1"</span> 404 -</div><div class="line">172.17.0.1 - - [27/Apr/2017 12:24:16] <span class="string">"GET /favicon.ico HTTP/1.1"</span> 404 -</div><div class="line">^Z</div><div class="line">[7]+  已停止               sudo docker logs <span class="_">-f</span> 202</div><div class="line">wyh@ubuntu:~$ sudo docker top 202 查看容器内进程</div><div class="line">UID                 PID                 PPID                C                   STIME               TTY                 TIME                CMD</div><div class="line">root                15167               15149               0                   20:22               ?                   00:00:00            python app.py</div><div class="line">wyh@ubuntu:~$ sudo docker inspect 202  它会返回一个 JSON 文件记录着 Docker 容器的配置和状态信息。</div><div class="line"></div><div class="line">runoob@runoob:~$ docker inspect determined_swanson</div><div class="line">[</div><div class="line">    &#123;</div><div class="line">        <span class="string">"Id"</span>: <span class="string">"7a38a1ad55c6914b360b565819604733db751d86afd2575236a70a2519527361"</span>,</div><div class="line">        <span class="string">"Created"</span>: <span class="string">"2016-05-09T16:20:45.427996598Z"</span>,</div><div class="line">        <span class="string">"Path"</span>: <span class="string">"python"</span>,</div><div class="line">        <span class="string">"Args"</span>: [</div><div class="line">            <span class="string">"app.py"</span></div><div class="line">        ],</div><div class="line">	...</div><div class="line"></div><div class="line">wyh@ubuntu:~$ sudo docker ps <span class="_">-l</span> 查看最后一次启动的容器</div><div class="line">CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS                        PORTS               NAMES</div><div class="line">202def58eb83        training/webapp     <span class="string">"python app.py"</span>     10 minutes ago      Exited (137) 22 seconds ago                       flamboyant_neumann</div><div class="line">wyh@ubuntu:~$ sudo docker restart 202  重启（最后一次启动的）容器</div><div class="line">wyh@ubuntu:~$ sudo docker stop 202</div><div class="line">202 停止容器</div><div class="line">wyh@ubuntu:~$ sudo docker rm 202</div><div class="line">202 移除容器</div><div class="line">wyh@ubuntu:~$ sudo docker restart 202 查看是否成功移除</div><div class="line">Error response from daemon: No such container: 202</div></pre></td></tr></table></figure>
-<p>=============================5月7号晚上更新</p>
-<h2 id="自定义docker镜像"><a href="#自定义docker镜像" class="headerlink" title="自定义docker镜像"></a>自定义docker镜像</h2><ol>
-<li>创建Dockerfile文件</li>
-<li>编写如下内容<blockquote>
-<p>from hub.c.163.com/library/tomcat #拓展自哪个镜像 </p>
-<p>MAINTAINER laowang 643710049@qq.com #用户名。邮箱</p>
-<p>COPY jpress.war /usr/local/tomcat/webapps/ #copy本地文件到镜像目标文件夹</p>
-</blockquote>
-</li>
-<li><code>docker build -t jpress:latest .</code><br><strong>提示如下</strong></li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"> Sending build context to Docker daemon   20.8MB</div><div class="line">Step 1/3 : FROM hub.c.163.com/library/tomcat</div><div class="line"> ---&gt; 1f6eab5f63d3</div><div class="line">Step 2/3 : MAINTAINER laowang 643710049@qq.com</div><div class="line"> ---&gt; Running in becafadad4b1</div><div class="line"> ---&gt; 6639dfe8255f</div><div class="line">Removing intermediate container becafadad4b1</div><div class="line">Step 3/3 : COPY jpress.war /usr/local/tomcat/webapps/</div><div class="line"> ---&gt; af1cb028eaa0</div><div class="line">Removing intermediate container 88c6cbcb6a6b</div><div class="line">Successfully built af1cb028eaa0</div></pre></td></tr></table></figure>
-<p>成功了</p>
-<p><a href="http://www.runoob.com/docker/docker-command-manual.html" target="_blank" rel="external">docker命令大全</a>外链</p>
+        <h2 id="搜索中的hack"><a href="#搜索中的hack" class="headerlink" title="搜索中的hack"></a>搜索中的hack</h2><p>我们平时使用搜索引擎，最简单直接的就是输入想要查找的内容，然后点击搜索。但是这种搜索效率不高！不能准确定位要查找的内容。下面将介绍<strong>搜索中的hack方法</strong>。</p>
+<p><strong>intext:</strong><br>这个就是把网页中的正文内容中的某个字符做为搜索条件.例如在google里输入:intext:动网.将返回所有在网页正文部分包含”动网”的网页.</p>
+<p><strong>allintext:</strong>使用方法和intext类似.</p>
+<p><strong>intitle:</strong><br>和上面那个intext差不多,搜索网页标题中是否有我们所要找的字符.例如搜索:intitle:安全天使.将返回所有网页标题中包含”安全天使”的网页.同理</p>
+<p><strong>allintitle:</strong>也同intitle类似.</p>
+<p><strong>cache:</strong><br>搜索google里关于某些内容的缓存,有时候也许能找到一些好东西哦.</p>
+<p><strong>define:</strong><br>搜索某个词语的定义,搜索:define:hacker,将返回关于hacker的定义.</p>
+<p><strong>filetype:</strong><br>这个我要重点推荐一下,无论是撒网式攻击还是我们后面要说的对特定目标进行信息收集都需要用到这个.搜索指定类型的文件.例如输入:filetype:doc.将返回所有以doc结尾的文件URL.当然如果你找.bak、.mdb或.inc也是可以的,获得的信息也许会更丰富<br>inf<br>查找指定站点的一些基本信息.</p>
+<p><strong>inurl:</strong><br>搜索我们指定的字符是否存在于URL中.例如输入:inurl:admin,将返回N个类似于这样的连接<a href="http://www.claepo.com/xxx/admin,用来找管理员登陆的URL不错" target="_blank" rel="external">http://www.claepo.com/xxx/admin,用来找管理员登陆的URL不错</a>.</p>
+<p><strong>allinurl</strong>也同inurl类似,可指定多个字符.</p>
+<p><strong>link:</strong><br>例如搜索:inurl:www.4ngel.net可以返回所有和www.claepo.com做了链接的URL.</p>
+<p><strong>site:</strong><br>这个也很有用,例如:site:claepo.com 将返回所有和claepo.com这个站有关的URL.</p>
+<hr>
+<p><strong><em>下面是附加</em></strong></p>
+<p>找管理后台地址：<br>site:xxx.com intext:管理|后台|登陆|用户名|密码|验证码|系统|帐号<br>site:xxx.com </p>
+<p>inurl:login/admin/manage/manager/admin_login/login_admin/system/boss/master<br>site:xxx.com intitle:管理|后台|登陆|</p>
+<p>找上传一类的漏洞：<br>site:xxx.com inurl:file<br>site:xxx.com inurl:load</p>
+<p>找注入点页面：<br>site:xxx.com inurl:php?id=</p>
+<p>找编辑器页面：<br>site:xxxx.com inurl:fck<br>site:xxx.com </p>
+<p>inurl:ewebeditor</p>
+<p>找重要文件：<br>site:xxx.com inurl:robots.txt<br>site:xxx.com filetype:mdb<br>site:xxx.com filetype:ini<br>site:xxx.com inurl:txt</p>
+<p>site:xxx.com filetype:php<br>site:xxx.com filetype:asp</p>
+<p>注意：不要带上www，因为这样可以搜索到二级域名哦！搜索的文件名只是抛砖引玉，想出更多的文件名来发挥到极致！</p>
+<p><em>最后PS</em><br>可以在搜索引擎的搜索栏中右击修改搜索引擎。</p>
 
       
 
@@ -340,7 +288,7 @@ cf69880d847f        ubuntu              &quot;/bin/sh -c &apos;while...&quot;   
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">docker</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">搜索 技巧</a>
         		</li>
       		
 		</ul>
@@ -396,7 +344,7 @@ cf69880d847f        ubuntu              &quot;/bin/sh -c &apos;while...&quot;   
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2017/04/27/Ubuntu安装docker/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2017/05/21/正确使用谷歌/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -410,20 +358,15 @@ cf69880d847f        ubuntu              &quot;/bin/sh -c &apos;while...&quot;   
   
 <nav id="article-nav">
   
-    <a href="/2017/04/25/Ubuntu16-04-install-LAMP/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/05/13/hadoop入门/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          Ubuntu16.04 install LAMP
+          hadoop入门
         
       </div>
     </a>
   
-  
-    <a href="/2017/04/30/spring-MVC两个应用上下文的故事/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">spring MVC两个应用上下文的故事</div>
-      <i class="icon-circle-right"></i>
-    </a>
   
 </nav>
 
@@ -435,7 +378,7 @@ cf69880d847f        ubuntu              &quot;/bin/sh -c &apos;while...&quot;   
   
   <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="Ubuntu安装docker" data-title="Ubuntu安装docker" data-url="http://yoursite.com/2017/04/27/Ubuntu安装docker/"></div>
+	<div class="ds-thread" data-thread-key="正确使用谷歌" data-title="正确使用谷歌" data-url="http://yoursite.com/2017/05/21/正确使用谷歌/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
