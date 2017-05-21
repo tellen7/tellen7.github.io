@@ -6,21 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>tomcatstartup | Tellenw</title>
+  <title>Spring MVC拦截器学习 | Tellenw</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="启动tomcat报错Error deploying configuration descriptor 导致原因 servlet创建时有 @WebServlet(“/UploadFile”) 这个注解导致报错 报错图片">
-<meta name="keywords" content="tomcat">
+  <meta name="description" content="学习spring mvc拦截器浅析1.简介  spring mvc中的拦截器和原声java web中的filter差不多，起到过滤、拦截的作用。其主要做用有：  日志记录：记录请求信息的日志，以便进行信息监控、信息统计、计算PV（Page View）等。 权限检查：如登录检测，进入处理器检测检测是否登录，如果没有直接返回到登录页面； 性能监控：有时候系统在某段时间莫名其妙的慢，可以通过拦截器在进入">
+<meta name="keywords" content="springmvc">
 <meta property="og:type" content="article">
-<meta property="og:title" content="tomcatstartup">
-<meta property="og:url" content="http://yoursite.com/2016/11/28/tomcatstartup/index.html">
+<meta property="og:title" content="Spring MVC拦截器学习">
+<meta property="og:url" content="http://yoursite.com/2017/05/21/MVC拦截器学习/index.html">
 <meta property="og:site_name" content="Tellenw">
-<meta property="og:description" content="启动tomcat报错Error deploying configuration descriptor 导致原因 servlet创建时有 @WebServlet(“/UploadFile”) 这个注解导致报错 报错图片">
-<meta property="og:image" content="http://i.imgur.com/x24hwxC.png">
-<meta property="og:updated_time" content="2016-11-28T15:09:48.292Z">
+<meta property="og:description" content="学习spring mvc拦截器浅析1.简介  spring mvc中的拦截器和原声java web中的filter差不多，起到过滤、拦截的作用。其主要做用有：  日志记录：记录请求信息的日志，以便进行信息监控、信息统计、计算PV（Page View）等。 权限检查：如登录检测，进入处理器检测检测是否登录，如果没有直接返回到登录页面； 性能监控：有时候系统在某段时间莫名其妙的慢，可以通过拦截器在进入">
+<meta property="og:image" content="http://onhavnxj2.bkt.clouddn.com/sringmvc%E6%8B%A6%E6%88%AA%E5%99%A8.png">
+<meta property="og:updated_time" content="2017-05-21T11:59:26.793Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="tomcatstartup">
-<meta name="twitter:description" content="启动tomcat报错Error deploying configuration descriptor 导致原因 servlet创建时有 @WebServlet(“/UploadFile”) 这个注解导致报错 报错图片">
-<meta name="twitter:image" content="http://i.imgur.com/x24hwxC.png">
+<meta name="twitter:title" content="Spring MVC拦截器学习">
+<meta name="twitter:description" content="学习spring mvc拦截器浅析1.简介  spring mvc中的拦截器和原声java web中的filter差不多，起到过滤、拦截的作用。其主要做用有：  日志记录：记录请求信息的日志，以便进行信息监控、信息统计、计算PV（Page View）等。 权限检查：如登录检测，进入处理器检测检测是否登录，如果没有直接返回到登录页面； 性能监控：有时候系统在某段时间莫名其妙的慢，可以通过拦截器在进入">
+<meta name="twitter:image" content="http://onhavnxj2.bkt.clouddn.com/sringmvc%E6%8B%A6%E6%88%AA%E5%99%A8.png">
   
     <link rel="alternative" href="/atom.xml" title="Tellenw" type="application/atom+xml">
   
@@ -202,29 +202,53 @@ var _hmt = _hmt || [];
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-tomcatstartup" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="spring-MVC拦截器学习" class="article article-type-spring " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      tomcatstartup
+      Spring MVC拦截器学习
     </h1>
   
 
         
-        <a href="/2016/11/28/tomcatstartup/" class="archive-article-date">
-  	<time datetime="2016-11-28T14:58:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-11-28</time>
+        <a href="/2017/05/21/MVC拦截器学习/" class="archive-article-date">
+  	<time datetime="2017-05-21T11:02:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-21</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="启动tomcat报错"><a href="#启动tomcat报错" class="headerlink" title="启动tomcat报错"></a>启动tomcat报错</h1><h3 id="Error-deploying-configuration-descriptor"><a href="#Error-deploying-configuration-descriptor" class="headerlink" title="Error deploying configuration descriptor"></a>Error deploying configuration descriptor</h3><h3 id="导致原因"><a href="#导致原因" class="headerlink" title=" 导致原因 "></a><em> 导致原因 </em></h3><p>servlet创建时有 @WebServlet(“/UploadFile”) 这个注解导致报错</p>
-<p><em>报错图片</em><br><a id="more"></a></p>
-<p><img src="http://i.imgur.com/x24hwxC.png" alt="悲哀的方便"></p>
+        <h2 id="学习spring-mvc拦截器浅析"><a href="#学习spring-mvc拦截器浅析" class="headerlink" title="学习spring mvc拦截器浅析"></a>学习spring mvc拦截器浅析</h2><p>1.简介<br>  spring mvc中的拦截器和原声java web中的filter差不多，起到过滤、拦截的作用。其主要做用有：</p>
+<ul>
+<li>日志记录：记录请求信息的日志，以便进行信息监控、信息统计、计算PV（Page View）等。</li>
+<li>权限检查：如登录检测，进入处理器检测检测是否登录，如果没有直接返回到登录页面；</li>
+<li>性能监控：有时候系统在某段时间莫名其妙的慢，可以通过拦截器在进入处理器之前记录开始时间，在处理完后记录结束时间，从而得到该请求的处理时间（如果有反向代理，如apache可以自动记录）；</li>
+<li>通用行为：读取cookie得到用户信息并将用户对象放入请求，从而方便后续流程使用，还有如提取Locale、Theme信息等，只要是多个处理器都需要的即可使用拦截器实现。</li>
+<li>OpenSessionInView：如Hibernate，在进入处理器打开Session，在完成后关闭Session。<blockquote>
+<p>本质也是AOP（面向切面编程），也就是说符合横切关注点的所有功能都可以放入拦截器实现。</p>
+<a id="more"></a>
+<p>2.实现方法</p>
+</blockquote>
+</li>
+</ul>
+<ol>
+<li>编写拦截器，实现HandlerIntercepter接口,实现抽象方法。</li>
+<li>将拦截器注册到spring MVC框架中<br>接口源码<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">package</span> org.springframework.web.servlet;  </div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">HandlerInterceptor</span> </span>&#123; </div><div class="line"></div><div class="line">	<span class="comment">//预处理回调方法，实现处理器的预处理（如登录检查），第三个参数为响应的处理器</span></div><div class="line">	<span class="comment">//返回值：true表示继续流程（如调用下一个拦截器或处理器）</span></div><div class="line">    <span class="comment">//false表示流程中断（如登录检查失败），不会继续调用其他的拦截器或处理器，此时我们需要通过response来产生响应； </span></div><div class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">preHandle</span><span class="params">(  </span></span></div><div class="line">            HttpServletRequest request, HttpServletResponse response,   </div><div class="line">            Object handler)   </div><div class="line">            <span class="keyword">throws</span> Exception;  </div><div class="line"></div><div class="line">  	<span class="comment">//后处理回调方法，实现处理器的后处理（但在渲染视图之前），此时我们可以通过modelAndView（模型和视图对象）对模型数据进行处理或对视图进行处理，modelAndView也可能为null。</span></div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">postHandle</span><span class="params">(  </span></span></div><div class="line">            HttpServletRequest request, HttpServletResponse response,   </div><div class="line">            Object handler, ModelAndView modelAndView)   </div><div class="line">            <span class="keyword">throws</span> Exception;  </div><div class="line">  </div><div class="line">	<span class="comment">//整个请求处理完毕回调方法，即在视图渲染完毕时回调，如性能监控中我们可以在此记录结束时间并输出消耗时间，还可以进行一些资源清理，类似于try-catch-finally中的finally，但仅调用处理器执行链中preHandle返回true的拦截器的afterCompletion。</span></div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">afterCompletion</span><span class="params">(  </span></span></div><div class="line">            HttpServletRequest request, HttpServletResponse response,   </div><div class="line">            Object handler, Exception ex)  </div><div class="line">            <span class="keyword">throws</span> Exception;  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>盗图一张<br><img src="http://onhavnxj2.bkt.clouddn.com/sringmvc%E6%8B%A6%E6%88%AA%E5%99%A8.png" alt=""><br>源码级流程解析，引用自开涛</p>
+<blockquote>
+<p>来看一下DispatcherServlet内部到底是如何工作的吧：<br>   //doDispatch方法<br>    //1、处理器拦截器的预处理（正序执行）<br>    HandlerInterceptor[] interceptors = mappedHandler.getInterceptors();<br>    if (interceptors != null) {<br>        for (int i = 0; i &lt; interceptors.length; i++) {<br>        HandlerInterceptor interceptor = interceptors[i];<br>            if (!interceptor.preHandle(processedRequest, response, mappedHandler.getHandler())) {<br>                //1.1、失败时触发afterCompletion的调用<br>                triggerAfterCompletion(mappedHandler, interceptorIndex, processedRequest, response, null);<br>                return;<br>            }<br>            interceptorIndex = i;//1.2、记录当前预处理成功的索引<br>    }<br>    }<br>    //2、处理器适配器调用我们的处理器<br>    mv = ha.handle(processedRequest, response, mappedHandler.getHandler());<br>    //当我们返回null或没有返回逻辑视图名时的默认视图名翻译（详解4.15.5 RequestToViewNameTranslator）<br>    if (mv != null &amp;&amp; !mv.hasView()) {<br>        mv.setViewName(getDefaultViewName(request));<br>    }<br>    //3、处理器拦截器的后处理（逆序）<br>    if (interceptors != null) {<br>    for (int i = interceptors.length - 1; i &gt;= 0; i–) {<br>          HandlerInterceptor interceptor = interceptors[i];<br>          interceptor.postHandle(processedRequest, response, mappedHandler.getHandler(), mv);<br>    }<br>    }<br>    //4、视图的渲染<br>    if (mv != null &amp;&amp; !mv.wasCleared()) {<br>    render(mv, processedRequest, response);<br>        if (errorView) {<br>            WebUtils.clearErrorRequestAttributes(request);<br>    }<br>    //5、触发整个请求处理完毕回调方法afterCompletion<br>    triggerAfterCompletion(mappedHandler, interceptorIndex, processedRequest, response, null);<br>注：代码片段<br>   // triggerAfterCompletion方法<br>    private void triggerAfterCompletion(HandlerExecutionChain mappedHandler, int interceptorIndex,<br>            HttpServletRequest request, HttpServletResponse response, Exception ex) throws Exception {<br>        // 5、触发整个请求处理完毕回调方法afterCompletion （逆序从1.2中的预处理成功的索引处的拦截器执行）<br>        if (mappedHandler != null) {<br>            HandlerInterceptor[] interceptors = mappedHandler.getInterceptors();<br>            if (interceptors != null) {<br>                for (int i = interceptorIndex; i &gt;= 0; i–) {<br>                    HandlerInterceptor interceptor = interceptors[i];<br>                    try {<br>                        interceptor.afterCompletion(request, response, mappedHandler.getHandler(), ex);<br>                    }<br>                    catch (Throwable ex2) {<br>                        logger.error(“HandlerInterceptor.afterCompletion threw exception”, ex2);<br>                    }<br>                }<br>            }<br>        }<br>    } </p>
+</blockquote>
+<p>正式实现：<br>1.实现HandlerIntercepter接口并且实现抽象方法<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">package</span> com.laowang.mainInterceter;</div><div class="line"></div><div class="line"><span class="keyword">import</span> org.springframework.web.servlet.HandlerInterceptor;</div><div class="line"><span class="keyword">import</span> org.springframework.web.servlet.ModelAndView;</div><div class="line"></div><div class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</div><div class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</div><div class="line"><span class="keyword">import</span> java.util.Map;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by tellenw on 17-5-21.</div><div class="line"> * 这是一个spring 拦截器</div><div class="line"> * 1. 编写拦截器，实现HandlerIntercepter接口,实现抽象方法。</div><div class="line"> * 2. 将拦截器注册到spring MVC框架中</div><div class="line"> * 3.</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FirstIntercepter</span> <span class="keyword">implements</span> <span class="title">HandlerInterceptor</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     *</div><div class="line">     * <span class="doctag">@param</span> httpServletRequest</div><div class="line">     * <span class="doctag">@param</span> httpServletResponse</div><div class="line">     * <span class="doctag">@param</span> o                     :表示被拦截的请求的目标对象</div><div class="line">     * <span class="doctag">@return</span></div><div class="line">     * <span class="doctag">@throws</span> Exception</div><div class="line">     */</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">preHandle</span><span class="params">(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">        System.out.println(<span class="string">"this is in preHandle..."</span>);</div><div class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;<span class="comment">//返回值表示是否将当前请求拦截下来，true：请求继续;false：请求将被拦截，请求不会到达控制器。</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     *</div><div class="line">     * <span class="doctag">@param</span> httpServletRequest</div><div class="line">     * <span class="doctag">@param</span> httpServletResponse</div><div class="line">     * <span class="doctag">@param</span> o</div><div class="line">     * <span class="doctag">@param</span> modelAndView          :可以通过modelAndView参数修改显示的视图，或者修改发往视图的方法</div><div class="line">     * <span class="doctag">@throws</span> Exception</div><div class="line">     */</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">postHandle</span><span class="params">(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, ModelAndView modelAndView)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">        System.out.println(<span class="string">"this is in postHandle..."</span>);</div><div class="line">        <span class="comment">//下面将通过modelAndView参数对返回数据进行修改</span></div><div class="line">        Map&lt;String,Object&gt; model = modelAndView.getModel();</div><div class="line">        <span class="keyword">if</span>(model.containsKey(<span class="string">"msg"</span>))&#123;</div><div class="line">            String msg = (String) model.get(<span class="string">"msg"</span>);</div><div class="line">            modelAndView.addObject(<span class="string">"msg"</span>,msg+<span class="string">"-&gt;这条消息被拦截到了！"</span>);</div><div class="line">        &#125;</div><div class="line">        <span class="comment">//也可以通过modelAndView对返回的视图名修改</span></div><div class="line">        <span class="comment">//modelAndView.setViewName();</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">afterCompletion</span><span class="params">(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, Exception e)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">        System.out.println(<span class="string">"this is in afterCompletion..."</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>2.在springmvc容器中注册拦截器<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!--用与拦截所有请求--&gt;</span></div><div class="line">    <span class="comment">&lt;!--&lt;mvc:interceptors&gt;--&gt;</span></div><div class="line">        <span class="comment">&lt;!--&lt;bean class="com.laowang.mainInterceter.FirstIntercepter"/&gt;--&gt;</span></div><div class="line">    <span class="comment">&lt;!--&lt;/mvc:interceptors&gt;--&gt;</span></div><div class="line">    <span class="comment">&lt;!--拦截指定请求,/check.form的请求--&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">mvc:interceptors</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">mvc:interceptor</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">mvc:mapping</span> <span class="attr">path</span>=<span class="string">"/check.form"</span>/&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">"com.laowang.mainInterceter.FirstIntercepter"</span>/&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">mvc:interceptor</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">mvc:interceptors</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>下面展示相关代码<br>响应的处理器<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@RequestMapping</span>(value = <span class="string">"check.form"</span>, method = RequestMethod.POST)</div><div class="line"><span class="function"><span class="keyword">public</span> ModelAndView <span class="title">checkForm</span><span class="params">(String name,String password)</span></span>&#123;</div><div class="line">    ModelAndView modelAndView = <span class="keyword">new</span> ModelAndView();</div><div class="line"></div><div class="line">    System.out.println(<span class="string">"in check form method ..."</span>);</div><div class="line">    System.out.println(<span class="string">"name: "</span>+name);</div><div class="line">    System.out.println(<span class="string">"password: "</span>+password);</div><div class="line"></div><div class="line">    <span class="comment">//if("tellenw".equals(name) &amp;&amp; "admin123".equals(password))&#123;</span></div><div class="line">    <span class="keyword">if</span>(<span class="string">"admin"</span>.equals(password))&#123;</div><div class="line">        modelAndView.setViewName(<span class="string">"index"</span>);</div><div class="line">        modelAndView.addObject(<span class="string">"msg"</span>,name);</div><div class="line">    &#125;<span class="keyword">else</span>&#123;</div><div class="line">        modelAndView.setViewName(<span class="string">"login"</span>);</div><div class="line">        modelAndView.addObject(<span class="string">"msg"</span>,<span class="string">"登录信息有误！请重新登录！"</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> modelAndView;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>相关的视图<br>成功<code>&lt;h1 align=&quot;center&quot;&gt;welcome ${msg}&lt;/h1&gt;</code><br>不成功<code>&lt;h3 style=&quot;color: crimson&quot;&gt;${msg}&lt;/h3&gt;</code></p>
+<p>最后把很好的<a href="http://jinnianshilongnian.iteye.com/blog/1670856" title="涛哥的MVC" target="_blank" rel="external">教程</a>收藏</p>
 
       
 
@@ -269,7 +293,7 @@ var _hmt = _hmt || [];
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">tomcat</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">springmvc</a>
         		</li>
       		
 		</ul>
@@ -325,7 +349,7 @@ var _hmt = _hmt || [];
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2016/11/28/tomcatstartup/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2017/05/21/MVC拦截器学习/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -339,20 +363,15 @@ var _hmt = _hmt || [];
   
 <nav id="article-nav">
   
-    <a href="/2016/10/02/tomcatinstall/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/05/21/安卓权限大全/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          tomcatinstall
+          android权限大全
         
       </div>
     </a>
   
-  
-    <a href="/2016/12/12/jsp传递bean到servlet为null/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">jsp传递bean到servlet为null</div>
-      <i class="icon-circle-right"></i>
-    </a>
   
 </nav>
 
@@ -364,7 +383,7 @@ var _hmt = _hmt || [];
   
   <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="tomcatstartup" data-title="tomcatstartup" data-url="http://yoursite.com/2016/11/28/tomcatstartup/"></div>
+	<div class="ds-thread" data-thread-key="MVC拦截器学习" data-title="Spring MVC拦截器学习" data-url="http://yoursite.com/2017/05/21/MVC拦截器学习/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
