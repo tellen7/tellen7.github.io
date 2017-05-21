@@ -9,14 +9,14 @@
   <title>Spring MVC拦截器学习 | Tellenw</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="学习spring mvc拦截器浅析1.简介  spring mvc中的拦截器和原声java web中的filter差不多，起到过滤、拦截的作用。其主要做用有：  日志记录：记录请求信息的日志，以便进行信息监控、信息统计、计算PV（Page View）等。 权限检查：如登录检测，进入处理器检测检测是否登录，如果没有直接返回到登录页面； 性能监控：有时候系统在某段时间莫名其妙的慢，可以通过拦截器在进入">
-<meta name="keywords" content="springmvc">
+<meta name="keywords" content="spring mvc">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Spring MVC拦截器学习">
 <meta property="og:url" content="http://yoursite.com/2017/05/21/MVC拦截器学习/index.html">
 <meta property="og:site_name" content="Tellenw">
 <meta property="og:description" content="学习spring mvc拦截器浅析1.简介  spring mvc中的拦截器和原声java web中的filter差不多，起到过滤、拦截的作用。其主要做用有：  日志记录：记录请求信息的日志，以便进行信息监控、信息统计、计算PV（Page View）等。 权限检查：如登录检测，进入处理器检测检测是否登录，如果没有直接返回到登录页面； 性能监控：有时候系统在某段时间莫名其妙的慢，可以通过拦截器在进入">
 <meta property="og:image" content="http://onhavnxj2.bkt.clouddn.com/sringmvc%E6%8B%A6%E6%88%AA%E5%99%A8.png">
-<meta property="og:updated_time" content="2017-05-21T12:04:58.861Z">
+<meta property="og:updated_time" content="2017-05-21T12:09:01.923Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spring MVC拦截器学习">
 <meta name="twitter:description" content="学习spring mvc拦截器浅析1.简介  spring mvc中的拦截器和原声java web中的filter差不多，起到过滤、拦截的作用。其主要做用有：  日志记录：记录请求信息的日志，以便进行信息监控、信息统计、计算PV（Page View）等。 权限检查：如登录检测，进入处理器检测检测是否登录，如果没有直接返回到登录页面； 性能监控：有时候系统在某段时间莫名其妙的慢，可以通过拦截器在进入">
@@ -239,9 +239,11 @@ var _hmt = _hmt || [];
 <li>将拦截器注册到spring MVC框架中<br>接口源码<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">package</span> org.springframework.web.servlet;  </div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">HandlerInterceptor</span> </span>&#123; </div><div class="line"></div><div class="line">	<span class="comment">//预处理回调方法，实现处理器的预处理（如登录检查），第三个参数为响应的处理器</span></div><div class="line">	<span class="comment">//返回值：true表示继续流程（如调用下一个拦截器或处理器）</span></div><div class="line">    <span class="comment">//false表示流程中断（如登录检查失败），不会继续调用其他的拦截器或处理器，此时我们需要通过response来产生响应； </span></div><div class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">preHandle</span><span class="params">(  </span></span></div><div class="line">            HttpServletRequest request, HttpServletResponse response,   </div><div class="line">            Object handler)   </div><div class="line">            <span class="keyword">throws</span> Exception;  </div><div class="line"></div><div class="line">  	<span class="comment">//后处理回调方法，实现处理器的后处理（但在渲染视图之前），此时我们可以通过modelAndView（模型和视图对象）对模型数据进行处理或对视图进行处理，modelAndView也可能为null。</span></div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">postHandle</span><span class="params">(  </span></span></div><div class="line">            HttpServletRequest request, HttpServletResponse response,   </div><div class="line">            Object handler, ModelAndView modelAndView)   </div><div class="line">            <span class="keyword">throws</span> Exception;  </div><div class="line">  </div><div class="line">	<span class="comment">//整个请求处理完毕回调方法，即在视图渲染完毕时回调，如性能监控中我们可以在此记录结束时间并输出消耗时间，还可以进行一些资源清理，类似于try-catch-finally中的finally，但仅调用处理器执行链中preHandle返回true的拦截器的afterCompletion。</span></div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">afterCompletion</span><span class="params">(  </span></span></div><div class="line">            HttpServletRequest request, HttpServletResponse response,   </div><div class="line">            Object handler, Exception ex)  </div><div class="line">            <span class="keyword">throws</span> Exception;  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
 </li>
 </ol>
-<p>盗图一张<br><img src="http://onhavnxj2.bkt.clouddn.com/sringmvc%E6%8B%A6%E6%88%AA%E5%99%A8.png" alt=""><br>源码级流程解析，引用自开涛</p>
+<p>盗图一张<br><img src="http://onhavnxj2.bkt.clouddn.com/sringmvc%E6%8B%A6%E6%88%AA%E5%99%A8.png" alt=""></p>
 <blockquote>
-<p>来看一下DispatcherServlet内部到底是如何工作的吧：</p>
+<ul>
+<li>源码级流程解析，引用自开涛 *来看一下DispatcherServlet内部到底是如何工作的吧：</li>
+</ul>
 </blockquote>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div></pre></td><td class="code"><pre><div class="line">    <span class="comment">//doDispatch方法  </span></div><div class="line">	<span class="comment">//1、处理器拦截器的预处理（正序执行）  </span></div><div class="line">	HandlerInterceptor[] interceptors = mappedHandler.getInterceptors();  </div><div class="line">	<span class="keyword">if</span> (interceptors != <span class="keyword">null</span>) &#123;  </div><div class="line">	    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; interceptors.length; i++) &#123;  </div><div class="line">	    HandlerInterceptor interceptor = interceptors[i];  </div><div class="line">	        <span class="keyword">if</span> (!interceptor.preHandle(processedRequest, response, mappedHandler.getHandler())) &#123;  </div><div class="line">	            <span class="comment">//1.1、失败时触发afterCompletion的调用  </span></div><div class="line">	            triggerAfterCompletion(mappedHandler, interceptorIndex, processedRequest, response, <span class="keyword">null</span>);  </div><div class="line">	            <span class="keyword">return</span>;  </div><div class="line">	        &#125;  </div><div class="line">	        interceptorIndex = i;<span class="comment">//1.2、记录当前预处理成功的索引  </span></div><div class="line">	&#125;  </div><div class="line">	&#125;  </div><div class="line">	<span class="comment">//2、处理器适配器调用我们的处理器  </span></div><div class="line">	mv = ha.handle(processedRequest, response, mappedHandler.getHandler());  </div><div class="line">	<span class="comment">//当我们返回null或没有返回逻辑视图名时的默认视图名翻译（详解4.15.5 RequestToViewNameTranslator）  </span></div><div class="line">	<span class="keyword">if</span> (mv != <span class="keyword">null</span> &amp;&amp; !mv.hasView()) &#123;  </div><div class="line">	    mv.setViewName(getDefaultViewName(request));  </div><div class="line">	&#125;  </div><div class="line">	<span class="comment">//3、处理器拦截器的后处理（逆序）  </span></div><div class="line">	<span class="keyword">if</span> (interceptors != <span class="keyword">null</span>) &#123;  </div><div class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = interceptors.length - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) &#123;  </div><div class="line">	      HandlerInterceptor interceptor = interceptors[i];  </div><div class="line">	      interceptor.postHandle(processedRequest, response, mappedHandler.getHandler(), mv);  </div><div class="line">	&#125;  </div><div class="line">	&#125;  </div><div class="line">	<span class="comment">//4、视图的渲染  </span></div><div class="line">	<span class="keyword">if</span> (mv != <span class="keyword">null</span> &amp;&amp; !mv.wasCleared()) &#123;  </div><div class="line">	render(mv, processedRequest, response);  </div><div class="line">	    <span class="keyword">if</span> (errorView) &#123;  </div><div class="line">	        WebUtils.clearErrorRequestAttributes(request);  </div><div class="line">	&#125;  </div><div class="line">	<span class="comment">//5、触发整个请求处理完毕回调方法afterCompletion  </span></div><div class="line">	triggerAfterCompletion(mappedHandler, interceptorIndex, processedRequest, response, <span class="keyword">null</span>); </div><div class="line">``` </div><div class="line">注：代码片段 </div><div class="line">```java</div><div class="line">   <span class="comment">// triggerAfterCompletion方法  </span></div><div class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">triggerAfterCompletion</span><span class="params">(HandlerExecutionChain mappedHandler, <span class="keyword">int</span> interceptorIndex,  </span></span></div><div class="line">            HttpServletRequest request, HttpServletResponse response, Exception ex) <span class="keyword">throws</span> Exception &#123;  </div><div class="line">        <span class="comment">// 5、触发整个请求处理完毕回调方法afterCompletion （逆序从1.2中的预处理成功的索引处的拦截器执行）  </span></div><div class="line">        <span class="keyword">if</span> (mappedHandler != <span class="keyword">null</span>) &#123;  </div><div class="line">            HandlerInterceptor[] interceptors = mappedHandler.getInterceptors();  </div><div class="line">            <span class="keyword">if</span> (interceptors != <span class="keyword">null</span>) &#123;  </div><div class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> i = interceptorIndex; i &gt;= <span class="number">0</span>; i--) &#123;  </div><div class="line">                    HandlerInterceptor interceptor = interceptors[i];  </div><div class="line">                    <span class="keyword">try</span> &#123;  </div><div class="line">                        interceptor.afterCompletion(request, response, mappedHandler.getHandler(), ex);  </div><div class="line">                    &#125;  </div><div class="line">                    <span class="keyword">catch</span> (Throwable ex2) &#123;  </div><div class="line">                        logger.error(<span class="string">"HandlerInterceptor.afterCompletion threw exception"</span>, ex2);  </div><div class="line">                    &#125;  </div><div class="line">                &#125;  </div><div class="line">            &#125;  </div><div class="line">        &#125;  </div><div class="line">    &#125;</div></pre></td></tr></table></figure>
 <p>正式实现：<br>1.实现HandlerIntercepter接口并且实现抽象方法<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">package</span> com.laowang.mainInterceter;</div><div class="line"></div><div class="line"><span class="keyword">import</span> org.springframework.web.servlet.HandlerInterceptor;</div><div class="line"><span class="keyword">import</span> org.springframework.web.servlet.ModelAndView;</div><div class="line"></div><div class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</div><div class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</div><div class="line"><span class="keyword">import</span> java.util.Map;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by tellenw on 17-5-21.</div><div class="line"> * 这是一个spring 拦截器</div><div class="line"> * 1. 编写拦截器，实现HandlerIntercepter接口,实现抽象方法。</div><div class="line"> * 2. 将拦截器注册到spring MVC框架中</div><div class="line"> * 3.</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FirstIntercepter</span> <span class="keyword">implements</span> <span class="title">HandlerInterceptor</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     *</div><div class="line">     * <span class="doctag">@param</span> httpServletRequest</div><div class="line">     * <span class="doctag">@param</span> httpServletResponse</div><div class="line">     * <span class="doctag">@param</span> o                     :表示被拦截的请求的目标对象</div><div class="line">     * <span class="doctag">@return</span></div><div class="line">     * <span class="doctag">@throws</span> Exception</div><div class="line">     */</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">preHandle</span><span class="params">(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">        System.out.println(<span class="string">"this is in preHandle..."</span>);</div><div class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;<span class="comment">//返回值表示是否将当前请求拦截下来，true：请求继续;false：请求将被拦截，请求不会到达控制器。</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     *</div><div class="line">     * <span class="doctag">@param</span> httpServletRequest</div><div class="line">     * <span class="doctag">@param</span> httpServletResponse</div><div class="line">     * <span class="doctag">@param</span> o</div><div class="line">     * <span class="doctag">@param</span> modelAndView          :可以通过modelAndView参数修改显示的视图，或者修改发往视图的方法</div><div class="line">     * <span class="doctag">@throws</span> Exception</div><div class="line">     */</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">postHandle</span><span class="params">(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, ModelAndView modelAndView)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">        System.out.println(<span class="string">"this is in postHandle..."</span>);</div><div class="line">        <span class="comment">//下面将通过modelAndView参数对返回数据进行修改</span></div><div class="line">        Map&lt;String,Object&gt; model = modelAndView.getModel();</div><div class="line">        <span class="keyword">if</span>(model.containsKey(<span class="string">"msg"</span>))&#123;</div><div class="line">            String msg = (String) model.get(<span class="string">"msg"</span>);</div><div class="line">            modelAndView.addObject(<span class="string">"msg"</span>,msg+<span class="string">"-&gt;这条消息被拦截到了！"</span>);</div><div class="line">        &#125;</div><div class="line">        <span class="comment">//也可以通过modelAndView对返回的视图名修改</span></div><div class="line">        <span class="comment">//modelAndView.setViewName();</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">afterCompletion</span><span class="params">(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, Exception e)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">        System.out.println(<span class="string">"this is in afterCompletion..."</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
@@ -293,7 +295,7 @@ var _hmt = _hmt || [];
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">springmvc</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">spring mvc</a>
         		</li>
       		
 		</ul>
@@ -363,11 +365,11 @@ var _hmt = _hmt || [];
   
 <nav id="article-nav">
   
-    <a href="/2017/05/21/cmd常用命令/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/05/21/安卓权限大全/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          cmd常用命令
+          android权限大全
         
       </div>
     </a>
@@ -491,19 +493,19 @@ var _hmt = _hmt || [];
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">java thread</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">springmvc</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">python</a>
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">java thread</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">spring</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">spring mvc</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -519,15 +521,15 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">hadoop</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">cmd命令</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">黑客工具</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">hadoop</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -555,10 +557,6 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">spring mvc</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">nginx</a>
               </li>
              
@@ -575,11 +573,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">安卓权限</a>
+                <a href="javascript:void(0)" class="js-tag color5">闯关游戏</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">闯关游戏</a>
+                <a href="javascript:void(0)" class="js-tag color5">安卓权限</a>
               </li>
              
               <li class="article-tag-list-item">
