@@ -200,6 +200,72 @@ var _hmt = _hmt || [];
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-利用神经网络进行数据降维" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="利用神经网络进行数据降维"><a href="#利用神经网络进行数据降维" class="headerlink" title="利用神经网络进行数据降维"></a>利用神经网络进行数据降维</h1><h2 id="降维"><a href="#降维" class="headerlink" title="降维"></a>降维</h2><h3 id="为什么要降维？"><a href="#为什么要降维？" class="headerlink" title="为什么要降维？"></a>为什么要降维？</h3><ul>
+<li>去除存在噪音数据，减少模型干扰因素</li>
+<li>减少计算量</li>
+<li>便于可视化分析</li>
+</ul>
+<h3 id="常见降维方法"><a href="#常见降维方法" class="headerlink" title="常见降维方法"></a>常见降维方法</h3><ul>
+<li>主成分分析法（PCA）</li>
+<li>线性判别分析法（LCA）</li>
+<li>神经网络</li>
+</ul>
+<h2 id="神经网络"><a href="#神经网络" class="headerlink" title="神经网络"></a>神经网络</h2><h3 id="感知器"><a href="#感知器" class="headerlink" title="感知器"></a>感知器</h3><p>受到人类大脑神经网络启发：</p>
+<p><img src="http://www.ruanyifeng.com/blogimg/asset/2017/bg2017071202.png" alt="http://www.ruanyifeng.com/blogimg/asset/2017/bg2017071202.png"></p>
+<p>多层神经网络决策模型：<br><img src="http://www.ruanyifeng.com/blogimg/asset/2017/bg2017071205.png" alt="http://www.ruanyifeng.com/blogimg/asset/2017/bg2017071205.png"></p>
+<h3 id="确定权重和阀值"><a href="#确定权重和阀值" class="headerlink" title="确定权重和阀值"></a>确定权重和阀值</h3><h3 id="输入线性处理（Sigmoid）"><a href="#输入线性处理（Sigmoid）" class="headerlink" title="输入线性处理（Sigmoid）"></a>输入线性处理（Sigmoid）</h3><p>σ(z) = 1 / (1 + e^(-z))</p>
+<h3 id="BP神经网络模型"><a href="#BP神经网络模型" class="headerlink" title="BP神经网络模型"></a>BP神经网络模型</h3><p>BP算法全称叫作误差反向传播算法。其算法基本思想为：输入信号经输入层输入，通过隐层计算由输出层输出，输出值与标记值比较，若有误差，将误差反向由输出层向输入层传播，在这个过程中，利用梯度下降算法对神经元权值进行调整。<br><img src="http://upload-images.jianshu.io/upload_images/1241397-6a97cc9d982c4fcb.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="http://upload-images.jianshu.io/upload_images/1241397-6a97cc9d982c4fcb.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"></p>
+<p><strong>存在的问题：</strong></p>
+<p>局部极小值问题：随机给神经元赋一个权值，当这个权值太大的话，就很容易收敛到”差”的局部收敛点，权值太小的话则在进行误差反向传递时离输入层越近的权值更新越慢</p>
+<h2 id="RBM-限制波尔兹曼机"><a href="#RBM-限制波尔兹曼机" class="headerlink" title="RBM(限制波尔兹曼机)"></a>RBM(限制波尔兹曼机)</h2><p><img src="http://img.blog.csdn.net/20150406200045638" alt="http://img.blog.csdn.net/20150406200045638"><br>两层神经元之间都是全连接的，但是每一层各自的神经元之间并没有连接，也就是说，RBM的图结构是一种二分图（bipartite graph）</p>
+<p>对模型进行预训练，快速找到全局最优点，计算权值矩阵和偏移量，以加快后续的BP训练。</p>
+<h3 id="能量函数"><a href="#能量函数" class="headerlink" title="能量函数"></a>能量函数</h3><p><img src="http://images.cnitblog.com/blog/381513/201303/27152518-dea8b976b8174cb397c343f664ad7910.png" alt="http://images.cnitblog.com/blog/381513/201303/27152518-dea8b976b8174cb397c343f664ad7910.png"></p>
+<p>使系统达到稳定状态：能量函数值最小</p>
+<h2 id="降维步骤"><a href="#降维步骤" class="headerlink" title="降维步骤"></a>降维步骤</h2><h3 id="Pretaining"><a href="#Pretaining" class="headerlink" title="Pretaining"></a>Pretaining</h3><p> 预处理包含了 学习 一个 受限玻尔兹曼机栈（ 堆叠的RBM），每一个只有一层特征监测子。一层RBM学习过的数据作为下一层RBM的输入，然后使用BP算法调整参数。</p>
+<h3 id="Unrolling"><a href="#Unrolling" class="headerlink" title="Unrolling"></a>Unrolling</h3><p>根据encode的结果，和一系列的WT做矩阵乘法，最后得到vrecon的过程</p>
+<h3 id="Fine-tuning"><a href="#Fine-tuning" class="headerlink" title="Fine-tuning"></a>Fine-tuning</h3><p>stochastic gradient decent过程，目标函数：</p>
+<p>cost=−∑ivi⋅log(Virecon)+(1−vi)⋅log(1−virecon)</p>
+<h3 id="图示"><a href="#图示" class="headerlink" title="图示"></a>图示</h3><p><img src="https://segmentfault.com/img/bVGjVV?w=1138&amp;h=892" alt="https://segmentfault.com/img/bVGjVV?w=1138&amp;h=892"></p>
+<h2 id="和pca对比"><a href="#和pca对比" class="headerlink" title="和pca对比"></a>和pca对比</h2><p>相比于pca分解出来的特征，auto encoder获得的特征有更好的区分度<br>可以通过把784维特征降成2维，然后画出这些特征的分布的。</p>
+<h3 id="如图"><a href="#如图" class="headerlink" title="如图"></a>如图</h3><p><img src="https://sfault-image.b0.upaiyun.com/356/927/3569279786-58400fe12c46b_articlex" alt="https://sfault-image.b0.upaiyun.com/356/927/3569279786-58400fe12c46b_articlex"></p>
+<p>可以看到，RandomizedPCA降成2维后，好像只有0、1、2这3个数能较好的区分出来。而4层级联encoder网络（每层节点数分别为1000、500、250、2）得到的结果基本可以把所有数字的大部分都分解出来。不过，4、7、8、9重叠较多，5好像跟8也有较多重叠，这些从测试集合上也可以理解。</p>
+<h3 id="pca从2维重构回的“原始图片”"><a href="#pca从2维重构回的“原始图片”" class="headerlink" title="pca从2维重构回的“原始图片”"></a>pca从2维重构回的“原始图片”</h3><p><img src="https://sfault-image.b0.upaiyun.com/606/899/606899607-5840102ca867f_articlex" alt="https://sfault-image.b0.upaiyun.com/606/899/606899607-5840102ca867f_articlex"></p>
+<h3 id="神经网络重构出的“原始图片”"><a href="#神经网络重构出的“原始图片”" class="headerlink" title="神经网络重构出的“原始图片”"></a>神经网络重构出的“原始图片”</h3><p><img src="https://sfault-image.b0.upaiyun.com/850/284/850284109-584010709a292_articlex" alt="https://sfault-image.b0.upaiyun.com/850/284/850284109-584010709a292_articlex"></p>
+<h4 id="神经网络重构出的“原始图片”明显优于pca从2维重构回的“原始图片”"><a href="#神经网络重构出的“原始图片”明显优于pca从2维重构回的“原始图片”" class="headerlink" title="神经网络重构出的“原始图片”明显优于pca从2维重构回的“原始图片”"></a>神经网络重构出的“原始图片”明显优于pca从2维重构回的“原始图片”</h4>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/11/08/利用神经网络进行数据降维/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="spring-MVC拦截器学习" class="article article-type-spring  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -811,80 +877,9 @@ var _hmt = _hmt || [];
 
 
   
-    <article id="post-spring基于-Value绑定属Bean性失" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/04/20/spring基于-Value绑定属Bean性失/">spring基于@Value绑定属Bean性失</a>
-    </h1>
-  
-
-        
-        <a href="/2017/04/20/spring基于-Value绑定属Bean性失/" class="archive-article-date">
-  	<time datetime="2017-04-20T09:34:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-20</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="用spring注解-Value绑定属性失败"><a href="#用spring注解-Value绑定属性失败" class="headerlink" title="用spring注解@Value绑定属性失败"></a>用spring注解@Value绑定属性失败</h3><p>环境：</p>
-<ul>
-<li>eclipse Version: Luna Release (4.4.0)</li>
-<li>spring 4.0</li>
-<li>Junit4</li>
-<li>其他依赖包</li>
-</ul>
-<p><strong>描述：</strong><br>
-        
-          <a class="article-more-a" href="/2017/04/20/spring基于-Value绑定属Bean性失/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">spring</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/04/20/spring基于-Value绑定属Bean性失/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
     </nav>
   
 
@@ -987,14 +982,6 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">docker</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">hadoop</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">cmd命令</a>
               </li>
              
@@ -1003,7 +990,7 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">jsp</a>
+                <a href="javascript:void(0)" class="js-tag color2">docker</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1012,6 +999,14 @@ var _hmt = _hmt || [];
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">php</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">hadoop</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">jsp</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1039,14 +1034,6 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">tomcat</a>
               </li>
              
@@ -1055,11 +1042,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">搜索</a>
+                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">技巧</a>
+                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1068,6 +1055,14 @@ var _hmt = _hmt || [];
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">安卓权限</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">搜索</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">技巧</a>
               </li>
             
             <div class="clearfix"></div>
