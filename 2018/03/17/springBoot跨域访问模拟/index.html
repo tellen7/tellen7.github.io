@@ -6,17 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2016/4 | Tellenw</title>
+  <title>springBoot跨域访问模拟 | Tellenw</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Believing future is attractive.">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Tellenw">
-<meta property="og:url" content="http://yoursite.com/archives/2016/04/index.html">
+  <meta name="description" content="微服务架构现在很流行，把一个项目拆分成很多服务进行单独开发，这对开发来说不仅能提高开发效率，还能是的项目逻辑上更清晰，后期维护更容易等等好处。  跨域访问场景 ：现在尝试开发一个后台，前端服务器里面有个页面使用ajax异步请求我后台服务器上的服务（开放API），现在有一个浏览器请求了前端页面，浏览器因为同源策略（限制javascript的安全机制）会屏蔽掉ajax请求的结果，可以在控制台上看到No">
+<meta name="keywords" content="springboot,跨域访问">
+<meta property="og:type" content="article">
+<meta property="og:title" content="springBoot跨域访问模拟">
+<meta property="og:url" content="http://yoursite.com/2018/03/17/springBoot跨域访问模拟/index.html">
 <meta property="og:site_name" content="Tellenw">
-<meta property="og:description" content="Believing future is attractive.">
+<meta property="og:description" content="微服务架构现在很流行，把一个项目拆分成很多服务进行单独开发，这对开发来说不仅能提高开发效率，还能是的项目逻辑上更清晰，后期维护更容易等等好处。  跨域访问场景 ：现在尝试开发一个后台，前端服务器里面有个页面使用ajax异步请求我后台服务器上的服务（开放API），现在有一个浏览器请求了前端页面，浏览器因为同源策略（限制javascript的安全机制）会屏蔽掉ajax请求的结果，可以在控制台上看到No">
+<meta property="og:image" content="http://onhavnxj2.bkt.clouddn.com/failcors.png">
+<meta property="og:image" content="http://onhavnxj2.bkt.clouddn.com/successcors.png">
+<meta property="og:updated_time" content="2018-03-17T13:32:39.757Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Tellenw">
-<meta name="twitter:description" content="Believing future is attractive.">
+<meta name="twitter:title" content="springBoot跨域访问模拟">
+<meta name="twitter:description" content="微服务架构现在很流行，把一个项目拆分成很多服务进行单独开发，这对开发来说不仅能提高开发效率，还能是的项目逻辑上更清晰，后期维护更容易等等好处。  跨域访问场景 ：现在尝试开发一个后台，前端服务器里面有个页面使用ajax异步请求我后台服务器上的服务（开放API），现在有一个浏览器请求了前端页面，浏览器因为同源策略（限制javascript的安全机制）会屏蔽掉ajax请求的结果，可以在控制台上看到No">
+<meta name="twitter:image" content="http://onhavnxj2.bkt.clouddn.com/failcors.png">
   
     <link rel="alternative" href="/atom.xml" title="Tellenw" type="application/atom+xml">
   
@@ -198,109 +203,203 @@ var _hmt = _hmt || [];
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-springBoot跨域访问模拟" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2016" class="archive-year">2016</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2016/04/22/links/" class="archive-article-date">
-  	<time datetime="2016-04-22T04:03:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-04-22</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/04/22/links/">博客链接</a>
+    <h1 class="article-title" itemprop="name">
+      springBoot跨域访问模拟
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2018/03/17/springBoot跨域访问模拟/" class="archive-article-date">
+  	<time datetime="2018-03-17T12:39:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-17</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>微服务架构现在很流行，把一个项目拆分成很多服务进行单独开发，这对开发来说不仅能提高开发效率，还能是的项目逻辑上更清晰，后期维护更容易等等好处。</p>
+<ul>
+<li>跨域访问场景 ：现在尝试开发一个后台，前端服务器里面有个页面使用ajax异步请求我后台服务器上的服务（开放API），现在有一个浏览器请求了前端页面，浏览器因为同源策略（限制javascript的安全机制）会屏蔽掉ajax请求的结果，可以在控制台上看到<code>No &#39;Access-Control-Allow-Origin&#39; header is present on the requested resource. Origin &#39;http://localhost:8080&#39; is therefore not allowed access.</code>。请求结果被浏览器限制了。所谓跨域就是不同域名主机的互相访问。<a id="more"></a></li>
+<li>解决方法：</li>
+</ul>
+<ol>
+<li>通过JSONP动态插入另一台主机上的script代码，其原理就是前端代码中<code>&lt;script src=&quot;...&quot;&gt;</code>返回的是可以被javascript执行的脚本。</li>
+<li>用前端服务器的XmlHttpRequest代理来跨域访问资源，而不是在浏览器端让浏览器执行请求不同域的资源。</li>
+<li>我后端的做法就是在响应的实体中加入控制信息，即添加Filter<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AuthFilter</span> <span class="keyword">implements</span> <span class="title">Filter</span> </span>&#123;</div><div class="line">    <span class="comment">//    @Autowired</span></div><div class="line">    <span class="comment">//这个不能自动注入servlet和filter是被tomcat管理的</span></div><div class="line">    <span class="keyword">private</span> String[] excludePaths;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">(FilterConfig filterConfig)</span> <span class="keyword">throws</span> ServletException </span>&#123;</div><div class="line">        System.out.println(<span class="string">"initFilter"</span>);</div><div class="line">        <span class="comment">//不能在初始化中通过Appliaction Context获取因为这时候还没初始化Application Context</span></div><div class="line">        <span class="comment">//baseUserService = SpringUtils.getBean("baseUserService", BaseUserService.class);</span></div><div class="line">        excludePaths = <span class="keyword">new</span> String[]&#123;<span class="string">"/api/user/noLogin"</span>, <span class="string">"/api/user/tokenError"</span>, <span class="string">"/api/user/loginForeground"</span>,</div><div class="line">                <span class="string">"/api/user/loginBackground"</span>, <span class="string">"/api/user/inCorrectUserId"</span>&#125;;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doFilter</span><span class="params">(ServletRequest request, ServletResponse response, FilterChain chain)</span> <span class="keyword">throws</span> IOException, ServletException </span>&#123;</div><div class="line">        HttpServletRequest httpServletRequest = (HttpServletRequest) request;</div><div class="line">        HttpServletResponse httpServletResponse = (HttpServletResponse) response;</div><div class="line">        <span class="comment">//这里填写你允许进行跨域的主机ip</span></div><div class="line">        httpServletResponse.setHeader(<span class="string">"Access-Control-Allow-Origin"</span>, <span class="string">"*"</span>);</div><div class="line">        <span class="comment">//允许的访问方法</span></div><div class="line">        httpServletResponse.setHeader(<span class="string">"Access-Control-Allow-Methods"</span>, <span class="string">"POST, GET, PUT, OPTIONS, DELETE, PATCH"</span>);</div><div class="line">        <span class="comment">//Access-Control-Max-Age 用于 CORS 相关配置的缓存</span></div><div class="line">        httpServletResponse.setHeader(<span class="string">"Access-Control-Max-Age"</span>, <span class="string">"3600"</span>);</div><div class="line">        httpServletResponse.setHeader(<span class="string">"Access-Control-Allow-Headers"</span>, <span class="string">"Origin, X-Requested-With, Content-Type, Accept"</span>);</div><div class="line">  </div><div class="line">        String path = httpServletRequest.getServletPath();</div><div class="line">        <span class="keyword">if</span> (excludePath(path)) &#123;</div><div class="line">            chain.doFilter(request, response);</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            httpServletRequest.getRequestDispatcher(<span class="string">"/api/user/noLogin"</span>).forward(request, response);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">excludePath</span><span class="params">(String path)</span> </span>&#123;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; excludePaths.length; i++) &#123;</div><div class="line">            <span class="keyword">if</span> (path.equals(excludePaths[i]))</div><div class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">destroy</span><span class="params">()</span> </span>&#123;</div><div class="line">        System.out.println(<span class="string">"destroy method"</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>或则编写一个配置类，配置跨域访问问题<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Configuration</span>  </div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CorsConfig</span> <span class="keyword">extends</span> <span class="title">WebMvcConfigurerAdapter</span> </span>&#123;  </div><div class="line"></div><div class="line">    <span class="meta">@Override</span>  </div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addCorsMappings</span><span class="params">(CorsRegistry registry)</span> </span>&#123;  </div><div class="line">        registry.addMapping(<span class="string">"/**"</span>)  </div><div class="line">                .allowedOrigins(<span class="string">"*"</span>)  </div><div class="line">                .allowCredentials(<span class="keyword">true</span>)  </div><div class="line">                .allowedMethods(<span class="string">"GET"</span>, <span class="string">"POST"</span>, <span class="string">"DELETE"</span>, <span class="string">"PUT"</span>)  </div><div class="line">                .maxAge(<span class="number">3600</span>);  </div><div class="line">    &#125;  </div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>基于springboot构建的服务，最简单的就是在控制器上加一个注解<code>@CrossOrigin//允许跨域请求</code><br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Controller</span></div><div class="line"><span class="meta">@CrossOrigin</span><span class="comment">//允许跨域请求</span></div><div class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/api"</span>)</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MLpicture</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@RequestMapping</span>(value = <span class="string">"/getResult"</span>,method = RequestMethod.POST)</div><div class="line">    <span class="keyword">public</span> <span class="meta">@ResponseBody</span> <span class="function">String <span class="title">getResult</span><span class="params">( @Valid Person person)</span></span>&#123;</div><div class="line">        System.out.println(person.toString());</div><div class="line">        <span class="keyword">return</span> <span class="string">"result"</span>+person.toString()+<span class="string">"\n"</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<ul>
+<li>测试实况：<br>前端主机：localhost:8080/temp页面<br>后端服务主机：localhost:8000/api/getResult<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;!DOCTYPE&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>login test<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="undefined"></span></div><div class="line">        function login() &#123;</div><div class="line">            $.ajax(&#123;</div><div class="line">                //几个参数需要注意一下</div><div class="line">                type: "POST",//方法类型</div><div class="line">                dataType: "json",//预期服务器返回的数据类型</div><div class="line">                url: "http://localhost:8000/api/getResult" ,//url</div><div class="line">                data: $('#form1').serialize(),</div><div class="line">                success: function (result) &#123;</div><div class="line">                    console.log(result);//打印服务端返回的数据(调试用)</div><div class="line">                    if (result.resultCode == 200) &#123;</div><div class="line">                        alert("SUCCESS");</div><div class="line">                    &#125;</div><div class="line">                    ;</div><div class="line">                &#125;,</div><div class="line">                error : function() &#123;</div><div class="line">                    alert("wrong");</div><div class="line">                &#125;</div><div class="line">            &#125;);</div><div class="line">        &#125;</div><div class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"form-div"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">form</span> <span class="attr">id</span>=<span class="string">"form1"</span> <span class="attr">onsubmit</span>=<span class="string">"return false"</span> <span class="attr">action</span>=<span class="string">"##"</span> <span class="attr">method</span>=<span class="string">"post"</span>&gt;</span></div><div class="line">        education<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"education"</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></div><div class="line">        major<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"major"</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></div><div class="line">        school<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"school"</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></div><div class="line">        jobLocation<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"jobLocation"</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></div><div class="line">        workingYears<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"workingYears"</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></div><div class="line">        skills<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"skills"</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></div><div class="line">        position<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"position"</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></div><div class="line">        selfIntroduction<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"selfIntroduction"</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></div><div class="line"></div><div class="line">            <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">value</span>=<span class="string">"submit"</span> <span class="attr">onclick</span>=<span class="string">"login()"</span>&gt;</span>&amp;nbsp;<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"reset"</span> <span class="attr">value</span>=<span class="string">"reset"</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">form</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>后台没有在控制器上加<code>@CrossOrigin</code>注解，返回的是<br><img src="http://onhavnxj2.bkt.clouddn.com/failcors.png" alt=""><br>后台在控制器上加<code>@CrossOrigin</code>注解，返回的是<br><img src="http://onhavnxj2.bkt.clouddn.com/successcors.png" alt=""></p>
+<p>** 注：</p>
+<ol>
+<li>spring boot 的<a href="https://github.com/spring-projects/spring-boot/blob/v1.1.5.RELEASE/spring-boot-samples" target="_blank" rel="external">官方samples地址</a></li>
+<li>本文代码部分引用<a href="http://blog.csdn.net/hanghangde/article/details/53946366" target="_blank" rel="external">这个博客</a></li>
+</ol>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你的打赏<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/alipay.jpeg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/weixinpay.jpeg">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">links</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">springboot,跨域访问</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/日志/" class="article-tag-list-link color3">日志</a>
-        		</li>
-      		
-		</ul>
-	</div>
+      
 
+      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2018/03/17/springBoot跨域访问模拟/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2016/04/20/my-first-post/" class="archive-article-date">
-  	<time datetime="2016-04-20T09:49:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-04-20</time>
-</a>
-        </div>
-    	 
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/04/20/my-first-post/">初次部署hexo到github上</a>
-    </h1>
+    <a href="/2018/03/12/spring-boot-返回json数据/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          spring boot 返回json数据
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+
+
+
+
+
+  
+  <div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="springBoot跨域访问模拟" data-title="springBoot跨域访问模拟" data-url="http://yoursite.com/2018/03/17/springBoot跨域访问模拟/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"tellenw"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">hexo</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -323,8 +422,8 @@ var _hmt = _hmt || [];
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
