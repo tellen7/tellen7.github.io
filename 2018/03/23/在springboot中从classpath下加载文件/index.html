@@ -15,7 +15,7 @@
 <meta property="og:url" content="http://yoursite.com/2018/03/23/在springboot中从classpath下加载文件/index.html">
 <meta property="og:site_name" content="Tellenw">
 <meta property="og:description" content="简介：创建Spring Boot Web应用程序时，有时需要从类路径加载文件，例如，数据仅作为文件提供。就我而言，我使用MAXMIND GeoLite2 database进行位置索引。因此我需要加载文件并创建一个存储在服务器内存中的DatabaseReader对象。 在下面您将找到在WAR和JAR中加载文件的解决方案。">
-<meta property="og:updated_time" content="2018-03-23T15:10:19.308Z">
+<meta property="og:updated_time" content="2018-03-23T15:49:13.793Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="在springboot中从classpath下加载文件(翻译)">
 <meta name="twitter:description" content="简介：创建Spring Boot Web应用程序时，有时需要从类路径加载文件，例如，数据仅作为文件提供。就我而言，我使用MAXMIND GeoLite2 database进行位置索引。因此我需要加载文件并创建一个存储在服务器内存中的DatabaseReader对象。 在下面您将找到在WAR和JAR中加载文件的解决方案。">
@@ -221,11 +221,24 @@ var _hmt = _hmt || [];
     <div class="article-entry" itemprop="articleBody">
       
         <h3 id="简介："><a href="#简介：" class="headerlink" title="简介："></a>简介：</h3><p>创建<a href="http://projects.spring.io/spring-boot/" target="_blank" rel="external">Spring Boot</a> Web应用程序时，有时需要从类路径加载文件，例如，数据仅作为文件提供。就我而言，我使用<a href="http://dev.maxmind.com/geoip/geoip2/geolite2/" target="_blank" rel="external">MAXMIND GeoLite2 database</a>进行位置索引。因此我需要加载文件并创建一个存储在服务器内存中的DatabaseReader对象。</p>
-<p>在下面您将找到在WAR和JAR中加载文件的解决方案。<br><a id="more"></a><br><em>The ResourceLoader</em><br>用java开发时，你可以用当前线程获取classloader，然后用它去加载文件，但是在spring框架中提供了你更优雅得解决方法，如<a href="http://docs.spring.io/spring/docs/current/spring-framework-reference/html/resources.html" target="_blank" rel="external">ResourceLoader</a></p>
+<p>在下面您将找到在WAR和JAR中加载文件的解决方案。<br><a id="more"></a><br><strong>The ResourceLoader</strong><br>用java开发时，你可以用当前线程获取classloader，然后用它去加载文件，但是在spring框架中提供了你更优雅得解决方法，如<a href="http://docs.spring.io/spring/docs/current/spring-framework-reference/html/resources.html" target="_blank" rel="external">ResourceLoader</a></p>
 <p>你只需要注入对象<code>ResourceLoader</code>之后调用它的<code>getResource(&quot;yourPath&quot;)</code>方法即可。</p>
-<p><em>在Spring Boot（WAR）中从资源目录/ classpath加载文件的示例</em><br>在以下示例中，我们从类路径中加载一个名为GeoLite2-Country.mmdb的文件作为资源，然后将其作为File对象进行检索。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Service</span>(<span class="string">"geolocationservice"</span>)</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GeoLocationServiceImpl</span> <span class="keyword">implements</span> <span class="title">GeoLocationService</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Logger LOGGER = LoggerFactory.getLogger(GeoLocationServiceImpl.class);</div><div class="line"></div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> DatabaseReader reader = <span class="keyword">null</span>;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> ResourceLoader resourceLoader;</div><div class="line"></div><div class="line">    <span class="meta">@Autowired</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">GeoLocationServiceImpl</span><span class="params">(ResourceLoader resourceLoader)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.resourceLoader = resourceLoader;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@PostConstruct</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            LOGGER.info(<span class="string">"GeoLocationServiceImpl: Trying to load GeoLite2-Country database..."</span>);</div><div class="line"></div><div class="line">            Resource resource = resourceLoader.getResource(<span class="string">"classpath:GeoLite2-Country.mmdb"</span>);</div><div class="line">            File dbAsFile = resource.getFile();</div><div class="line"></div><div class="line">            <span class="comment">// Initialize the reader</span></div><div class="line">            reader = <span class="keyword">new</span> DatabaseReader</div><div class="line">                        .Builder(dbAsFile)</div><div class="line">                        .fileMode(Reader.FileMode.MEMORY)</div><div class="line">                        .build();</div><div class="line"></div><div class="line">            LOGGER.info(<span class="string">"GeoLocationServiceImpl: Database was loaded successfully."</span>);</div><div class="line"></div><div class="line">        &#125; <span class="keyword">catch</span> (IOException | NullPointerException e) &#123;</div><div class="line">            LOGGER.error(<span class="string">"Database reader cound not be initialized. "</span>, e);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@PreDestroy</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">preDestroy</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (reader != <span class="keyword">null</span>) &#123;</div><div class="line">            <span class="keyword">try</span> &#123;</div><div class="line">                reader.close();</div><div class="line">            &#125; <span class="keyword">catch</span> (IOException e) &#123;</div><div class="line">                LOGGER.error(<span class="string">"Failed to close the reader."</span>);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p><em>从Spring Boot JAR中加载文件</em><br>如果你期望在springboot jar中从classpath中加载文件，你必须要使用<code>resource.getInputStream()</code>方法用输入流去获取文件，如果你试图使用<code>resource.getFile()</code>方法，你将会遇到错误，因为这样的话，spring试图去访问(主机的)文件系统的路径，但是在JAR中是做不到的。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Service</span>(<span class="string">"geolocationservice"</span>)</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GeoLocationServiceImpl</span> <span class="keyword">implements</span> <span class="title">GeoLocationService</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Logger LOGGER = LoggerFactory.getLogger(GeoLocationServiceImpl.class);</div><div class="line"></div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> DatabaseReader reader = <span class="keyword">null</span>;</div><div class="line">    <span class="keyword">private</span> ResourceLoader resourceLoader;</div><div class="line"></div><div class="line">    <span class="meta">@Inject</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">GeoLocationServiceImpl</span><span class="params">(ResourceLoader resourceLoader)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.resourceLoader = resourceLoader;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@PostConstruct</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            LOGGER.info(<span class="string">"GeoLocationServiceImpl: Trying to load GeoLite2-Country database..."</span>);</div><div class="line"></div><div class="line">            Resource resource = resourceLoader.getResource(<span class="string">"classpath:GeoLite2-Country.mmdb"</span>);</div><div class="line">            InputStream dbAsStream = resource.getInputStream(); <span class="comment">// &lt;-- this is the difference</span></div><div class="line"></div><div class="line">            <span class="comment">// Initialize the reader</span></div><div class="line">            reader = <span class="keyword">new</span> DatabaseReader</div><div class="line">                        .Builder(dbAsStream)</div><div class="line">                        .fileMode(Reader.FileMode.MEMORY)</div><div class="line">                        .build();</div><div class="line"></div><div class="line">            LOGGER.info(<span class="string">"GeoLocationServiceImpl: Database was loaded successfully."</span>);</div><div class="line"></div><div class="line">        &#125; <span class="keyword">catch</span> (IOException | NullPointerException e) &#123;</div><div class="line">            LOGGER.error(<span class="string">"Database reader cound not be initialized. "</span>, e);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@PreDestroy</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">preDestroy</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (reader != <span class="keyword">null</span>) &#123;</div><div class="line">            <span class="keyword">try</span> &#123;</div><div class="line">                reader.close();</div><div class="line">            &#125; <span class="keyword">catch</span> (IOException e) &#123;</div><div class="line">                LOGGER.error(<span class="string">"Failed to close the reader."</span>);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><strong>在Spring Boot（WAR）中从资源目录/ classpath加载文件的示例</strong><br>在以下示例中，我们从类路径中加载一个名为GeoLite2-Country.mmdb的文件作为资源，然后将其作为File对象进行检索。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Service</span>(<span class="string">"geolocationservice"</span>)</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GeoLocationServiceImpl</span> <span class="keyword">implements</span> <span class="title">GeoLocationService</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Logger LOGGER = LoggerFactory.getLogger(GeoLocationServiceImpl.class);</div><div class="line"></div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> DatabaseReader reader = <span class="keyword">null</span>;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> ResourceLoader resourceLoader;</div><div class="line"></div><div class="line">    <span class="meta">@Autowired</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">GeoLocationServiceImpl</span><span class="params">(ResourceLoader resourceLoader)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.resourceLoader = resourceLoader;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@PostConstruct</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            LOGGER.info(<span class="string">"GeoLocationServiceImpl: Trying to load GeoLite2-Country database..."</span>);</div><div class="line"></div><div class="line">            Resource resource = resourceLoader.getResource(<span class="string">"classpath:GeoLite2-Country.mmdb"</span>);</div><div class="line">            File dbAsFile = resource.getFile();</div><div class="line"></div><div class="line">            <span class="comment">// Initialize the reader</span></div><div class="line">            reader = <span class="keyword">new</span> DatabaseReader</div><div class="line">                        .Builder(dbAsFile)</div><div class="line">                        .fileMode(Reader.FileMode.MEMORY)</div><div class="line">                        .build();</div><div class="line"></div><div class="line">            LOGGER.info(<span class="string">"GeoLocationServiceImpl: Database was loaded successfully."</span>);</div><div class="line"></div><div class="line">        &#125; <span class="keyword">catch</span> (IOException | NullPointerException e) &#123;</div><div class="line">            LOGGER.error(<span class="string">"Database reader cound not be initialized. "</span>, e);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@PreDestroy</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">preDestroy</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (reader != <span class="keyword">null</span>) &#123;</div><div class="line">            <span class="keyword">try</span> &#123;</div><div class="line">                reader.close();</div><div class="line">            &#125; <span class="keyword">catch</span> (IOException e) &#123;</div><div class="line">                LOGGER.error(<span class="string">"Failed to close the reader."</span>);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><strong>从Spring Boot JAR中加载文件</strong><br>如果你期望在springboot jar中从classpath中加载文件，你必须要使用<code>resource.getInputStream()</code>方法用输入流去获取文件，如果你试图使用<code>resource.getFile()</code>方法，你将会遇到错误，因为这样的话，spring试图去访问(主机的)文件系统的路径，但是在JAR中是做不到的。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Service</span>(<span class="string">"geolocationservice"</span>)</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GeoLocationServiceImpl</span> <span class="keyword">implements</span> <span class="title">GeoLocationService</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Logger LOGGER = LoggerFactory.getLogger(GeoLocationServiceImpl.class);</div><div class="line"></div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> DatabaseReader reader = <span class="keyword">null</span>;</div><div class="line">    <span class="keyword">private</span> ResourceLoader resourceLoader;</div><div class="line"></div><div class="line">    <span class="meta">@Inject</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">GeoLocationServiceImpl</span><span class="params">(ResourceLoader resourceLoader)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.resourceLoader = resourceLoader;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@PostConstruct</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            LOGGER.info(<span class="string">"GeoLocationServiceImpl: Trying to load GeoLite2-Country database..."</span>);</div><div class="line"></div><div class="line">            Resource resource = resourceLoader.getResource(<span class="string">"classpath:GeoLite2-Country.mmdb"</span>);</div><div class="line">            InputStream dbAsStream = resource.getInputStream(); <span class="comment">// &lt;-- this is the difference</span></div><div class="line"></div><div class="line">            <span class="comment">// Initialize the reader</span></div><div class="line">            reader = <span class="keyword">new</span> DatabaseReader</div><div class="line">                        .Builder(dbAsStream)</div><div class="line">                        .fileMode(Reader.FileMode.MEMORY)</div><div class="line">                        .build();</div><div class="line"></div><div class="line">            LOGGER.info(<span class="string">"GeoLocationServiceImpl: Database was loaded successfully."</span>);</div><div class="line"></div><div class="line">        &#125; <span class="keyword">catch</span> (IOException | NullPointerException e) &#123;</div><div class="line">            LOGGER.error(<span class="string">"Database reader cound not be initialized. "</span>, e);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@PreDestroy</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">preDestroy</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (reader != <span class="keyword">null</span>) &#123;</div><div class="line">            <span class="keyword">try</span> &#123;</div><div class="line">                reader.close();</div><div class="line">            &#125; <span class="keyword">catch</span> (IOException e) &#123;</div><div class="line">                LOGGER.error(<span class="string">"Failed to close the reader."</span>);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p><a href="https://smarterco.de/java-load-file-from-classpath-in-spring-boot/" target="_blank" rel="external">原文链接</a></p>
+<hr>
+<h3 id="下面说一下我在开发文本分类后台服务时遇到的问题"><a href="#下面说一下我在开发文本分类后台服务时遇到的问题" class="headerlink" title="下面说一下我在开发文本分类后台服务时遇到的问题"></a>下面说一下我在开发文本分类后台服务时遇到的问题</h3><p><strong>问题1说明：</strong><br>用IntelijIEDA开发spring boot web服务时，项目有一个文件需要加载到项目中，因为项目没有构建成jar，在项目中使用<code>ResourceUtils.getFile(&quot;classpath:filepath&quot;)</code>时，项目没有问题，打包成jar部署时，遇到了</p>
+<blockquote>
+<p>java.io.FileNotFoundException: class path resource [static/Sample.txt] cannot be resolved to absolute file path because it does not reside in the<br> file system: jar:file:/C:/workspace-test/XXX/target/XXX-0.0.1-SNAPSHOT.jar!/BOOT-INF/classes!/static/Sample.txt</p>
+</blockquote>
+<p> 这样的错误，百度查了一大堆没有实质性帮助的结果，后来去StackOverflow上查到了，这样回答的</p>
+<blockquote>
+<p>I have checked your code.If you would like to load a file from classpath in a Spring Boot JAR, then you have to use the resource.getInputStream() rather than resource.getFile().If you try to use resource.getFile() you will receive an error, because Spring tries to access a file system path, but it can not access a path in your JAR</p>
+</blockquote>
+<p><strong>解决方法:</strong><br>因为项目中用了第三方jar包(这里还有一个开发问题),接口需要文件路径字符串，jar中又不能getFile().getURL(),所以不能获取相对路径，网上有一个把文件读入inputStream中，然后再写到项目的路径下，保存问临时文件，在获取路径。尝试了，还是不行。最后是在jar中读取部署服务的主机上真实存在的资源文件，使用绝对路径（其实我是把jar中文件拷贝到主机的目录下，然后再写上绝对路径）。</p>
+<p><a href="#">代码实例</a></p>
+<p><strong>问题2说明：</strong><br>使用了第三方jar，用maven构建项目打包时，会找不到第三方jar资源，因此会报<code>ClassNotFound</code>错误</p>
+<p><strong>棘角方法</strong><br>解决方法有很多，我才用把第三方jar发布到本地maven仓库中，但是这样做项目的协同开发不太友好，其他开发者电脑上的本地maven仓库也需要进行相同的jar发布才可以。考虑到我是一个人开发，就没有但有这么多。</p>
 <p><em>注</em><br>翻译它是因为最近写一个web服务时遇到了点问题，这篇文章起了一点作用</p>
 
       
@@ -469,19 +482,27 @@ var _hmt = _hmt || [];
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">java thread</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">python</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">docker</a>
+                <a href="javascript:void(0)" class="js-tag color2">java thread</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">spring mvc</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">spring</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">docker</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -493,19 +514,23 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">php</a>
+                <a href="javascript:void(0)" class="js-tag color1">cmd命令</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">spring</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java</a>
+                <a href="javascript:void(0)" class="js-tag color5">黑客工具</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">hadoop</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">php</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">java</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -517,10 +542,6 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">spring mvc</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
              
@@ -529,19 +550,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">cmd命令</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">黑客工具</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">springBoot</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">tomcat</a>
+                <a href="javascript:void(0)" class="js-tag color1">springboot;跨域访问</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -549,7 +562,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
+                <a href="javascript:void(0)" class="js-tag color2">tomcat</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -557,15 +574,19 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">spring boot</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">闯关游戏</a>
+                <a href="javascript:void(0)" class="js-tag color5">安卓权限</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">安卓权限</a>
+                <a href="javascript:void(0)" class="js-tag color5">闯关游戏</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -574,14 +595,6 @@ var _hmt = _hmt || [];
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">技巧</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">springboot;跨域访问</a>
               </li>
             
             <div class="clearfix"></div>
