@@ -6,29 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>利用神经网络进行数据降维 | Tellenw</title>
+  <title>在springboot中从classpath下加载文件(翻译) | Tellenw</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="利用神经网络进行数据降维降维为什么要降维？ 去除存在噪音数据，减少模型干扰因素 减少计算量 便于可视化分析">
-<meta name="keywords" content="神经网络">
+  <meta name="description" content="简介：创建Spring Boot Web应用程序时，有时需要从类路径加载文件，例如，数据仅作为文件提供。就我而言，我使用MAXMIND GeoLite2 database进行位置索引。因此我需要加载文件并创建一个存储在服务器内存中的DatabaseReader对象。 在下面您将找到在WAR和JAR中加载文件的解决方案。">
+<meta name="keywords" content="spring boot">
 <meta property="og:type" content="article">
-<meta property="og:title" content="利用神经网络进行数据降维">
-<meta property="og:url" content="http://yoursite.com/2017/11/08/利用神经网络进行数据降维/index.html">
+<meta property="og:title" content="在springboot中从classpath下加载文件(翻译)">
+<meta property="og:url" content="http://yoursite.com/2018/03/23/在springboot中从classpath下加载文件/index.html">
 <meta property="og:site_name" content="Tellenw">
-<meta property="og:description" content="利用神经网络进行数据降维降维为什么要降维？ 去除存在噪音数据，减少模型干扰因素 减少计算量 便于可视化分析">
-<meta property="og:image" content="http://www.ruanyifeng.com/blogimg/asset/2017/bg2017071202.png">
-<meta property="og:image" content="http://www.ruanyifeng.com/blogimg/asset/2017/bg2017071205.png">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1241397-6a97cc9d982c4fcb.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://img.blog.csdn.net/20150406200045638">
-<meta property="og:image" content="http://images.cnitblog.com/blog/381513/201303/27152518-dea8b976b8174cb397c343f664ad7910.png">
-<meta property="og:image" content="https://segmentfault.com/img/bVGjVV?w=1138&h=892">
-<meta property="og:image" content="https://sfault-image.b0.upaiyun.com/356/927/3569279786-58400fe12c46b_articlex">
-<meta property="og:image" content="https://sfault-image.b0.upaiyun.com/606/899/606899607-5840102ca867f_articlex">
-<meta property="og:image" content="https://sfault-image.b0.upaiyun.com/850/284/850284109-584010709a292_articlex">
-<meta property="og:updated_time" content="2017-11-08T01:57:01.915Z">
+<meta property="og:description" content="简介：创建Spring Boot Web应用程序时，有时需要从类路径加载文件，例如，数据仅作为文件提供。就我而言，我使用MAXMIND GeoLite2 database进行位置索引。因此我需要加载文件并创建一个存储在服务器内存中的DatabaseReader对象。 在下面您将找到在WAR和JAR中加载文件的解决方案。">
+<meta property="og:updated_time" content="2018-03-23T15:10:19.308Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="利用神经网络进行数据降维">
-<meta name="twitter:description" content="利用神经网络进行数据降维降维为什么要降维？ 去除存在噪音数据，减少模型干扰因素 减少计算量 便于可视化分析">
-<meta name="twitter:image" content="http://www.ruanyifeng.com/blogimg/asset/2017/bg2017071202.png">
+<meta name="twitter:title" content="在springboot中从classpath下加载文件(翻译)">
+<meta name="twitter:description" content="简介：创建Spring Boot Web应用程序时，有时需要从类路径加载文件，例如，数据仅作为文件提供。就我而言，我使用MAXMIND GeoLite2 database进行位置索引。因此我需要加载文件并创建一个存储在服务器内存中的DatabaseReader对象。 在下面您将找到在WAR和JAR中加载文件的解决方案。">
   
     <link rel="alternative" href="/atom.xml" title="Tellenw" type="application/atom+xml">
   
@@ -210,59 +200,34 @@ var _hmt = _hmt || [];
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-利用神经网络进行数据降维" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-在springboot中从classpath下加载文件" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      利用神经网络进行数据降维
+      在springboot中从classpath下加载文件(翻译)
     </h1>
   
 
         
-        <a href="/2017/11/08/利用神经网络进行数据降维/" class="archive-article-date">
-  	<time datetime="2017-11-08T06:38:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-08</time>
+        <a href="/2018/03/23/在springboot中从classpath下加载文件/" class="archive-article-date">
+  	<time datetime="2018-03-23T14:33:33.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-23</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="利用神经网络进行数据降维"><a href="#利用神经网络进行数据降维" class="headerlink" title="利用神经网络进行数据降维"></a>利用神经网络进行数据降维</h1><h2 id="降维"><a href="#降维" class="headerlink" title="降维"></a>降维</h2><h3 id="为什么要降维？"><a href="#为什么要降维？" class="headerlink" title="为什么要降维？"></a>为什么要降维？</h3><ul>
-<li>去除存在噪音数据，减少模型干扰因素</li>
-<li>减少计算量</li>
-<li>便于可视化分析</li>
-</ul>
-<a id="more"></a>
-<h3 id="常见降维方法"><a href="#常见降维方法" class="headerlink" title="常见降维方法"></a>常见降维方法</h3><ul>
-<li>主成分分析法（PCA）</li>
-<li>线性判别分析法（LCA）</li>
-<li>神经网络</li>
-</ul>
-<h2 id="神经网络"><a href="#神经网络" class="headerlink" title="神经网络"></a>神经网络</h2><h3 id="感知器"><a href="#感知器" class="headerlink" title="感知器"></a>感知器</h3><p>受到人类大脑神经网络启发：</p>
-<p><img src="http://www.ruanyifeng.com/blogimg/asset/2017/bg2017071202.png" alt="http://www.ruanyifeng.com/blogimg/asset/2017/bg2017071202.png"></p>
-<p>多层神经网络决策模型：<br><img src="http://www.ruanyifeng.com/blogimg/asset/2017/bg2017071205.png" alt="http://www.ruanyifeng.com/blogimg/asset/2017/bg2017071205.png"></p>
-<h3 id="确定权重和阀值"><a href="#确定权重和阀值" class="headerlink" title="确定权重和阀值"></a>确定权重和阀值</h3><h3 id="输入线性处理（Sigmoid）"><a href="#输入线性处理（Sigmoid）" class="headerlink" title="输入线性处理（Sigmoid）"></a>输入线性处理（Sigmoid）</h3><p>σ(z) = 1 / (1 + e^(-z))</p>
-<h3 id="BP神经网络模型"><a href="#BP神经网络模型" class="headerlink" title="BP神经网络模型"></a>BP神经网络模型</h3><p>BP算法全称叫作误差反向传播算法。其算法基本思想为：输入信号经输入层输入，通过隐层计算由输出层输出，输出值与标记值比较，若有误差，将误差反向由输出层向输入层传播，在这个过程中，利用梯度下降算法对神经元权值进行调整。<br><img src="http://upload-images.jianshu.io/upload_images/1241397-6a97cc9d982c4fcb.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="http://upload-images.jianshu.io/upload_images/1241397-6a97cc9d982c4fcb.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"></p>
-<p><strong>存在的问题：</strong></p>
-<p>局部极小值问题：随机给神经元赋一个权值，当这个权值太大的话，就很容易收敛到”差”的局部收敛点，权值太小的话则在进行误差反向传递时离输入层越近的权值更新越慢</p>
-<h2 id="RBM-限制波尔兹曼机"><a href="#RBM-限制波尔兹曼机" class="headerlink" title="RBM(限制波尔兹曼机)"></a>RBM(限制波尔兹曼机)</h2><p><img src="http://img.blog.csdn.net/20150406200045638" alt="http://img.blog.csdn.net/20150406200045638"><br>两层神经元之间都是全连接的，但是每一层各自的神经元之间并没有连接，也就是说，RBM的图结构是一种二分图（bipartite graph）</p>
-<p>对模型进行预训练，快速找到全局最优点，计算权值矩阵和偏移量，以加快后续的BP训练。</p>
-<h3 id="能量函数"><a href="#能量函数" class="headerlink" title="能量函数"></a>能量函数</h3><p><img src="http://images.cnitblog.com/blog/381513/201303/27152518-dea8b976b8174cb397c343f664ad7910.png" alt="http://images.cnitblog.com/blog/381513/201303/27152518-dea8b976b8174cb397c343f664ad7910.png"></p>
-<p>使系统达到稳定状态：能量函数值最小</p>
-<h2 id="降维步骤"><a href="#降维步骤" class="headerlink" title="降维步骤"></a>降维步骤</h2><h3 id="Pretaining"><a href="#Pretaining" class="headerlink" title="Pretaining"></a>Pretaining</h3><p> 预处理包含了 学习 一个 受限玻尔兹曼机栈（ 堆叠的RBM），每一个只有一层特征监测子。一层RBM学习过的数据作为下一层RBM的输入，然后使用BP算法调整参数。</p>
-<h3 id="Unrolling"><a href="#Unrolling" class="headerlink" title="Unrolling"></a>Unrolling</h3><p>根据encode的结果，和一系列的WT做矩阵乘法，最后得到vrecon的过程</p>
-<h3 id="Fine-tuning"><a href="#Fine-tuning" class="headerlink" title="Fine-tuning"></a>Fine-tuning</h3><p>stochastic gradient decent过程，目标函数：</p>
-<p>cost=−∑ivi⋅log(Virecon)+(1−vi)⋅log(1−virecon)</p>
-<h3 id="图示"><a href="#图示" class="headerlink" title="图示"></a>图示</h3><p><img src="https://segmentfault.com/img/bVGjVV?w=1138&amp;h=892" alt="https://segmentfault.com/img/bVGjVV?w=1138&amp;h=892"></p>
-<h2 id="和pca对比"><a href="#和pca对比" class="headerlink" title="和pca对比"></a>和pca对比</h2><p>相比于pca分解出来的特征，auto encoder获得的特征有更好的区分度<br>可以通过把784维特征降成2维，然后画出这些特征的分布的。</p>
-<h3 id="如图"><a href="#如图" class="headerlink" title="如图"></a>如图</h3><p><img src="https://sfault-image.b0.upaiyun.com/356/927/3569279786-58400fe12c46b_articlex" alt="https://sfault-image.b0.upaiyun.com/356/927/3569279786-58400fe12c46b_articlex"></p>
-<p>可以看到，RandomizedPCA降成2维后，好像只有0、1、2这3个数能较好的区分出来。而4层级联encoder网络（每层节点数分别为1000、500、250、2）得到的结果基本可以把所有数字的大部分都分解出来。不过，4、7、8、9重叠较多，5好像跟8也有较多重叠，这些从测试集合上也可以理解。</p>
-<h3 id="pca从2维重构回的“原始图片”"><a href="#pca从2维重构回的“原始图片”" class="headerlink" title="pca从2维重构回的“原始图片”"></a>pca从2维重构回的“原始图片”</h3><p><img src="https://sfault-image.b0.upaiyun.com/606/899/606899607-5840102ca867f_articlex" alt="https://sfault-image.b0.upaiyun.com/606/899/606899607-5840102ca867f_articlex"></p>
-<h3 id="神经网络重构出的“原始图片”"><a href="#神经网络重构出的“原始图片”" class="headerlink" title="神经网络重构出的“原始图片”"></a>神经网络重构出的“原始图片”</h3><p><img src="https://sfault-image.b0.upaiyun.com/850/284/850284109-584010709a292_articlex" alt="https://sfault-image.b0.upaiyun.com/850/284/850284109-584010709a292_articlex"></p>
-<h4 id="神经网络重构出的“原始图片”明显优于pca从2维重构回的“原始图片”"><a href="#神经网络重构出的“原始图片”明显优于pca从2维重构回的“原始图片”" class="headerlink" title="神经网络重构出的“原始图片”明显优于pca从2维重构回的“原始图片”"></a>神经网络重构出的“原始图片”明显优于pca从2维重构回的“原始图片”</h4>
+        <h3 id="简介："><a href="#简介：" class="headerlink" title="简介："></a>简介：</h3><p>创建<a href="http://projects.spring.io/spring-boot/" target="_blank" rel="external">Spring Boot</a> Web应用程序时，有时需要从类路径加载文件，例如，数据仅作为文件提供。就我而言，我使用<a href="http://dev.maxmind.com/geoip/geoip2/geolite2/" target="_blank" rel="external">MAXMIND GeoLite2 database</a>进行位置索引。因此我需要加载文件并创建一个存储在服务器内存中的DatabaseReader对象。</p>
+<p>在下面您将找到在WAR和JAR中加载文件的解决方案。<br><a id="more"></a><br><em>The ResourceLoader</em><br>用java开发时，你可以用当前线程获取classloader，然后用它去加载文件，但是在spring框架中提供了你更优雅得解决方法，如<a href="http://docs.spring.io/spring/docs/current/spring-framework-reference/html/resources.html" target="_blank" rel="external">ResourceLoader</a></p>
+<p>你只需要注入对象<code>ResourceLoader</code>之后调用它的<code>getResource(&quot;yourPath&quot;)</code>方法即可。</p>
+<p><em>在Spring Boot（WAR）中从资源目录/ classpath加载文件的示例</em><br>在以下示例中，我们从类路径中加载一个名为GeoLite2-Country.mmdb的文件作为资源，然后将其作为File对象进行检索。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Service</span>(<span class="string">"geolocationservice"</span>)</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GeoLocationServiceImpl</span> <span class="keyword">implements</span> <span class="title">GeoLocationService</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Logger LOGGER = LoggerFactory.getLogger(GeoLocationServiceImpl.class);</div><div class="line"></div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> DatabaseReader reader = <span class="keyword">null</span>;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> ResourceLoader resourceLoader;</div><div class="line"></div><div class="line">    <span class="meta">@Autowired</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">GeoLocationServiceImpl</span><span class="params">(ResourceLoader resourceLoader)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.resourceLoader = resourceLoader;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@PostConstruct</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            LOGGER.info(<span class="string">"GeoLocationServiceImpl: Trying to load GeoLite2-Country database..."</span>);</div><div class="line"></div><div class="line">            Resource resource = resourceLoader.getResource(<span class="string">"classpath:GeoLite2-Country.mmdb"</span>);</div><div class="line">            File dbAsFile = resource.getFile();</div><div class="line"></div><div class="line">            <span class="comment">// Initialize the reader</span></div><div class="line">            reader = <span class="keyword">new</span> DatabaseReader</div><div class="line">                        .Builder(dbAsFile)</div><div class="line">                        .fileMode(Reader.FileMode.MEMORY)</div><div class="line">                        .build();</div><div class="line"></div><div class="line">            LOGGER.info(<span class="string">"GeoLocationServiceImpl: Database was loaded successfully."</span>);</div><div class="line"></div><div class="line">        &#125; <span class="keyword">catch</span> (IOException | NullPointerException e) &#123;</div><div class="line">            LOGGER.error(<span class="string">"Database reader cound not be initialized. "</span>, e);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@PreDestroy</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">preDestroy</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (reader != <span class="keyword">null</span>) &#123;</div><div class="line">            <span class="keyword">try</span> &#123;</div><div class="line">                reader.close();</div><div class="line">            &#125; <span class="keyword">catch</span> (IOException e) &#123;</div><div class="line">                LOGGER.error(<span class="string">"Failed to close the reader."</span>);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><em>从Spring Boot JAR中加载文件</em><br>如果你期望在springboot jar中从classpath中加载文件，你必须要使用<code>resource.getInputStream()</code>方法用输入流去获取文件，如果你试图使用<code>resource.getFile()</code>方法，你将会遇到错误，因为这样的话，spring试图去访问(主机的)文件系统的路径，但是在JAR中是做不到的。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Service</span>(<span class="string">"geolocationservice"</span>)</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GeoLocationServiceImpl</span> <span class="keyword">implements</span> <span class="title">GeoLocationService</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Logger LOGGER = LoggerFactory.getLogger(GeoLocationServiceImpl.class);</div><div class="line"></div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> DatabaseReader reader = <span class="keyword">null</span>;</div><div class="line">    <span class="keyword">private</span> ResourceLoader resourceLoader;</div><div class="line"></div><div class="line">    <span class="meta">@Inject</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">GeoLocationServiceImpl</span><span class="params">(ResourceLoader resourceLoader)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.resourceLoader = resourceLoader;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@PostConstruct</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            LOGGER.info(<span class="string">"GeoLocationServiceImpl: Trying to load GeoLite2-Country database..."</span>);</div><div class="line"></div><div class="line">            Resource resource = resourceLoader.getResource(<span class="string">"classpath:GeoLite2-Country.mmdb"</span>);</div><div class="line">            InputStream dbAsStream = resource.getInputStream(); <span class="comment">// &lt;-- this is the difference</span></div><div class="line"></div><div class="line">            <span class="comment">// Initialize the reader</span></div><div class="line">            reader = <span class="keyword">new</span> DatabaseReader</div><div class="line">                        .Builder(dbAsStream)</div><div class="line">                        .fileMode(Reader.FileMode.MEMORY)</div><div class="line">                        .build();</div><div class="line"></div><div class="line">            LOGGER.info(<span class="string">"GeoLocationServiceImpl: Database was loaded successfully."</span>);</div><div class="line"></div><div class="line">        &#125; <span class="keyword">catch</span> (IOException | NullPointerException e) &#123;</div><div class="line">            LOGGER.error(<span class="string">"Database reader cound not be initialized. "</span>, e);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@PreDestroy</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">preDestroy</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (reader != <span class="keyword">null</span>) &#123;</div><div class="line">            <span class="keyword">try</span> &#123;</div><div class="line">                reader.close();</div><div class="line">            &#125; <span class="keyword">catch</span> (IOException e) &#123;</div><div class="line">                LOGGER.error(<span class="string">"Failed to close the reader."</span>);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><a href="https://smarterco.de/java-load-file-from-classpath-in-spring-boot/" target="_blank" rel="external">原文链接</a></p>
+<p><em>注</em><br>翻译它是因为最近写一个web服务时遇到了点问题，这篇文章起了一点作用</p>
+
       
 
       
@@ -306,7 +271,7 @@ var _hmt = _hmt || [];
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">神经网络</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">spring boot</a>
         		</li>
       		
 		</ul>
@@ -362,7 +327,7 @@ var _hmt = _hmt || [];
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2017/11/08/利用神经网络进行数据降维/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2018/03/23/在springboot中从classpath下加载文件/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -376,20 +341,15 @@ var _hmt = _hmt || [];
   
 <nav id="article-nav">
   
-    <a href="/2017/05/21/MVC拦截器学习/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2018/03/19/good-link-articles/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          Spring MVC拦截器学习
+          good_link_articles
         
       </div>
     </a>
   
-  
-    <a href="/2018/03/12/spring-boot-返回json数据/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">spring boot 返回json数据</div>
-      <i class="icon-circle-right"></i>
-    </a>
   
 </nav>
 
@@ -401,7 +361,7 @@ var _hmt = _hmt || [];
   
   <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="利用神经网络进行数据降维" data-title="利用神经网络进行数据降维" data-url="http://yoursite.com/2017/11/08/利用神经网络进行数据降维/"></div>
+	<div class="ds-thread" data-thread-key="在springboot中从classpath下加载文件" data-title="在springboot中从classpath下加载文件(翻译)" data-url="http://yoursite.com/2018/03/23/在springboot中从classpath下加载文件/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
