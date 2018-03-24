@@ -6,17 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Tag: spring mvc | Tellenw</title>
+  <title>CDN和负载均衡初识 | Tellenw</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Believing future is attractive.">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Tellenw">
-<meta property="og:url" content="http://yoursite.com/tags/spring-mvc/index.html">
+  <meta name="description" content="CDN:CDN也就是内容分布网络(Content Delivery NetWork),它是构筑在现有Internet上的一种先进的流量分配网络，其目的是通过在现有的将网站的内容发布到最接近用户的网络“边缘”，使用户可以就近取得所需的内容，提用户访问网站的响应速度。有别于镜像，它比镜像更智能，可以做这样一一个比喻: CDN=德像(Mimor)+级存(Cahe)+整体负我均衡(GSLB)。">
+<meta name="keywords" content="CDN;负载均衡">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CDN和负载均衡初识">
+<meta property="og:url" content="http://yoursite.com/2018/03/24/CDN和负载均衡初识/index.html">
 <meta property="og:site_name" content="Tellenw">
-<meta property="og:description" content="Believing future is attractive.">
+<meta property="og:description" content="CDN:CDN也就是内容分布网络(Content Delivery NetWork),它是构筑在现有Internet上的一种先进的流量分配网络，其目的是通过在现有的将网站的内容发布到最接近用户的网络“边缘”，使用户可以就近取得所需的内容，提用户访问网站的响应速度。有别于镜像，它比镜像更智能，可以做这样一一个比喻: CDN=德像(Mimor)+级存(Cahe)+整体负我均衡(GSLB)。">
+<meta property="og:image" content="http://onhavnxj2.bkt.clouddn.com/CDN%E6%9E%B6%E6%9E%84.jpg">
+<meta property="og:image" content="http://onhavnxj2.bkt.clouddn.com/IMG_20180324_095131.jpg">
+<meta property="og:updated_time" content="2018-03-24T02:23:15.875Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Tellenw">
-<meta name="twitter:description" content="Believing future is attractive.">
+<meta name="twitter:title" content="CDN和负载均衡初识">
+<meta name="twitter:description" content="CDN:CDN也就是内容分布网络(Content Delivery NetWork),它是构筑在现有Internet上的一种先进的流量分配网络，其目的是通过在现有的将网站的内容发布到最接近用户的网络“边缘”，使用户可以就近取得所需的内容，提用户访问网站的响应速度。有别于镜像，它比镜像更智能，可以做这样一一个比喻: CDN=德像(Mimor)+级存(Cahe)+整体负我均衡(GSLB)。">
+<meta name="twitter:image" content="http://onhavnxj2.bkt.clouddn.com/CDN%E6%9E%B6%E6%9E%84.jpg">
   
     <link rel="alternative" href="/atom.xml" title="Tellenw" type="application/atom+xml">
   
@@ -198,98 +203,195 @@ var _hmt = _hmt || [];
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-CDN和负载均衡初识" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-spring">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/05/21/MVC拦截器学习/" class="archive-article-date">
-  	<time datetime="2017-05-21T11:02:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-21</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/05/21/MVC拦截器学习/">Spring MVC拦截器学习</a>
+    <h1 class="article-title" itemprop="name">
+      CDN和负载均衡初识
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2018/03/24/CDN和负载均衡初识/" class="archive-article-date">
+  	<time datetime="2018-03-24T01:44:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-24</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>CDN:</strong><br>CDN也就是内容分布网络(Content Delivery NetWork),它是构筑在现有Internet上的一种先进的流量分配网络，其目的是通过在现有的将网站的内容发布到最接近用户的网络“边缘”，使用户可以就近取得所需的内容，提用户访问网站的响应速度。有别于镜像，它比镜像更智能，可以做这样一一个比喻: CDN=德像(Mimor)+级存(Cahe)+整体负我均衡(GSLB)。<br><a id="more"></a><br>目前CDN都以缓存网站中的静态数据为主，如CSS、JS、图片和静态页面等数据、用户在从主站服务器请求到动态内容后，再从CDN 上下载这些静态数据，从而加速网页数据内容的下载速度。<br>通常来说CDN要达到以下几个目标。</p>
+<ul>
+<li>可扩展(Scalability) 性能可扩展性： 应对新增的大量数据、用户和事务的扩展能力。成本可扩展性用低廉的运营成本提供动态的服务能力和高质量的内容分发。</li>
+<li>安全性(Seurity).强调提供物理设备、网络、软件、数据和服务过程的安全性趋势) 減少因为DDOS攻击或者其他恶意行为造成商业网站的业务中断。</li>
+<li>可靠性、响应和执行（Reibiliy.Reponivnes 和Perfomance）服务可用性指信够处理可能的故障和用户体验下降的问题，通过负载均衡及时提供网络的容错机制。</li>
+</ul>
+<p><strong>CDN架构如图</strong><br><img src="http://onhavnxj2.bkt.clouddn.com/CDN%E6%9E%B6%E6%9E%84.jpg" alt=""></p>
+<p><strong>负载均衡</strong><br>负载均衡(Load Balance)就是对工作任务进行平衡、分摊到多个操作单元上执行，如图片服务器、应用服务器等，共同完成工作任务。它可以提高服务器响应速度及利用效率，避免软件或则硬件模块出现单点失效，解决网络拥塞问题，实现地理位置无关性，为用户提供较一致的访问质量。</p>
+<p>三种负载均衡架构：</p>
+<ol>
+<li>链路负载均衡:就是通过DNS解析成不同的IP，然后用户根据解析结果访问服务器。用户最终访问哪一台主机是由DNS Server来控制的，即有Global DNS Server来动态解析服务。缺点是:DNS记录解析在用户和Local DNS Server都有缓存，一旦某一台主机挂了，会因DNS解析结果缓存得不到及时更新，而导致用户无法访问域名，从而带来严重后果。</li>
+<li>集群负载均衡:分为硬件负载均衡和软件负载均衡，硬件负载均衡需要一台昂贵的硬件设备来转发请求，性能非常好，但是不能及时动态扩容，一般公司也用不起；软件负载均衡成本非常低，用廉价PC就可以搭建，缺点是一般一次访问请求要经过多次代理服务器，会增加网络延时，架构如图:<br><img src="http://onhavnxj2.bkt.clouddn.com/IMG_20180324_095131.jpg" alt=""></li>
+<li>操作系统负载均衡:利用操作系统级别的中断服务(软中断、硬中断)来达到负载均衡。</li>
+</ol>
+<p>除CDN集群中使用负载均衡外，负载均衡更多用于Web服务以及分布式数据集群。</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你的打赏<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/alipay.jpeg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/weixinpay.jpeg">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">spring mvc</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">CDN;负载均衡</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2018/03/24/CDN和负载均衡初识/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/04/30/spring-MVC两个应用上下文的故事/" class="archive-article-date">
-  	<time datetime="2017-04-30T05:12:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-30</time>
-</a>
-        </div>
-    	 
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/04/30/spring-MVC两个应用上下文的故事/">spring MVC两个应用上下文的故事</a>
-    </h1>
+    <a href="/2018/03/23/在springboot中从classpath下加载文件/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          在springboot中从classpath下加载文件(翻译)
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+
+
+
+
+
+  
+  <div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="CDN和负载均衡初识" data-title="CDN和负载均衡初识" data-url="http://yoursite.com/2018/03/24/CDN和负载均衡初识/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"tellenw"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">spring mvc</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -312,9 +414,9 @@ var _hmt = _hmt || [];
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		root: "/",
