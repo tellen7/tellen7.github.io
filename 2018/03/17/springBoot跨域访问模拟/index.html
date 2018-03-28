@@ -9,7 +9,7 @@
   <title>springBoot跨域访问模拟 | Tellenw</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="微服务架构现在很流行，把一个项目拆分成很多服务进行单独开发，这对开发来说不仅能提高开发效率，还能是的项目逻辑上更清晰，后期维护更容易等等好处。  跨域访问场景 ：现在尝试开发一个后台，前端服务器里面有个页面使用ajax异步请求我后台服务器上的服务（开放API），现在有一个浏览器请求了前端页面，浏览器因为同源策略（限制javascript的安全机制）会屏蔽掉ajax请求的结果，可以在控制台上看到No">
-<meta name="keywords" content="springboot;跨域访问">
+<meta name="keywords" content="springboot,跨域访问">
 <meta property="og:type" content="article">
 <meta property="og:title" content="springBoot跨域访问模拟">
 <meta property="og:url" content="http://yoursite.com/2018/03/17/springBoot跨域访问模拟/index.html">
@@ -17,7 +17,7 @@
 <meta property="og:description" content="微服务架构现在很流行，把一个项目拆分成很多服务进行单独开发，这对开发来说不仅能提高开发效率，还能是的项目逻辑上更清晰，后期维护更容易等等好处。  跨域访问场景 ：现在尝试开发一个后台，前端服务器里面有个页面使用ajax异步请求我后台服务器上的服务（开放API），现在有一个浏览器请求了前端页面，浏览器因为同源策略（限制javascript的安全机制）会屏蔽掉ajax请求的结果，可以在控制台上看到No">
 <meta property="og:image" content="http://onhavnxj2.bkt.clouddn.com/failcors.png">
 <meta property="og:image" content="http://onhavnxj2.bkt.clouddn.com/successcors.png">
-<meta property="og:updated_time" content="2018-03-17T13:36:34.505Z">
+<meta property="og:updated_time" content="2018-03-28T08:23:46.059Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="springBoot跨域访问模拟">
 <meta name="twitter:description" content="微服务架构现在很流行，把一个项目拆分成很多服务进行单独开发，这对开发来说不仅能提高开发效率，还能是的项目逻辑上更清晰，后期维护更容易等等好处。  跨域访问场景 ：现在尝试开发一个后台，前端服务器里面有个页面使用ajax异步请求我后台服务器上的服务（开放API），现在有一个浏览器请求了前端页面，浏览器因为同源策略（限制javascript的安全机制）会屏蔽掉ajax请求的结果，可以在控制台上看到No">
@@ -231,7 +231,7 @@ var _hmt = _hmt || [];
 <ol>
 <li>通过JSONP动态插入另一台主机上的script代码，其原理就是前端代码中<code>&lt;script src=&quot;...&quot;&gt;</code>返回的是可以被javascript执行的脚本。</li>
 <li>用前端服务器的XmlHttpRequest代理来跨域访问资源，而不是在浏览器端让浏览器执行请求不同域的资源。</li>
-<li>我后端的做法就是在响应的实体中加入控制信息，即添加Filter<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AuthFilter</span> <span class="keyword">implements</span> <span class="title">Filter</span> </span>&#123;</div><div class="line">    <span class="comment">//    @Autowired</span></div><div class="line">    <span class="comment">//这个不能自动注入servlet和filter是被tomcat管理的</span></div><div class="line">    <span class="keyword">private</span> String[] excludePaths;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">(FilterConfig filterConfig)</span> <span class="keyword">throws</span> ServletException </span>&#123;</div><div class="line">        System.out.println(<span class="string">"initFilter"</span>);</div><div class="line">        <span class="comment">//不能在初始化中通过Appliaction Context获取因为这时候还没初始化Application Context</span></div><div class="line">        <span class="comment">//baseUserService = SpringUtils.getBean("baseUserService", BaseUserService.class);</span></div><div class="line">        excludePaths = <span class="keyword">new</span> String[]&#123;<span class="string">"/api/user/noLogin"</span>, <span class="string">"/api/user/tokenError"</span>, <span class="string">"/api/user/loginForeground"</span>,</div><div class="line">                <span class="string">"/api/user/loginBackground"</span>, <span class="string">"/api/user/inCorrectUserId"</span>&#125;;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doFilter</span><span class="params">(ServletRequest request, ServletResponse response, FilterChain chain)</span> <span class="keyword">throws</span> IOException, ServletException </span>&#123;</div><div class="line">        HttpServletRequest httpServletRequest = (HttpServletRequest) request;</div><div class="line">        HttpServletResponse httpServletResponse = (HttpServletResponse) response;</div><div class="line">        <span class="comment">//这里填写你允许进行跨域的主机ip</span></div><div class="line">        httpServletResponse.setHeader(<span class="string">"Access-Control-Allow-Origin"</span>, <span class="string">"*"</span>);</div><div class="line">        <span class="comment">//允许的访问方法</span></div><div class="line">        httpServletResponse.setHeader(<span class="string">"Access-Control-Allow-Methods"</span>, <span class="string">"POST, GET, PUT, OPTIONS, DELETE, PATCH"</span>);</div><div class="line">        <span class="comment">//Access-Control-Max-Age 用于 CORS 相关配置的缓存</span></div><div class="line">        httpServletResponse.setHeader(<span class="string">"Access-Control-Max-Age"</span>, <span class="string">"3600"</span>);</div><div class="line">        httpServletResponse.setHeader(<span class="string">"Access-Control-Allow-Headers"</span>, <span class="string">"Origin, X-Requested-With, Content-Type, Accept"</span>);</div><div class="line">  </div><div class="line">        String path = httpServletRequest.getServletPath();</div><div class="line">        <span class="keyword">if</span> (excludePath(path)) &#123;</div><div class="line">            chain.doFilter(request, response);</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            httpServletRequest.getRequestDispatcher(<span class="string">"/api/user/noLogin"</span>).forward(request, response);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">excludePath</span><span class="params">(String path)</span> </span>&#123;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; excludePaths.length; i++) &#123;</div><div class="line">            <span class="keyword">if</span> (path.equals(excludePaths[i]))</div><div class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">destroy</span><span class="params">()</span> </span>&#123;</div><div class="line">        System.out.println(<span class="string">"destroy method"</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<li>我后端的做法就是在响应的实体中加入控制信息，即添加Filter<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AuthFilter</span> <span class="keyword">implements</span> <span class="title">Filter</span> </span>&#123;</div><div class="line">    <span class="comment">//    @Autowired</span></div><div class="line">    <span class="comment">//这个不能自动注入servlet和filter是被tomcat管理的</span></div><div class="line">    <span class="keyword">private</span> String[] excludePaths;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">(FilterConfig filterConfig)</span> <span class="keyword">throws</span> ServletException </span>&#123;</div><div class="line">        System.out.println(<span class="string">"initFilter"</span>);</div><div class="line">        <span class="comment">//不能在初始化中通过Appliaction Context获取因为这时候还没初始化Application Context</span></div><div class="line">        <span class="comment">//baseUserService = SpringUtils.getBean("baseUserService", BaseUserService.class);</span></div><div class="line">        excludePaths = <span class="keyword">new</span> String[]&#123;<span class="string">"/api/user/noLogin"</span>, <span class="string">"/api/user/tokenError"</span>, <span class="string">"/api/user/loginForeground"</span>,</div><div class="line">                <span class="string">"/api/user/loginBackground"</span>, <span class="string">"/api/user/inCorrectUserId"</span>&#125;;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doFilter</span><span class="params">(ServletRequest request, ServletResponse response, FilterChain chain)</span> <span class="keyword">throws</span> IOException, ServletException </span>&#123;</div><div class="line">        HttpServletRequest httpServletRequest = (HttpServletRequest) request;</div><div class="line">        HttpServletResponse httpServletResponse = (HttpServletResponse) response;</div><div class="line">        <span class="comment">//这里填写你允许进行跨域的主机ip</span></div><div class="line">        httpServletResponse.setHeader(<span class="string">"Access-Control-Allow-Origin"</span>, <span class="string">"*"</span>);</div><div class="line">        <span class="comment">//允许的访问方法</span></div><div class="line">        httpServletResponse.setHeader(<span class="string">"Access-Control-Allow-Methods"</span>, <span class="string">"POST, GET, PUT, OPTIONS, DELETE, PATCH"</span>);</div><div class="line">        <span class="comment">//Access-Control-Max-Age 用于 CORS 相关配置的缓存</span></div><div class="line">        httpServletResponse.setHeader(<span class="string">"Access-Control-Max-Age"</span>, <span class="string">"3600"</span>);</div><div class="line">        httpServletResponse.setHeader(<span class="string">"Access-Control-Allow-Headers"</span>, <span class="string">"Origin, X-Requested-With, Content-Type, Accept"</span>);</div><div class="line"></div><div class="line">        String path = httpServletRequest.getServletPath();</div><div class="line">        <span class="keyword">if</span> (excludePath(path)) &#123;</div><div class="line">            chain.doFilter(request, response);</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            httpServletRequest.getRequestDispatcher(<span class="string">"/api/user/noLogin"</span>).forward(request, response);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">excludePath</span><span class="params">(String path)</span> </span>&#123;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; excludePaths.length; i++) &#123;</div><div class="line">            <span class="keyword">if</span> (path.equals(excludePaths[i]))</div><div class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">destroy</span><span class="params">()</span> </span>&#123;</div><div class="line">        System.out.println(<span class="string">"destroy method"</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
 </li>
 </ol>
 <p>或则编写一个配置类，配置跨域访问问题<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Configuration</span>  </div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CorsConfig</span> <span class="keyword">extends</span> <span class="title">WebMvcConfigurerAdapter</span> </span>&#123;  </div><div class="line"></div><div class="line">    <span class="meta">@Override</span>  </div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addCorsMappings</span><span class="params">(CorsRegistry registry)</span> </span>&#123;  </div><div class="line">        registry.addMapping(<span class="string">"/**"</span>)  </div><div class="line">                .allowedOrigins(<span class="string">"*"</span>)  </div><div class="line">                .allowCredentials(<span class="keyword">true</span>)  </div><div class="line">                .allowedMethods(<span class="string">"GET"</span>, <span class="string">"POST"</span>, <span class="string">"DELETE"</span>, <span class="string">"PUT"</span>)  </div><div class="line">                .maxAge(<span class="number">3600</span>);  </div><div class="line">    &#125;  </div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
@@ -290,7 +290,11 @@ var _hmt = _hmt || [];
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">springboot;跨域访问</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">springboot</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">跨域访问</a>
         		</li>
       		
 		</ul>
@@ -493,27 +497,11 @@ var _hmt = _hmt || [];
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">CDN;负载均衡</a>
+                <a href="javascript:void(0)" class="js-tag color4">CDN</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">python</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">java thread</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">eclipseForJava</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">php</a>
+                <a href="javascript:void(0)" class="js-tag color5">负载均衡</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -521,11 +509,39 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">docker</a>
+                <a href="javascript:void(0)" class="js-tag color4">thread线程</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">spring mvc</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">python</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">spring</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">docker</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">eclipse</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">hadoop</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">php</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -545,15 +561,15 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">hadoop</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">springboot;跨域访问</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">springBoot</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">springboot</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">跨域访问</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -561,19 +577,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">spring mvc</a>
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">spring boot</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">闯关游戏</a>
+                <a href="javascript:void(0)" class="js-tag color5">神经网络</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -581,7 +589,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">神经网络</a>
+                <a href="javascript:void(0)" class="js-tag color5">闯关游戏</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">spring boot</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -593,7 +605,7 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
+                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
               </li>
             
             <div class="clearfix"></div>

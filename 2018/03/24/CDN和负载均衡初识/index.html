@@ -8,19 +8,19 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>CDN和负载均衡初识 | Tellenw</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="CDN:CDN也就是内容分布网络(Content Delivery NetWork),它是构筑在现有Internet上的一种先进的流量分配网络，其目的是通过在现有的将网站的内容发布到最接近用户的网络“边缘”，使用户可以就近取得所需的内容，提用户访问网站的响应速度。有别于镜像，它比镜像更智能，可以做这样一一个比喻: CDN=德像(Mimor)+级存(Cahe)+整体负我均衡(GSLB)。">
-<meta name="keywords" content="CDN;负载均衡">
+  <meta name="description" content="CDN:CDN也就是内容分布网络(Content Delivery NetWork),它是构筑在现有Internet上的一种先进的流量分配网络，其目的是通过在现有的将网站的内容发布到最接近用户的网络“边缘”，使用户可以就近取得所需的内容，提用户访问网站的响应速度。有别于镜像，它比镜像更智能，可以做这样一一个比喻: CDN=镜像(Mimor)+级存(Cahe)+整体负我均衡(GSLB)。">
+<meta name="keywords" content="CDN,负载均衡">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CDN和负载均衡初识">
 <meta property="og:url" content="http://yoursite.com/2018/03/24/CDN和负载均衡初识/index.html">
 <meta property="og:site_name" content="Tellenw">
-<meta property="og:description" content="CDN:CDN也就是内容分布网络(Content Delivery NetWork),它是构筑在现有Internet上的一种先进的流量分配网络，其目的是通过在现有的将网站的内容发布到最接近用户的网络“边缘”，使用户可以就近取得所需的内容，提用户访问网站的响应速度。有别于镜像，它比镜像更智能，可以做这样一一个比喻: CDN=德像(Mimor)+级存(Cahe)+整体负我均衡(GSLB)。">
+<meta property="og:description" content="CDN:CDN也就是内容分布网络(Content Delivery NetWork),它是构筑在现有Internet上的一种先进的流量分配网络，其目的是通过在现有的将网站的内容发布到最接近用户的网络“边缘”，使用户可以就近取得所需的内容，提用户访问网站的响应速度。有别于镜像，它比镜像更智能，可以做这样一一个比喻: CDN=镜像(Mimor)+级存(Cahe)+整体负我均衡(GSLB)。">
 <meta property="og:image" content="http://onhavnxj2.bkt.clouddn.com/CDN%E6%9E%B6%E6%9E%84.jpg">
 <meta property="og:image" content="http://onhavnxj2.bkt.clouddn.com/IMG_20180324_095131.jpg">
-<meta property="og:updated_time" content="2018-03-24T02:23:15.875Z">
+<meta property="og:updated_time" content="2018-03-28T08:22:21.446Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CDN和负载均衡初识">
-<meta name="twitter:description" content="CDN:CDN也就是内容分布网络(Content Delivery NetWork),它是构筑在现有Internet上的一种先进的流量分配网络，其目的是通过在现有的将网站的内容发布到最接近用户的网络“边缘”，使用户可以就近取得所需的内容，提用户访问网站的响应速度。有别于镜像，它比镜像更智能，可以做这样一一个比喻: CDN=德像(Mimor)+级存(Cahe)+整体负我均衡(GSLB)。">
+<meta name="twitter:description" content="CDN:CDN也就是内容分布网络(Content Delivery NetWork),它是构筑在现有Internet上的一种先进的流量分配网络，其目的是通过在现有的将网站的内容发布到最接近用户的网络“边缘”，使用户可以就近取得所需的内容，提用户访问网站的响应速度。有别于镜像，它比镜像更智能，可以做这样一一个比喻: CDN=镜像(Mimor)+级存(Cahe)+整体负我均衡(GSLB)。">
 <meta name="twitter:image" content="http://onhavnxj2.bkt.clouddn.com/CDN%E6%9E%B6%E6%9E%84.jpg">
   
     <link rel="alternative" href="/atom.xml" title="Tellenw" type="application/atom+xml">
@@ -223,7 +223,7 @@ var _hmt = _hmt || [];
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><strong>CDN:</strong><br>CDN也就是内容分布网络(Content Delivery NetWork),它是构筑在现有Internet上的一种先进的流量分配网络，其目的是通过在现有的将网站的内容发布到最接近用户的网络“边缘”，使用户可以就近取得所需的内容，提用户访问网站的响应速度。有别于镜像，它比镜像更智能，可以做这样一一个比喻: CDN=德像(Mimor)+级存(Cahe)+整体负我均衡(GSLB)。<br><a id="more"></a><br>目前CDN都以缓存网站中的静态数据为主，如CSS、JS、图片和静态页面等数据、用户在从主站服务器请求到动态内容后，再从CDN 上下载这些静态数据，从而加速网页数据内容的下载速度。<br>通常来说CDN要达到以下几个目标。</p>
+        <p><strong>CDN:</strong><br>CDN也就是内容分布网络(Content Delivery NetWork),它是构筑在现有Internet上的一种先进的流量分配网络，其目的是通过在现有的将网站的内容发布到最接近用户的网络“边缘”，使用户可以就近取得所需的内容，提用户访问网站的响应速度。有别于镜像，它比镜像更智能，可以做这样一一个比喻: CDN=镜像(Mimor)+级存(Cahe)+整体负我均衡(GSLB)。<br><a id="more"></a><br>目前CDN都以缓存网站中的静态数据为主，如CSS、JS、图片和静态页面等数据、用户在从主站服务器请求到动态内容后，再从CDN 上下载这些静态数据，从而加速网页数据内容的下载速度。<br>通常来说CDN要达到以下几个目标。</p>
 <ul>
 <li>可扩展(Scalability) 性能可扩展性： 应对新增的大量数据、用户和事务的扩展能力。成本可扩展性用低廉的运营成本提供动态的服务能力和高质量的内容分发。</li>
 <li>安全性(Seurity).强调提供物理设备、网络、软件、数据和服务过程的安全性趋势) 減少因为DDOS攻击或者其他恶意行为造成商业网站的业务中断。</li>
@@ -282,7 +282,11 @@ var _hmt = _hmt || [];
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">CDN;负载均衡</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">CDN</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">负载均衡</a>
         		</li>
       		
 		</ul>
@@ -480,27 +484,11 @@ var _hmt = _hmt || [];
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">CDN;负载均衡</a>
+                <a href="javascript:void(0)" class="js-tag color4">CDN</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">python</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">java thread</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">eclipseForJava</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">php</a>
+                <a href="javascript:void(0)" class="js-tag color5">负载均衡</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -508,11 +496,39 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">docker</a>
+                <a href="javascript:void(0)" class="js-tag color4">thread线程</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">spring mvc</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">python</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">spring</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">docker</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">eclipse</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">hadoop</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">php</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -532,15 +548,15 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">hadoop</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">springboot;跨域访问</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">springBoot</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">springboot</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">跨域访问</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -548,19 +564,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">spring mvc</a>
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">spring boot</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">闯关游戏</a>
+                <a href="javascript:void(0)" class="js-tag color5">神经网络</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -568,7 +576,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">神经网络</a>
+                <a href="javascript:void(0)" class="js-tag color5">闯关游戏</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">spring boot</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -580,7 +592,7 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
+                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
               </li>
             
             <div class="clearfix"></div>
