@@ -19,7 +19,8 @@
 <meta property="og:image" content="https://uploadfiles.nowcoder.net/images/20161223/415611_1482452665193_6FB53C51539B47559CF0D122A832CF63">
 <meta property="og:image" content="https://uploadfiles.nowcoder.net/images/20160727/6316247_1469628859864_A8BB53E66CC9A072C0448DDDBDF4C3B2">
 <meta property="og:image" content="http://uploadfiles.nowcoder.net/images/20150920/458054_1442763788854_B47C957C7EB6BD455B267510F3DF76F1">
-<meta property="og:updated_time" content="2018-05-05T07:56:24.982Z">
+<meta property="og:image" content="https://uploadfiles.nowcoder.net/images/20161218/8207485_1482023299700_17C2F187026D0B45BE3F7CEDF72794A5">
+<meta property="og:updated_time" content="2018-05-05T12:37:56.530Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="牛客网学习笔记">
 <meta name="twitter:description" content="jvm内存模型大多数 JVM 将内存区域划分为 Method Area（Non-Heap）（方法区） ,Heap（堆） , Program Counter Register（程序计数器） ,   VM Stack（虚拟机栈，也有翻译成JAVA 方法栈的）,Native Method Stack  （ 本地方法栈 ），其中Method Area 和  Heap 是线程共享的  ，VM Stack，N">
@@ -225,7 +226,8 @@ var _hmt = _hmt || [];
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="jvm内存模型"><a href="#jvm内存模型" class="headerlink" title="jvm内存模型"></a>jvm内存模型</h3><p>大多数 JVM 将内存区域划分为 Method Area（Non-Heap）（方法区） ,Heap（堆） , Program Counter Register（程序计数器） ,   VM Stack（虚拟机栈，也有翻译成JAVA 方法栈的）,Native Method Stack  （ 本地方法栈 ），其中Method Area 和  Heap 是线程共享的  ，VM Stack，Native Method Stack  和Program Counter Register  是非线程共享的。为什么分为 线程共享和非线程共享的呢?<br><a id="more"></a><br><img src="https://uploadfiles.nowcoder.net/images/20161223/415611_1482452184396_6FB53C51539B47559CF0D122A832CF63" alt="截图一张"><br>首先我们熟悉一下一个一般性的 Java 程序的工作过程。一个 Java 源程序文件，会被编译为字节码文件（以 class 为扩展名），每个java程序都需要运行在自己的JVM上，然后告知 JVM 程序的运行入口，再被 JVM 通过字节码解释器加载运行。那么程序开始运行后，都是如何涉及到各内存区域的呢？</p>
+        <h3 id="jvm内存模型"><a href="#jvm内存模型" class="headerlink" title="jvm内存模型"></a>jvm内存模型</h3><p>大多数 JVM 将内存区域划分为 Method Area（Non-Heap）（方法区） ,Heap（堆） , Program Counter Register（程序计数器） ,   VM Stack（虚拟机栈，也有翻译成JAVA 方法栈的）,Native Method Stack  （ 本地方法栈 ），其中Method Area 和  Heap 是线程共享的  ，VM Stack，Native Method Stack  和Program Counter Register  是非线程共享的。为什么分为 线程共享和非线程共享的呢?<br><a id="more"></a><br><a href="https://blog.csdn.net/a503921892/article/details/39048889" target="_blank" rel="external">jvm参数博客</a></p>
+<p><img src="https://uploadfiles.nowcoder.net/images/20161223/415611_1482452184396_6FB53C51539B47559CF0D122A832CF63" alt="截图一张"><br>首先我们熟悉一下一个一般性的 Java 程序的工作过程。一个 Java 源程序文件，会被编译为字节码文件（以 class 为扩展名），每个java程序都需要运行在自己的JVM上，然后告知 JVM 程序的运行入口，再被 JVM 通过字节码解释器加载运行。那么程序开始运行后，都是如何涉及到各内存区域的呢？</p>
 <p>概括地说来，JVM初始运行的时候都会分配好 Method Area（方法区） 和Heap（堆） ，而JVM 每遇到一个线程，就为其分配一个 Program Counter Register（程序计数器） ,   VM Stack（虚拟机栈）和Native Method Stack  （本地方法栈）， 当线程终止时，三者（虚拟机栈，本地方法栈和程序计数器）所占用的内存空间也会被释放掉。这也是为什么我把内存区域分为线程共享和非线程共享的原因，非线程共享的那三个区域的生命周期与所属线程相同，而线程共享的区域与JAVA程序运行的生命周期相同，所以这也是系统垃圾回收的场所只发生在线程共享的区域（实际上对大部分虚拟机来说知发生在Heap上）的原因。</p>
 <p><img src="https://uploadfiles.nowcoder.net/images/20161223/415611_1482452665193_6FB53C51539B47559CF0D122A832CF63" alt=""></p>
 <h3 id="servlet一点东西"><a href="#servlet一点东西" class="headerlink" title="servlet一点东西"></a>servlet一点东西</h3><ul>
@@ -243,15 +245,50 @@ var _hmt = _hmt || [];
 <p>servlet在多线程下其本身并不是线程安全的。<br>如果在类中定义成员变量，而在service中根据不同的线程对该成员变量进行更改，那么在并发的时候就会引起错误。最好是在方法中，定义局部变量，而不是类变量或者对象的成员变量。由于方法中的局部变量是在栈中，彼此各自都拥有独立的运行空间而不会互相干扰，因此才做到线程安全。</p>
 <p><img src="https://uploadfiles.nowcoder.net/images/20160727/6316247_1469628859864_A8BB53E66CC9A072C0448DDDBDF4C3B2" alt=""></p>
 <h3 id="forward和redirect"><a href="#forward和redirect" class="headerlink" title="forward和redirect"></a>forward和redirect</h3><p>forward，服务器获取跳转页面内容传给用户，用户地址栏不变<br>redirect，是服务器向用户发送转向的地址，redirect后地址栏变成新的地址</p>
-<h3 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h3><p><img src="http://uploadfiles.nowcoder.net/images/20150920/458054_1442763788854_B47C957C7EB6BD455B267510F3DF76F1" alt=""></p>
+<h3 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h3><p><a href="https://blog.csdn.net/ljphhj/article/details/9818993" target="_blank" rel="external">详细异常罗列博客</a></p>
+<p><img src="http://uploadfiles.nowcoder.net/images/20150920/458054_1442763788854_B47C957C7EB6BD455B267510F3DF76F1" alt=""></p>
 <p>运行时异常： 都是RuntimeException类及其子类异常，如NullPointerException(空指针异常)、IndexOutOfBoundsException(下标越界异常)等，这些异常是不检查异常，程序中可以选择捕获处理，也可以不处理。这些异常一般是由程序逻辑错误引起的，程序应该从逻辑角度尽可能避免这类异常的发生。</p>
 <p>运行时异常的特点是Java编译器不会检查它，也就是说，当程序中可能出现这类异常，即使没有用try-catch语句捕获它，也没有用throws子句声明抛出它，也会编译通过。 </p>
 <p>非运行时异常 （编译异常）： 是RuntimeException以外的异常，类型上都属于Exception类及其子类。从程序语法角度讲是必须进行处理的异常，如果不处理，程序就不能编译通过。如IOException、SQLException等以及用户自定义的Exception异常，一般情况下不自定义检查异常。</p>
+<blockquote>
+<p>异常是指程序运行时（非编译）所发生的非正常情况或错误，当程序违反了语音规则，jvm就会将出现的错误表示一个异常抛出。<br>异常也是java 的对象，定义了基类 java。lang。throwable作为异常父类。 这些异常类又包括error和exception。两大类<br>error类异常主要是运行时逻辑错误导致，一个正确程序中是不应该出现error的。当出现error一般jvm会终止。<br>exception表示可恢复异常，包括检查异常和运行时异常。 检查异常是最常见异常比如 io异常sql异常，都发生在编译阶段。这类通过try、catch捕捉<br>而运行时异常，编译器没有强制对其进行捕捉和处理。一般都会把异常向上抛出，直到遇到处理代码位置，若没有处理块就会抛到最上层，多线程用thread。run（）抛出，单线程用main（）抛出。常见的运行异常包括 空指针异常 类型转换异常 数组月结异常 数组存储异常 缓冲区溢出异常 算术异常等，</p>
+</blockquote>
 <h3 id="jvm参数"><a href="#jvm参数" class="headerlink" title="jvm参数"></a>jvm参数</h3><pre><code>-Xmx：最大堆大小
 -Xms：初始堆大小
 -Xmn:年轻代大小
 -XXSurvivorRatio：年轻代中Eden区与Survivor区的大小比值
-</code></pre>
+</code></pre><h3 id="Object对象的方法说明"><a href="#Object对象的方法说明" class="headerlink" title="Object对象的方法说明"></a>Object对象的方法说明</h3><p><img src="https://uploadfiles.nowcoder.net/images/20161218/8207485_1482023299700_17C2F187026D0B45BE3F7CEDF72794A5" alt=""><br>1．clone方法<br>保护方法，实现对象的浅复制，只有实现了Cloneable接口才可以调用该方法，否则抛出CloneNotSupportedException异常。</p>
+<p>2．getClass方法<br>final方法，获得运行时类型。</p>
+<p>3．toString方法<br>该方法用得比较多，一般子类都有覆盖。</p>
+<p>4．finalize方法<br>该方法用于释放资源。因为无法确定该方法什么时候被调用，很少使用。</p>
+<p>5．equals方法<br>该方法是非常重要的一个方法。一般equals和==是不一样的，但是在Object中两者是一样的。子类一般都要重写这个方法。</p>
+<p>6．hashCode方法<br>该方法用于哈希查找，重写了equals方法一般都要重写hashCode方法。这个方法在一些具有哈希功能的Collection中用到。</p>
+<p>一般必须满足obj1.equals(obj2)==true。可以推出obj1.hash- Code()==obj2.hashCode()，但是hashCode相等不一定就满足equals。不过为了提高效率，应该尽量使上面两个条件接近等价。</p>
+<p>7．wait方法<br>wait方法就是使当前线程等待该对象的锁，当前线程必须是该对象的拥有者，也就是具有该对象的锁。wait()方法一直等待，直到获得锁或者被中断。wait(long timeout)设定一个超时间隔，如果在规定时间内没有获得锁就返回。</p>
+<p>调用该方法后当前线程进入睡眠状态，直到以下事件发生。</p>
+<p>（1）其他线程调用了该对象的notify方法。</p>
+<p>（2）其他线程调用了该对象的notifyAll方法。</p>
+<p>（3）其他线程调用了interrupt中断该线程。</p>
+<p>（4）时间间隔到了。</p>
+<p>此时该线程就可以被调度了，如果是被中断的话就抛出一个InterruptedException异常。</p>
+<p>8．notify方法<br>该方法唤醒在该对象上等待的某个线程。</p>
+<p>9．notifyAll方法<br>该方法唤醒在该对象上等待的所有线程。</p>
+<h3 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h3><ul>
+<li><code>run()</code>和<code>start()</code>区别</li>
+</ul>
+<p>1.start方法：<br>         用 start方法来启动线程，是真正实现了多线程， 通过调用Thread类的start()方法来启动一个线程，这时此线程处于就绪（可运行）状态，并没有运行，一旦得到cpu时间片，就开始执行run()方法。但要注意的是，此时无需等待run()方法执行完毕，即可继续执行下面的代码。所以run()方法并没有实现多线程。</p>
+<p>2.run方法：<br>         run()方法只是类的一个普通方法而已，如果直接调用Run方法，程序中依然只有主线程这一个线程，其程序执行路径还是只有一条，还是要顺序执行，还是要等待run方法体执行完毕后才可继续执行下面的代码。</p>
+<ul>
+<li>volatile</li>
+</ul>
+<p>Volatile：与锁相比，Volatile 变量是一种非常简单但同时又非常脆弱的同步机制，它在某些情况下将提供优于锁的性能和伸缩性。如果严格遵循 volatile 的使用条件 —— 即变量真正独立于其他变量和自己以前的值 —— 在某些情况下可以使用 volatile 代替 synchronized 来简化代码。然而，使用 volatile 的代码往往比使用锁的代码更加容易出错。</p>
+<p>您只能在有限的一些情形下使用 volatile 变量替代锁。要使 volatile 变量提供理想的线程安全，必须同时满足下面两个条件：</p>
+<blockquote>
+<p>（1）对变量的写操作不依赖于当前值。</p>
+<p>（2）该变量没有包含在具有其他变量的不变式中。</p>
+</blockquote>
+<p>实际上，这些条件表明，可以被写入 volatile 变量的这些有效值独立于任何程序的状态，包括变量的当前状态。<br>第一个条件的限制使 volatile 变量不能用作线程安全计数器。虽然增量操作（x++）看上去类似一个单独操作，实际上它是一个由读取－修改－写入操作序列组成的组合操作，必须以原子方式执行，而 volatile 不能提供必须的原子特性。实现正确的操作需要使 x 的值在操作期间保持不变，而 volatile 变量无法实现这点。</p>
+
       
 
       
@@ -497,6 +534,14 @@ var _hmt = _hmt || [];
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">java</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">thread线程</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">CDN</a>
               </li>
              
@@ -506,14 +551,6 @@ var _hmt = _hmt || [];
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">spring mvc</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">thread线程</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -593,11 +630,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">spring boot</a>
+                <a href="javascript:void(0)" class="js-tag color5">闯关游戏</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">闯关游戏</a>
+                <a href="javascript:void(0)" class="js-tag color2">spring boot</a>
               </li>
              
               <li class="article-tag-list-item">
