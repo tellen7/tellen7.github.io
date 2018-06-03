@@ -6,17 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Tag: 技巧 | Tellenw</title>
+  <title>effective java学习笔记 | Tellenw</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Believing future is attractive.">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Tellenw">
-<meta property="og:url" content="http://yoursite.com/tags/技巧/index.html">
+  <meta name="description" content="Effective Java主要是帮助开发人员有效的使用java程序设计语言，其主要包含11个章节78个条目，每一个条目都是对某一方面编程的建议 下面主要记录一些编程建议 1.考虑用静态工厂方法代替构造器">
+<meta name="keywords" content="effective java,笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="effective java学习笔记">
+<meta property="og:url" content="http://yoursite.com/2018/06/03/effective-java学习笔记/index.html">
 <meta property="og:site_name" content="Tellenw">
-<meta property="og:description" content="Believing future is attractive.">
+<meta property="og:description" content="Effective Java主要是帮助开发人员有效的使用java程序设计语言，其主要包含11个章节78个条目，每一个条目都是对某一方面编程的建议 下面主要记录一些编程建议 1.考虑用静态工厂方法代替构造器">
+<meta property="og:updated_time" content="2018-06-03T10:47:27.175Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Tellenw">
-<meta name="twitter:description" content="Believing future is attractive.">
+<meta name="twitter:title" content="effective java学习笔记">
+<meta name="twitter:description" content="Effective Java主要是帮助开发人员有效的使用java程序设计语言，其主要包含11个章节78个条目，每一个条目都是对某一方面编程的建议 下面主要记录一些编程建议 1.考虑用静态工厂方法代替构造器">
   
     <link rel="alternative" href="/atom.xml" title="Tellenw" type="application/atom+xml">
   
@@ -198,75 +200,296 @@ var _hmt = _hmt || [];
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-effective-java学习笔记" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/05/21/正确使用谷歌/" class="archive-article-date">
-  	<time datetime="2017-05-20T16:27:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-21</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/05/21/正确使用谷歌/">正确使用谷歌</a>
+    <h1 class="article-title" itemprop="name">
+      effective java学习笔记
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2018/06/03/effective-java学习笔记/" class="archive-article-date">
+  	<time datetime="2018-06-03T08:26:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-03</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Effective Java主要是帮助开发人员有效的使用java程序设计语言，其主要包含11个章节78个条目，每一个条目都是对某一方面编程的建议</p>
+<p>下面主要记录一些编程建议</p>
+<h3 id="1-考虑用静态工厂方法代替构造器"><a href="#1-考虑用静态工厂方法代替构造器" class="headerlink" title="1.考虑用静态工厂方法代替构造器"></a>1.考虑用静态工厂方法代替构造器</h3><a id="more"></a>
+<p>理由：</p>
+<ol>
+<li>他们有名称</li>
+<li>不必在每次调用他们时都创建一个新对象</li>
+<li>他们可以返回原返回类型的任何子类型对象</li>
+<li>在创建参数化类型实例的时候代码简洁</li>
+</ol>
+<p>eg. JDBC的服务提供者框架</p>
+<h3 id="2-遇到多个构造器参数时要考虑用构建器"><a href="#2-遇到多个构造器参数时要考虑用构建器" class="headerlink" title="2.遇到多个构造器参数时要考虑用构建器"></a>2.遇到多个构造器参数时要考虑用构建器</h3><p>进化思路：<br>重叠构造器———&gt;javaBean模式(setter)———&gt;builder模式</p>
+<p><em>builder模式：Builder设计成目标类的静态内部类，Jsoup的Request对象的创建可能是builder模式//TODO</em></p>
+<p><em>Class.newInstance会破坏编译时的异常检查，因为它不会去看有没有默认构造函数</em></p>
+<h3 id="3-用私有的构造器或则枚举类型强化Singleton属性"><a href="#3-用私有的构造器或则枚举类型强化Singleton属性" class="headerlink" title="3.用私有的构造器或则枚举类型强化Singleton属性"></a>3.用私有的构造器或则枚举类型强化Singleton属性</h3><p><strong>注：反射和序列化对象时，要考虑单利模式的安全性和有效性</strong></p>
+<h3 id="4-通过私有构造器强化不可实例化的能力"><a href="#4-通过私有构造器强化不可实例化的能力" class="headerlink" title="4.通过私有构造器强化不可实例化的能力"></a>4.通过私有构造器强化不可实例化的能力</h3><p>说明：主要是一些工具类（其方法都是静态的）</p>
+<p>eg. <code>private Xxxx(){throw new AssertionError();}</code></p>
+<h3 id="5-避免创建不必要的对象"><a href="#5-避免创建不必要的对象" class="headerlink" title="5.避免创建不必要的对象"></a>5.避免创建不必要的对象</h3><p>eg.</p>
+<ol>
+<li><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">String s = <span class="keyword">new</span> String(<span class="string">"str1"</span>);<span class="comment">//每次执行到都会创建新对象</span></div><div class="line">String s = <span class="string">"str1"</span>;<span class="comment">//虚拟机优化，字面常量（常量池中）的重用</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>经常被使用的方法的内部可重用的对象提到类成员变量中去</p>
+</li>
+<li>注意无意识的自动装箱操作（装箱对象参与运算操作会创建很多无用对象）</li>
+</ol>
+<h3 id="6-消除过期的对象引用（存在内存泄漏问题）"><a href="#6-消除过期的对象引用（存在内存泄漏问题）" class="headerlink" title="6.消除过期的对象引用（存在内存泄漏问题）"></a>6.消除过期的对象引用（存在内存泄漏问题）</h3><ol>
+<li>类时自己管理内存。如Stack在pop操作中<code>element[--size]</code>操作后要释放引用<code>element[size]=null</code></li>
+<li>缓存（map相关集合，弱引用weakhashmap）</li>
+<li>监听器，其他回调函数</li>
+</ol>
+<h3 id="7-避免使用终结方法"><a href="#7-避免使用终结方法" class="headerlink" title="7.避免使用终结方法"></a>7.避免使用终结方法</h3><p>一般使用<code>try-finally</code>块来完成类似工作</p>
+<h3 id="8-覆盖equals时遵守通用约定（短路逻辑判断很牛）"><a href="#8-覆盖equals时遵守通用约定（短路逻辑判断很牛）" class="headerlink" title="8.覆盖equals时遵守通用约定（短路逻辑判断很牛）"></a>8.覆盖equals时遵守通用约定（短路逻辑判断很牛）</h3><blockquote>
+<p>Q：什么时候重写?</p>
+<p>A：如果类具有特有的“逻辑相等”概念，超类没有覆写equals以实现期待的行为</p>
+</blockquote>
+<p><strong>约定：</strong></p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>具体约束</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>非空性</td>
+<td>x.equals(null)返回false</td>
+</tr>
+<tr>
+<td>自反性</td>
+<td>x.equals(x)返回true</td>
+</tr>
+<tr>
+<td>对称性</td>
+<td>x.equals(y)和y.equals(x)返回结果一致</td>
+</tr>
+<tr>
+<td>一致性</td>
+<td>在没有修改对象信息时x.equals(y)返回的结果要一致</td>
+</tr>
+<tr>
+<td>传递性</td>
+<td>x.equals(y),y.equals(z)=&gt;x.equals(z)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>注</strong></p>
+<ul>
+<li>非空性、自反性一般不用显式写出，因为用<code>instanceof</code>，即只需考究下面三条的实现</li>
+<li>如果违反自反性，比如向集合中添加元素，然后contains函数会告诉你你刚刚添加的元素不存在</li>
+<li>instanceof和getClass有区别，在里氏替换原则下，后则不适用（复合优于继承）</li>
+<li>一致性是指equals不要依赖于不可靠资源（比如会自动变的量ip）</li>
+</ul>
+<p><strong>高效覆写建议</strong></p>
+<ol>
+<li>用<code>==</code>检查“参数是否为这个对象的引用”</li>
+<li>用instanceof检查“参数是否为正确类型”（集合接口模板设计）</li>
+<li>把参数转换成正确的类型</li>
+<li>对该类的“关键（significant）”域检查参数中的域是否与该对象中的域相匹配{double、float；其他基本类型；对象引用；数组}</li>
+</ol>
+<p><em>tips：</em></p>
+<p>i.避免null<code>(field==null ? o.field==null : field.equals(o.field))</code></p>
+<p>ii.<code>(field==o.field || (field != null &amp;&amp; field == null : field.equals(o.feild)))</code></p>
+<p>iii.最先比较最有可能不一致的域或则开销最低的域，去掉冗余域</p>
+<ol>
+<li>编写完后，问、测对称性、一致性和传递性</li>
+<li>忠告：</li>
+</ol>
+<p>i.override equals always requiring override hashcode</p>
+<p>ii. 不要企图让equals过于智能</p>
+<p>iii. 不能讲equals声明中object对象替换成其他类型</p>
+<h3 id="9-覆盖equals时总要覆盖hashcode"><a href="#9-覆盖equals时总要覆盖hashcode" class="headerlink" title="9. 覆盖equals时总要覆盖hashcode"></a>9. 覆盖equals时总要覆盖hashcode</h3><p><strong>预定/规范：</strong></p>
+<ol>
+<li>equals比较操作用到的信息没有被修改，多次调用hashcode返回同一个整数</li>
+<li>相等的对象bi须具有相同的散列码/哈希码</li>
+<li>为不相等的对象产生不相等的散列码</li>
+</ol>
+<p><strong>计算码</strong></p>
+<ol>
+<li>int result = 17;</li>
+<li>对对象中每个关键域计算出相对应int值，并合并到result中<br> a. 分情况计算int类型的散列码c<br> b. result = 31<em>result + c;(31</em>i=(i&lt;&lt;5-i))</li>
+<li>返回result值</li>
+<li>测试验证是否满足规范</li>
+</ol>
+<p>tips:</p>
+<ol>
+<li>计算散列码开销大的话，可以用一个域将散列码缓存到对象内部</li>
+<li>如果对象被用于hash集合的key时，也应该缓存散列码</li>
+<li>不能为了性能排除掉一些关键域去计算散列码</li>
+<li>冗余域不参与计算，因为冗余域可以由其他域推导出</li>
+</ol>
+<h3 id="始终要覆盖toString方法"><a href="#始终要覆盖toString方法" class="headerlink" title="始终要覆盖toString方法"></a>始终要覆盖toString方法</h3><p><strong>注：</strong>是否指定返回值的格式 + 文档中需要明确表明意图</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你的打赏<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/alipay.jpeg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/weixinpay.jpeg">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">搜索</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">effective java</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技巧</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">笔记</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/随笔/" class="article-tag-list-link color3">随笔</a>
-        		</li>
-      		
-		</ul>
-	</div>
+      
 
+      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2018/06/03/effective-java学习笔记/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2018/05/17/hibernate和spring整合（事务）/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          hibernate和spring整合（事务）
+        
+      </div>
+    </a>
   
   
-    </div></section>
+</nav>
+
+
+
+
+
+
+  
+  <div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="effective-java学习笔记" data-title="effective java学习笔记" data-url="http://yoursite.com/2018/06/03/effective-java学习笔记/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"tellenw"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
   
 
-    
+
 
 
           </div>
@@ -289,9 +512,9 @@ var _hmt = _hmt || [];
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		root: "/",
