@@ -220,7 +220,7 @@ var _hmt = _hmt || [];
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="支持断点续传的多文件、多线程的下载器"><a href="#支持断点续传的多文件、多线程的下载器" class="headerlink" title="支持断点续传的多文件、多线程的下载器"></a>支持断点续传的多文件、多线程的下载器</h2><p>SpringBoot + （JDK）ScheduledThreadPoolExecutor </p>
+        <h3 id="用到工具"><a href="#用到工具" class="headerlink" title="用到工具"></a>用到工具</h3><p>SpringBoot + （JDK）ScheduledThreadPoolExecutor </p>
 <h3 id="1-背景说明"><a href="#1-背景说明" class="headerlink" title="1.背景说明"></a>1.背景说明</h3><p>基于HTTP协议在网络上传输大文件有以下弊端（含部分个人理解）</p>
 <ol>
 <li><p>HTTP没有规定传输内容的大小，但是随着传输内容的增大，网络链路距离的增加基于TCP传输协议的HTTP报文就会越不稳定</p>
@@ -293,7 +293,7 @@ var _hmt = _hmt || [];
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="锁与CAS原理"><a href="#锁与CAS原理" class="headerlink" title="锁与CAS原理"></a>锁与CAS原理</h2><h3 id="乐观锁与悲观锁"><a href="#乐观锁与悲观锁" class="headerlink" title="乐观锁与悲观锁"></a>乐观锁与悲观锁</h3><h4 id="悲观锁"><a href="#悲观锁" class="headerlink" title="悲观锁"></a>悲观锁</h4><p>总是假设最坏的情况，每次取数据时都认为其他线程会修改，所以都会加锁（读锁、写锁、行锁等），当其他线程想要访问数据时，都需要阻塞挂起。可以依靠数据库实现，如行锁（基于InnoDB引擎的数据才具有）、读锁和写锁等，都是在操作之前加锁，在Java中，synchronized的思想也是悲观锁。<br>
+        <h3 id="锁与CAS原理"><a href="#锁与CAS原理" class="headerlink" title="锁与CAS原理"></a>锁与CAS原理</h3><h3 id="乐观锁与悲观锁"><a href="#乐观锁与悲观锁" class="headerlink" title="乐观锁与悲观锁"></a>乐观锁与悲观锁</h3><h4 id="悲观锁"><a href="#悲观锁" class="headerlink" title="悲观锁"></a>悲观锁</h4><p>总是假设最坏的情况，每次取数据时都认为其他线程会修改，所以都会加锁（读锁、写锁、行锁等），当其他线程想要访问数据时，都需要阻塞挂起。可以依靠数据库实现，如行锁（基于InnoDB引擎的数据才具有）、读锁和写锁等，都是在操作之前加锁，在Java中，synchronized的思想也是悲观锁。<br>
         
           <a class="article-more-a" href="/2018/07/28/CAS操作原理与锁/#more">more >></a>
         
@@ -361,7 +361,7 @@ var _hmt = _hmt || [];
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="JVM垃圾收集-学习笔记"><a href="#JVM垃圾收集-学习笔记" class="headerlink" title="JVM垃圾收集 学习笔记"></a>JVM垃圾收集 学习笔记</h2><p>关于JVM内存模型可以参看<a href="">牛客网笔记</a>，这里记录的还算详细。</p>
+        <h3 id="JVM垃圾收集"><a href="#JVM垃圾收集" class="headerlink" title="JVM垃圾收集"></a>JVM垃圾收集</h3><p>关于JVM内存模型可以参看<a href="">牛客网笔记</a>，这里记录的还算详细。</p>
 <p>这篇文章，是我自己对垃圾收集迷惑的地方，看了之后感觉浑身轻松~~</p>
 <ul>
 <li><p>JVM使用<strong>标记-清除算法</strong>(Mark and Sweep algorithm), 来跟踪所有的可达对象(即存活对象), 确保所有不可达对象(non-reachable objects)占用的内存都能被重用。其中包含两步:</p>
@@ -1011,11 +1011,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+                <a href="javascript:void(0)" class="js-tag color2">spring</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">spring</a>
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1024,6 +1024,14 @@ var _hmt = _hmt || [];
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">eclipse</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">effective java</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">笔记</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1075,31 +1083,23 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">神经网络</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">effective java</a>
+                <a href="javascript:void(0)" class="js-tag color5">神经网络</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">笔记</a>
+                <a href="javascript:void(0)" class="js-tag color2">spring boot</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java</a>
+                <a href="javascript:void(0)" class="js-tag color2">多线程下载器</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">thread线程</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
+                <a href="javascript:void(0)" class="js-tag color5">断点续传</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1115,15 +1115,19 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">多线程下载器</a>
+                <a href="javascript:void(0)" class="js-tag color5">java</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">断点续传</a>
+                <a href="javascript:void(0)" class="js-tag color4">thread线程</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">spring boot</a>
+                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">jvm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1132,10 +1136,6 @@ var _hmt = _hmt || [];
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">并发</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">jvm</a>
               </li>
              
               <li class="article-tag-list-item">
