@@ -200,6 +200,271 @@ var _hmt = _hmt || [];
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-支持断点续传的多文件、多线程的下载器" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/08/02/支持断点续传的多文件、多线程的下载器/">支持断点续传的多文件、多线程的下载器</a>
+    </h1>
+  
+
+        
+        <a href="/2018/08/02/支持断点续传的多文件、多线程的下载器/" class="archive-article-date">
+  	<time datetime="2018-08-02T13:58:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-08-02</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="支持断点续传的多文件、多线程的下载器"><a href="#支持断点续传的多文件、多线程的下载器" class="headerlink" title="支持断点续传的多文件、多线程的下载器"></a>支持断点续传的多文件、多线程的下载器</h2><p>SpringBoot + （JDK）ScheduledThreadPoolExecutor </p>
+<h3 id="1-背景说明"><a href="#1-背景说明" class="headerlink" title="1.背景说明"></a>1.背景说明</h3><p>基于HTTP协议在网络上传输大文件有以下弊端（含部分个人理解）</p>
+<ol>
+<li><p>HTTP没有规定传输内容的大小，但是随着传输内容的增大，网络链路距离的增加基于TCP传输协议的HTTP报文就会越不稳定</p>
+</li>
+<li><p>传输大文件会占用昂贵的网络带宽资源</p>
+</li>
+<li><p>基于spring和tomcat的web应用处理HTTP请求是采用链式处理的，一个过大的HTTP请求会占用服务器的内存资源，导致内存不够用等问题</p>
+</li>
+<li><p>如果网络波动，重传也是会浪费网络带宽等资源</p>
+</li>
+<li><p>原始传输不支持断点续传，大文件传到99%失败，要重新下载实则浪费资源等</p>
+</li>
+<li><p>参见知乎回答，<a href="https://www.zhihu.com/question/39593108/answer/250480994" target="_blank" rel="external">大文件传输主要技术瓶颈都有哪些?如何处理的? - ZeroOne的回答 - 知乎</a> </p>
+<p>​</p>
+</li>
+</ol>
+<h3 id="2-设计思路"><a href="#2-设计思路" class="headerlink" title="2.设计思路"></a>2.设计思路</h3><ol>
+<li><p>文件分块的方式请求与传输。每个HTTP请求只会请求一个文件块去下载。</p>
+</li>
+<li><p>多线程下载文件块，减少因网络IO带来的负面效率影响。</p>
+</li>
+<li><p>客户端维护待下载文件以及其对应的文件块和下载状态，以便记忆用户下载记录、文件下载完成判断、多文件同时下载的支持、服务端挂了，客户端梯度行的尝试下载与中断下载逻辑判断、随机文件读写的方式保存文件块到本地。</p>
+<h4 id="详细设计"><a href="#详细设计" class="headerlink" title="详细设计"></a>详细设计</h4><p>结构图如下</p>
+<p><img src="http://onhavnxj2.bkt.clouddn.com/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8B%E8%BD%BD%E5%99%A8%E6%9E%B6%E6%9E%84%E5%9B%BE.jpg" alt=""></p>
+<h5 id="整体思路："><a href="#整体思路：" class="headerlink" title="整体思路："></a>整体思路：</h5><p>初始化工作，下载器downloader接收到传入的文件名（服务端文件标示）和大小之后，对文件进行分块，每一块文件包含文件的属性，文件块之间相互独立。把文件块全部丢进待下载队列waitBlocks中，同时初始化filesTotal（每个文件名与总块数的映射），filesCurrent（每个文件名与成功下载的文件块数的映射），dropBlock（每个文件名与丢弃的文件块数之间的映射）键值对变量。</p>
+<p>​</p>
+<p>初始化完成后即启动3个下载线程（downloadThread），一个写线程（writeThread），1个重任务线程（reTaskThread），1个善后线程（dropStoreThread），它们的工作就像上图描述的那样，职责单一的处理任务。详细如下：</p>
+<p>下载线程：从待下载队列中取出文件块去下载，下载成功把文件块添加到下载成功队列中，下载失败则把文件块添加到下载失败队列中，失败包含两种：其一为返回的response状态吗不是ok，待下载的服务端文件可能被修改或则不存在了，这个时候启动计数器，失败5次则丢弃文件块（避免浪费服务端连接资源），不把文件块加入到下载失败队列中，同时dropBlock映射更新；另外一种是获取不到服务端的响应，可能服务端挂了，网络链路有问题，这个时候会暂停所有下载线程，同时把对应的文件块加入到下载失败队列中，reTaskThread会用一定的策略（梯度增加时间的休眠，唤醒后打开下载线程尝试连接下载）把下载失败的文件块放回到待下载队列中，这样能控制下载线程和服务器的交互，避免网络中断还不间断的请求服务器。</p>
+<p>写线程就比较单一，只负责把下载成功队列中的文件块取出来，写入到磁盘，及时释放内存，同时更新filesCurrent状态。</p>
+<p>善后线程工作比较重要，它有两种工作状态：其一，当filesTotal和filesCurrent中维护的相同文件的文件块数相等时，表示成功下载文件，这时需要把写线程写的临时文件更名，同时和服务器交互，文件已经下载完成，服务端把下载标志位置为有效，以后获取的下载任务将不包含这个文件，和服务器成功交互后，会删除filesTotal和filesCurrent维护的对应文件映射。另一个是，如果dropBlock所维护的文件块不为0，并且dropblock的数量加上filesCurrent中对应文件的文件块数量等于filesTotal总数量时，说明此文件下载失败，会把writeThread写入的临时文件删除，同时把三个映射列表更新（移除对应的文件及其映射），等待下次获取待下载文件时下载。</p>
+<h5 id="数据结构说明："><a href="#数据结构说明：" class="headerlink" title="数据结构说明："></a>数据结构说明：</h5><p>下载器控制类ControlBean</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * 控制bean，用来表示提示文件下载成功，用来处理成功关闭程序</div><div class="line"> * <span class="doctag">@author</span> wangyonghao</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ControlBean</span> </span>&#123;</div><div class="line">    <span class="comment">/**每一个文件的存储名和总块数的映射关系*/</span></div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> ConcurrentHashMap&lt;String,AtomicInteger&gt; filesTotal = <span class="keyword">new</span> ConcurrentHashMap&lt;String,AtomicInteger&gt;();</div><div class="line">    <span class="comment">/**当前每一个文件的存储名和下载成功数的映射关系*/</span></div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> ConcurrentHashMap&lt;String,AtomicInteger&gt; filesCurrent = <span class="keyword">new</span> ConcurrentHashMap&lt;String,AtomicInteger&gt;();</div><div class="line">    <span class="comment">/**每一个文件的丢弃文件块数*/</span></div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> ConcurrentHashMap&lt;String,AtomicInteger&gt; dropBlock = <span class="keyword">new</span> ConcurrentHashMap&lt;String,AtomicInteger&gt;();</div><div class="line">    <span class="comment">/**待下载文件块队列*/</span></div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> LinkedBlockingQueue&lt;DownloadBlock&gt; waitBlocks = <span class="keyword">new</span> LinkedBlockingQueue&lt;DownloadBlock&gt;();</div><div class="line">    <span class="comment">/**成功下载文件块队列*/</span></div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> LinkedBlockingQueue&lt;DownloadBlock&gt; successBlocks = <span class="keyword">new</span> LinkedBlockingQueue&lt;DownloadBlock&gt;();</div><div class="line">    <span class="comment">/**失败下载文件块队列*/</span></div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> LinkedBlockingQueue&lt;DownloadBlock&gt; loseBlocks = <span class="keyword">new</span> LinkedBlockingQueue&lt;DownloadBlock&gt;();</div><div class="line">    <span class="comment">/**继续下载标志（中断下载的变量）*/</span></div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">volatile</span> <span class="keyword">boolean</span> continueDownload = <span class="keyword">true</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>filestotal：服务端文件名&lt;——&gt;文件分块的总块数</p>
+<p>filesCurrent:服务端文件名&lt;——&gt;成功下载的文件块数</p>
+<p>dropBlock：服务端文件名&lt;——&gt;已下载失败丢掉的文件块数</p>
+<p>waitBlocks：包含所有待下载文件块的阻塞队列</p>
+<p>successBlocks：包含成功下载的文件块阻塞队列</p>
+<p>loseBlocks：包含下载失败或响应失败的文件块的阻塞队列</p>
+<h4 id="文件块结构DownloadBlock"><a href="#文件块结构DownloadBlock" class="headerlink" title="文件块结构DownloadBlock"></a>文件块结构DownloadBlock</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * 用来标记待下载文件的文件块信息</div><div class="line"> * url              ： 下载文件的url</div><div class="line"> * serverFilePath   ： 文件保存在服务端的路径（路径+文件名）</div><div class="line"> * storeFIlePath    ： 文件保存在客户端的路径（路径+文件名）</div><div class="line"> * number           ： 文件快的编号</div><div class="line"> * start            ： 文件块的偏移量</div><div class="line"> * end              ： 文件块的结束位置</div><div class="line"> * content          ： 文件块的内容</div><div class="line"> * blockState       ： 文件块的状态</div><div class="line"> * <span class="doctag">@author</span> wangyonghao</div><div class="line"> */</div><div class="line"><span class="meta">@Data</span></div><div class="line"><span class="meta">@AllArgsConstructor</span></div><div class="line"><span class="meta">@NoArgsConstructor</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DownloadBlock</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="comment">/**下载文件的url*/</span></div><div class="line">    <span class="keyword">private</span> String url;</div><div class="line">    <span class="comment">/**文件保存在服务端的路径（路径+文件名）*/</span></div><div class="line">    <span class="keyword">private</span> String serverFilePath;</div><div class="line">    <span class="comment">/**文件保存在客户端的路径（路径+文件名）*/</span></div><div class="line">    <span class="keyword">private</span> String storeFilePath;</div><div class="line">    <span class="comment">/**文件块的编号（一个文件一套编号）*/</span></div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> number;</div><div class="line">    <span class="comment">/**文件快的开始位置*/</span></div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> start;</div><div class="line">    <span class="comment">/**文件快的结束位置*/</span></div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> end;</div><div class="line">    <span class="comment">/**文件块的文件内容*/</span></div><div class="line">    <span class="keyword">private</span> <span class="keyword">byte</span>[] content;</div><div class="line">    <span class="comment">/**文件块下载失败次数*/</span></div><div class="line">    <span class="keyword">private</span> AtomicInteger failCount;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>​</p>
+<p>感兴趣的话，可以移步致<a href="https://github.com/tellen7/MultiThreadDownloader" target="_blank" rel="external">代码位置</a> </p>
+</li>
+</ol>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">多线程下载器</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">断点续传</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/08/02/支持断点续传的多文件、多线程的下载器/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
+    <article id="post-CAS操作原理与锁" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/07/28/CAS操作原理与锁/">CAS操作原理与锁</a>
+    </h1>
+  
+
+        
+        <a href="/2018/07/28/CAS操作原理与锁/" class="archive-article-date">
+  	<time datetime="2018-07-28T13:57:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-28</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="锁与CAS原理"><a href="#锁与CAS原理" class="headerlink" title="锁与CAS原理"></a>锁与CAS原理</h2><h3 id="乐观锁与悲观锁"><a href="#乐观锁与悲观锁" class="headerlink" title="乐观锁与悲观锁"></a>乐观锁与悲观锁</h3><h4 id="悲观锁"><a href="#悲观锁" class="headerlink" title="悲观锁"></a>悲观锁</h4><p>总是假设最坏的情况，每次取数据时都认为其他线程会修改，所以都会加锁（读锁、写锁、行锁等），当其他线程想要访问数据时，都需要阻塞挂起。可以依靠数据库实现，如行锁（基于InnoDB引擎的数据才具有）、读锁和写锁等，都是在操作之前加锁，在Java中，synchronized的思想也是悲观锁。</p>
+<p>####乐观锁</p>
+<p>总是认为不会产生并发问题，每次去取数据的时候总认为不会有其他线程对数据进行修改，因此不会上锁，但是在更新时会判断其他线程在这之前有没有对数据进行修改，一般会使用版本号机制或CAS操作实现。</p>
+<p>在实际开发中，悲观锁的具体实现是由底层系统提供的，比如数据库的表锁（读写锁），以及Java中的synchronized锁（monitorEnter，monitorExit）的具体实现，这种锁有进程由用户态到内核态的切换操作，以便在内核态竞争锁。这种开销比较大，进而有了自旋(CAS)的思想，自旋就是占着CPU执行几个for循环或则一些空指令，原因是：有些锁释放的比较快，如果当前运行线程再停留一会就能获取锁，就不用阻塞当前线程，能避免中断线程以及一些操作系统级别的消耗。一直自旋不可取，浪费CPU资源。对自旋锁周期的选择上，HotSpot认为最佳时间应是一个线程上下文切换的时间，但目前并没有做到。可以<a href="https://blog.csdn.net/tingfeng96/article/details/52219649" target="_blank" rel="external">移步致更底层讲解文章</a> ，Java中还有一类悲观锁，如<code>CountDownLatch</code> ,<code>Semaphore</code> 其底层是借助AQS实现的。可以<a href="https://www.cnblogs.com/waterystone/p/4920797.html" target="_blank" rel="external">移步更底层讲解文章</a> 。AQS底层是一个FIFO的双向队列，其采用模板设计方法，它要求子类实现所有protected方法，之后调用子类的方法实现完成原子语义操作。这种锁是面向使用者的，它定义了使用者与锁交互的接口隐藏实现细节，队列同步器AbstractQueuedSynchronizer(AQS)是面向锁的实现，简化了锁的实现方式，屏蔽了同步状态的管理、线程的排队和唤醒等操作。</p>
+<p>而乐观锁呢，一般有程序员设计并控制（个人理解），比如在和数据库交互中，一般是在数据表中加上一个数据版本号version字段，表示数据被修改的次数，当数据被修改时，version值会加一。当线程A要更新数据值时，在读取数据的同时也会读取version值，在提交更新时，若刚才读取到的version值为当前数据库中的version值相等时才更新，否则重试更新操作，直到更新成功。</p>
+<p><strong>核心sql语句：</strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">update</span> <span class="keyword">table</span> <span class="keyword">set</span> x=x+<span class="number">1</span>, <span class="keyword">version</span>=<span class="keyword">version</span>+<span class="number">1</span> <span class="keyword">where</span> <span class="keyword">id</span>=#&#123;<span class="keyword">id</span>&#125; <span class="keyword">and</span> <span class="keyword">version</span>=#&#123;<span class="keyword">version</span>&#125;;</div></pre></td></tr></table></figure>
+<h3 id="CAS（Compare-and-swap）-比较交换，其是原子操作"><a href="#CAS（Compare-and-swap）-比较交换，其是原子操作" class="headerlink" title="CAS（Compare and swap） 比较交换，其是原子操作"></a>CAS（Compare and swap） 比较交换，其是原子操作</h3><p>先上关系图：</p>
+<p><img src="http://onhavnxj2.bkt.clouddn.com/image/java%E5%90%8C%E6%AD%A5%E5%99%A8%E3%80%81%E9%94%81.jpg" alt=""></p>
+<p>####背景</p>
+<p>ＣＰＵ采用时间片的方式轮转执行进程，进程执行过程中可以被随时中断，所以在多线程情况下就有可能存在数据不一致问题。</p>
+<p><a href="https://zh.wikipedia.org/wiki/%E6%AF%94%E8%BE%83%E5%B9%B6%E4%BA%A4%E6%8D%A2" target="_blank" rel="external">参考案例来自维基百科</a> </p>
+<p>####CAS实现原理</p>
+<blockquote>
+<p>CAS操作基于CPU提供的原子操作指令实现。对于Intel X86处理器，可通过在汇编指令前增加LOCK前缀来锁定系统总线，使系统总线在汇编指令执行时无法访问相应的内存地址。而各个编译器根据这个特点实现了各自的原子操作函数。</p>
+</blockquote>
+<h4 id="CAS面临问题"><a href="#CAS面临问题" class="headerlink" title="CAS面临问题"></a>CAS面临问题</h4><ol>
+<li>ABA问题。因为CAS需要在操作值的时候检查下值有没有发生变化，如果没有发生变化则更新，但是如果一个值原来是A，变成了B，又变成了A，那么使用CAS进行检查时会发现它的值没有发生变化，但是实际上却变化了。ABA问题的解决思路就是使用版本号。在变量前面追加上版本号，每次变量更新的时候把版本号加一，那么A－B－A 就会变成1A-2B－3A。从Java1.5开始JDK的atomic包里提供了一个类AtomicStampedReference来解决ABA问题。这个类的compareAndSet方法作用是首先检查当前引用是否等于预期引用，并且当前标志是否等于预期标志，如果全部相等，则以原子方式将该引用和该标志的值设置为给定的更新值。</li>
+<li>循环时间长开销大。自旋CAS如果长时间不成功，会给CPU带来非常大的执行开销。</li>
+<li>只能保证一个共享变量的原子操作。当对一个共享变量执行操作时，我们可以使用循环CAS的方式来保证原子操作，但是对多个共享变量操作时，循环CAS就无法保证操作的原子性，这个时候就可以用锁，或者有一个取巧的办法，就是把多个共享变量合并成一个共享变量来操作。比如,Java5开始JDK提供了AtomicReference类来保证引用对象之间的原子性，你可以把多个变量放在一个对象里来进行CAS操作。</li>
+</ol>
+<p>参考：<a href="https://blog.csdn.net/u010723709/article/details/50357247" target="_blank" rel="external">Java中的锁——队列同步器</a></p>
+<p>​       <a href="https://www.cnblogs.com/waterystone/p/4920797.html" target="_blank" rel="external">Java并发之AQS详解</a> </p>
+<p>​       <a href="https://blog.csdn.net/tingfeng96/article/details/52219649" target="_blank" rel="external">synchronized和lock的实现原理</a> </p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">锁</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">CAS</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/07/28/CAS操作原理与锁/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
+    <article id="post-JVM垃圾收集-学习笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/07/10/JVM垃圾收集-学习笔记/">JVM垃圾收集 学习笔记</a>
+    </h1>
+  
+
+        
+        <a href="/2018/07/10/JVM垃圾收集-学习笔记/" class="archive-article-date">
+  	<time datetime="2018-07-10T13:54:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-10</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="JVM垃圾收集-学习笔记"><a href="#JVM垃圾收集-学习笔记" class="headerlink" title="JVM垃圾收集 学习笔记"></a>JVM垃圾收集 学习笔记</h2><p>关于JVM内存模型可以参看<a href="">牛客网笔记</a>，这里记录的还算详细。</p>
+<p>这篇文章，是我自己对垃圾收集迷惑的地方，看了之后感觉浑身轻松~~</p>
+<ul>
+<li><p>JVM使用<strong>标记-清除算法</strong>(Mark and Sweep algorithm), 来跟踪所有的可达对象(即存活对象), 确保所有不可达对象(non-reachable objects)占用的内存都能被重用。其中包含两步:</p>
+        
+          <a class="article-more-a" href="/2018/07/10/JVM垃圾收集-学习笔记/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">JVM垃圾收集</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/07/10/JVM垃圾收集-学习笔记/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-effective-java学习笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -686,207 +951,6 @@ var _hmt = _hmt || [];
 
 
   
-    <article id="post-spring-boot-返回json数据" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/12/spring-boot-返回json数据/">spring boot 返回json数据</a>
-    </h1>
-  
-
-        
-        <a href="/2018/03/12/spring-boot-返回json数据/" class="archive-article-date">
-  	<time datetime="2018-03-12T04:02:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="description-of-the-question"><a href="#description-of-the-question" class="headerlink" title="* description of the question"></a>* description of the question</h3><p>No converter found for return value of type: class java.util.LinkedHashMap</p>
-<h3 id="solution-to-the-question"><a href="#solution-to-the-question" class="headerlink" title="* solution to the question"></a>* solution to the question</h3><p>1.检查是否配置json解析器<br>
-        
-          <a class="article-more-a" href="/2018/03/12/spring-boot-返回json数据/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">springBoot</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/03/12/spring-boot-返回json数据/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-利用神经网络进行数据降维" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/11/08/利用神经网络进行数据降维/">利用神经网络进行数据降维</a>
-    </h1>
-  
-
-        
-        <a href="/2017/11/08/利用神经网络进行数据降维/" class="archive-article-date">
-  	<time datetime="2017-11-08T06:38:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-08</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="利用神经网络进行数据降维"><a href="#利用神经网络进行数据降维" class="headerlink" title="利用神经网络进行数据降维"></a>利用神经网络进行数据降维</h1><h2 id="降维"><a href="#降维" class="headerlink" title="降维"></a>降维</h2><h3 id="为什么要降维？"><a href="#为什么要降维？" class="headerlink" title="为什么要降维？"></a>为什么要降维？</h3><ul>
-<li>去除存在噪音数据，减少模型干扰因素</li>
-<li>减少计算量</li>
-<li>便于可视化分析</li>
-</ul>
-        
-          <a class="article-more-a" href="/2017/11/08/利用神经网络进行数据降维/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">神经网络</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/11/08/利用神经网络进行数据降维/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="spring-MVC拦截器学习" class="article article-type-spring  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/05/21/MVC拦截器学习/">Spring MVC拦截器学习</a>
-    </h1>
-  
-
-        
-        <a href="/2017/05/21/MVC拦截器学习/" class="archive-article-date">
-  	<time datetime="2017-05-21T11:02:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-21</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="学习spring-mvc拦截器浅析"><a href="#学习spring-mvc拦截器浅析" class="headerlink" title="学习spring mvc拦截器浅析"></a>学习spring mvc拦截器浅析</h2><p>1.简介<br>  spring mvc中的拦截器和原声java web中的filter差不多，起到过滤、拦截的作用。使用原则：处理共性问题；其主要做用有：</p>
-<ul>
-<li>日志记录：记录请求信息的日志，以便进行信息监控、信息统计、计算PV（Page View）等。</li>
-<li>权限检查：如登录检测，进入处理器检测检测是否登录，如果没有直接返回到登录页面；</li>
-<li>性能监控：有时候系统在某段时间莫名其妙的慢，可以通过拦截器在进入处理器之前记录开始时间，在处理完后记录结束时间，从而得到该请求的处理时间（如果有反向代理，如apache可以自动记录）；
-        
-          <a class="article-more-a" href="/2017/05/21/MVC拦截器学习/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">spring mvc</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/05/21/MVC拦截器学习/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -980,6 +1044,14 @@ var _hmt = _hmt || [];
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">锁</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">CAS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">CDN</a>
               </li>
              
@@ -988,19 +1060,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">spring mvc</a>
+                <a href="javascript:void(0)" class="js-tag color3">JVM垃圾收集</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">python</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">thread线程</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1036,14 +1100,6 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hibernate</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">事务</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">jsp</a>
               </li>
              
@@ -1057,6 +1113,10 @@ var _hmt = _hmt || [];
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Nginx</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">spring mvc</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1088,10 +1148,6 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">spring boot</a>
               </li>
              
@@ -1100,11 +1156,31 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">多线程下载器</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">断点续传</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">搜索</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">技巧</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">java</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">thread线程</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1117,6 +1193,14 @@ var _hmt = _hmt || [];
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">并发</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">hibernate</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">事务</a>
               </li>
             
             <div class="clearfix"></div>
